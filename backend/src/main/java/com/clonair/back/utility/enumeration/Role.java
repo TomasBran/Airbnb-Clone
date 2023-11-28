@@ -2,7 +2,7 @@
 package com.clonair.back.utility.enumeration;
 
 public enum Role {    
-    CLIENT,
+    USER,
     OWNER,
     ADMIN
 }
