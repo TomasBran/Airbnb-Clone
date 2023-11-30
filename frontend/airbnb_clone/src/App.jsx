@@ -1,46 +1,50 @@
-  import { useEffect, useState } from "react";
-  import {
-    Button,
-    Dialog,
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Input,
-    Checkbox,
-  } from '@material-tailwind/react'
-  import './App.css'
-  import Forms from "./components/forms/Forms";
+import './App.css'
+import { HostCardItem } from './components/shared/HostCardItem/HostCardItem'
+import { Header } from './components/header'
 
+const alojamientos = [
+  {
+    id: 1,
+    name: "Apartamento en el centro",
+    address: "Calle 50, Tegucigalpa, Honduras",
+    availableDays:"11-12 de dic",
+    pricePerNight: "200$",
+    image: "https://source.unsplash.com/random"
+  },
+  {
+    id: 2,
+    name: "Casa en la playa",
+    address: "Playa Bonita, Roatán, Honduras",
+    availableDays: "11-12 de dic",
+    pricePerNight: "300$",
+    image: "https://source.unsplash.com/random"
+  },
+  {
+    id: 3,
+    name: "Bungalow en la montaña",
+    address: "La Esperanza, Honduras",
+    availableDays: "11-12 de dic",
+    pricePerNight: "100$",
+    image: "https://source.unsplash.com/random"
+  },
+];
 
 
   function App() {
 
-    
-    const [openLogin, setOpenLogin] = useState(false);
-    const handleOpenLogin = () => {
-      setOpenLogin((cur) => !cur)
-    };
-
-    const [openSignUp, setOpenSignUp] = useState(false);
-    const handleOpenSignUp = () => setOpenSignUp((cur) => !cur);
-    
 
 
-    return (
-      <>
-        <Button onClick={handleOpenLogin}>Iniciar Sesión</Button>
-        <Button onClick={handleOpenSignUp}>Registrarse</Button>
-        <Forms
-          openLogin={openLogin}
-          openSignUp={openSignUp}
-          handleOpenLogin={handleOpenLogin}
-          handleOpenSignUp={handleOpenSignUp}
-        />
-        
-      </>
-    )
-  }
+  return (
+    <>
+    <Header/>   
+     <div className="grid grid-cols-6 gap-4">
+    {alojamientos.map((alojamiento) => (
+          <HostCardItem key={alojamiento.id} name={alojamiento.name} address={alojamiento.address} availableDays={alojamiento.availableDays} pricePerNight={alojamiento.pricePerNight} image={alojamiento.image} />
+        ))}
+    </div>
+
+    </>
+  )
+}
 
   export default App
