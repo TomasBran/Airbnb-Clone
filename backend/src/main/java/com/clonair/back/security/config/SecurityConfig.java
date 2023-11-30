@@ -31,7 +31,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> // Deshabilitar CSRF(Cross-Site Request Forgery) cuando se trabaja con una API REST.
                         csrf  // Ya que las aplicaciones RESTful no mantienen el estado de sesión por diseño, y CSRF se enfoca en la protección de sesiones.
-                                .disable())
+                                .disable())   
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll() // Permite el acceso a todas las solicitudes bajo el patrón /auth/** sin autenticación. (/auth/login y /auth/register).

@@ -1,5 +1,5 @@
-const apiUrl = 'http://localhost:8080/api/v1/demo';
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXRpYXNAZ21haWwuY29tIiwiaWF0IjoxNzAxMjkzMTU4LCJleHAiOjE3MDEyOTQ1OTh9.2KEngv1FB4IzsreTHQ7DUefCWizfn6-5GTVZux-9rb8';
+const apiUrl = 'http://localhost:8080/auth/';
+//const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXRpYXNAZ21haWwuY29tIiwiaWF0IjoxNzAxMjkzMTU4LCJleHAiOjE3MDEyOTQ1OTh9.2KEngv1FB4IzsreTHQ7DUefCWizfn6-5GTVZux-9rb8';
 
 
 // const postData = {
@@ -32,20 +32,22 @@ const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXRpYXNAZ21haWwuY29tIiwiaWF0Ijox
 //     .catch(error => {
 //         // Manejar errores de la solicitud aquí
 //         console.error('Hubo un problema con la solicitud:', error);
-//     });
+//     });'Authorization': `Bearer ${token}`
 
 
 function login(jsonData) {
     
-    fetch(apiUrl, {
+    fetch(apiUrl+'login', {
 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Access-Control-Allow-Origin': '*'            
         },
       body: JSON.stringify(jsonData)
 
+    }).then((token)=>{
+        console.log(token)
     }).catch(error => {
         console.error('Hubo un problema con la solicitud:', error);
     });

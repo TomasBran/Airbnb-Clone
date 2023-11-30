@@ -23,7 +23,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
 
     const [userData, setUserData] = useState({
-        email: '',
+        username: '',
         password: '',
         firstName: '',
         lastName: '',
@@ -58,7 +58,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
 
     const sendLogin = (userData) => {
-        if(userData.email !== '' && userData !== ''){
+        if(userData.username !== '' && userData !== ''){
             login(userData)
         } else{
             console.log("faltan datos")
@@ -95,7 +95,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 Tu mail
                 </Typography>
-                <Input name="email" color="indigo" label="Mail" size="lg" onChange={handleInputChange}/>
+                <Input name="username" color="indigo" label="Mail" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Tu contraseña
                 </Typography>
