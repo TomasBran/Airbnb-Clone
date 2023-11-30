@@ -2,6 +2,8 @@
 
 <h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
 
+<br>
+
 <h2> 📒 Sobre el Proyecto 📑 </h2>
 
 ✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada en Spring Boot, <br>
@@ -10,6 +12,8 @@
 ✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+
+<br>
 
 <h2> 💎 Team ✨ </h2>
 <dd>
@@ -115,6 +119,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Genera tokens con información de usuario y tiempos de expiración. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Valida la autenticidad y el tiempo de expiración de los tokens durante el proceso de filtrado. <br>
 
+<br>
 
 <h2> 🎆 Agradecimientos 🎇 </h2>
 
