@@ -29,8 +29,10 @@ const alojamientos = [
   },
 ];
 
-function App() {
-  
+
+  function App() {
+
+
 
   return (
     <>
@@ -40,8 +42,9 @@ function App() {
           <HostCardItem key={alojamiento.id} name={alojamiento.name} address={alojamiento.address} availableDays={alojamiento.availableDays} pricePerNight={alojamiento.pricePerNight} image={alojamiento.image} />
         ))}
     </div>
+
     </>
   )
 }
 
-export default App
+  export default App
