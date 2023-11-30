@@ -6,8 +6,9 @@
 
 <h2> 📒 Sobre el Proyecto 📑 </h2>
 
-✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada en Spring Boot, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; permitiendo a los usuarios registrarse, iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada. <br>
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; implementada en Spring Boot, permitiendo a los usuarios registrarse, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
 
 ✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
