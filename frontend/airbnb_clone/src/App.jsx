@@ -1,12 +1,12 @@
-import { Button } from '@material-tailwind/react'
 import './App.css'
+import { Header } from './components/header'
 
-function App() {
+function App() {git fetch
   
 
   return (
     <>
-    
+      <Header/>      
     </>
   )
 }
