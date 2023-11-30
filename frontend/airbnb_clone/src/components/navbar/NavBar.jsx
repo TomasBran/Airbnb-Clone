@@ -4,9 +4,17 @@ import  { useState } from 'react';
 import Search from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Forms from "../forms/Forms";
 
 const NavBar = () => {     
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+        
+    const [openLogin, setOpenLogin] = useState(false);
+    const handleOpenLogin = () => setOpenLogin((cur) => !cur);
+
+    const [openSignUp, setOpenSignUp] = useState(false);
+    const handleOpenSignUp = () => setOpenSignUp((cur) => !cur);
+    
 
     const openSearch = () => {
         setIsSearchOpen(!isSearchOpen);
@@ -29,9 +37,17 @@ const NavBar = () => {
                         </Button>                    
                         {isSearchOpen && <Search/>}
                     </div>
-                    <div>
-                        <Button variant="text" className="rounded-full hidden lg:inline-block">Poné tu Airbnb</Button>                                          
-                        <button className="rounded-3xl border border-gray-300 text-sm m-1 px-5 py-2.5 hover:shadow-lg">MODAL</button>
+                    <div className="flex gap-4">
+                        
+                        <Button variant="text" className="rounded-full" onClick={handleOpenSignUp}>Registrarse</Button>
+                        <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
+                        <Forms
+                            openLogin={openLogin}
+                            openSignUp={openSignUp}
+                            handleOpenLogin={handleOpenLogin}
+                            handleOpenSignUp={handleOpenSignUp}
+                        />
+
                     </div>
                 </section>  
             </>
