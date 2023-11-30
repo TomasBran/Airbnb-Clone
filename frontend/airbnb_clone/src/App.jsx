@@ -1,5 +1,6 @@
 import './App.css'
 import { HostCardItem } from './components/shared/HostCardItem/HostCardItem'
+import { Header } from './components/header'
 
 const alojamientos = [
   {
@@ -29,9 +30,12 @@ const alojamientos = [
 ];
 
 function App() {
+  
+
   return (
     <>
-    <div className="grid grid-cols-6 gap-4">
+    <Header/>   
+     <div className="grid grid-cols-6 gap-4">
     {alojamientos.map((alojamiento) => (
           <HostCardItem key={alojamiento.id} name={alojamiento.name} address={alojamiento.address} availableDays={alojamiento.availableDays} pricePerNight={alojamiento.pricePerNight} image={alojamiento.image} />
         ))}
