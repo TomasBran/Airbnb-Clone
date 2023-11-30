@@ -2,6 +2,15 @@
 
 <h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
 
+<h2> 📒 Sobre el Proyecto 📑 </h2>
+
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada en Spring Boot, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; permitiendo a los usuarios registrarse, iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada. <br>
+
+✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+
 <h2> 💎 Team ✨ </h2>
 <dd>
     <a href="https://www.linkedin.com/in/mateo-jeremias-pg/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
