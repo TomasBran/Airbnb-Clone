@@ -1,8 +1,8 @@
-const apiUrl = 'http://localhost:8080/auth/login';
+const apiUrl = 'http://localhost:8080/auth';
 
 export async function login(userData) {
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrl+"/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export async function login(userData) {
 export async function register(userData) {
     
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrl+"/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
