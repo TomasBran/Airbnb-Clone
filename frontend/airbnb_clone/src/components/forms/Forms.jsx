@@ -25,8 +25,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     const initialUserData = {
         username: '',
         password: '',
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         country:'',
     }
     const [userData, setUserData] = useState(initialUserData);
@@ -126,6 +126,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     const sendRegister = (userData) => {
         register(userData)
+
     }
 
 
@@ -219,11 +220,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 Apellido/s
                 </Typography>
-                <Input error={inputArray.lastName} name="lastName" color="indigo" label="Apellido/s" size="lg" onChange={handleInputChange}/>
+                <Input error={inputArray.lastname} name="lastname" color="indigo" label="Apellido/s" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Nombre/s
                 </Typography>
-                <Input error={inputArray.firstName} name="firstName" color="indigo" label="Nombre/s" size="lg" onChange={handleInputChange}/>
+                <Input error={inputArray.firstname} name="firstname" color="indigo" label="Nombre/s" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 País
                 </Typography>
