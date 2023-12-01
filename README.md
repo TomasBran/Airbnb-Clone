@@ -1,4 +1,3 @@
-# c15-33-ft-java-react
 
 <h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
 
