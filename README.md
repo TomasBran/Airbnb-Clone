@@ -2,8 +2,26 @@
 
 <h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
 
-<h2> 💎 Team ✨ </h2>
+<br>
 
+<h2> 📒 Sobre el Proyecto 📑 </h2>
+
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; implementada en Spring Boot, permitiendo a los usuarios registrarse, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+
+✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+
+<br>
+
+<h2> 💎 Team ✨ </h2>
+<dd>
+    <a href="https://www.linkedin.com/in/mateo-jeremias-pg/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
+    Mateo Jeremías Pinto | Team Lead 👨‍💻 
+</dd> <br>
+<dd>
 <dd>
     <a href="https://www.linkedin.com/in/tomas-augusto-bran-70745616a/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
     Tomas Augusto Bran | Front End 👨‍💻 
@@ -33,7 +51,7 @@
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css3 logo"  />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" height="40" alt="tailwindcss logo"  />
+  <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> 
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
   <img width="12" />
@@ -101,4 +119,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- JwtService se encarga de la generación y validación de los tokens JWT. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Genera tokens con información de usuario y tiempos de expiración. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Valida la autenticidad y el tiempo de expiración de los tokens durante el proceso de filtrado. <br>
-    
+
+<br>
+
+<h2> 🎆 Agradecimientos 🎇 </h2>
+
+[![NoCountry](https://camo.githubusercontent.com/de23137451a85a0d6a7bb65035d170bccd59f46b1ce444e803a5ff739fd32545/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e643947635173756b594233484c39304c537759765f524952324f324f6c43563853626b7832654e4876386e52764f75384c313646784c51306e507a59303277515f424a4f66515a7726757371703d434155 "NoCountry")](http://https://camo.githubusercontent.com/de23137451a85a0d6a7bb65035d170bccd59f46b1ce444e803a5ff739fd32545/68747470733a2f2f656e637279707465642d74626e302e677374617469632e636f6d2f696d616765733f713d74626e3a414e643947635173756b594233484c39304c537759765f524952324f324f6c43563853626b7832654e4876386e52764f75384c313646784c51306e507a59303277515f424a4f66515a7726757371703d434155 "NoCountry")
