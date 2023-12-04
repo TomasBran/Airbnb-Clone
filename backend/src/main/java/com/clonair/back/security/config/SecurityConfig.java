@@ -21,7 +21,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter; // Es un filtro personalizado para procesar tokens JWT.
     private final AuthenticationProvider authProvider; // El proveedor de autenticación personalizado definido en ApplicationConfig.
-
+    
     /**
      * Este método configura la seguridad en la aplicación
      * utilizando un patrón fluente (fluent API) proporcionado por Spring Security.

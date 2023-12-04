@@ -1,5 +1,5 @@
 
-package com.clonair.back.entity;
+package com.clonair.back.user.entity;
 
 import com.clonair.back.utility.enumeration.Role;
 import jakarta.persistence.*;
