@@ -11,33 +11,89 @@ import {
     Checkbox,
   } from '@material-tailwind/react'
 
-import login from "../../services/login"
+import { login, register } from "../../services/login"
 
 import passwordIcon from '../../assets/password_icon.svg'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
-  
+
+    
     
     const [showPassword, setShowPassword] = useState(true);
     const handleShowPassword = () => setShowPassword((cur) => !cur);
-
-
-    const [userData, setUserData] = useState({
-        email: '',
+    
+    const initialUserData = {
+        username: '',
         password: '',
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         country:'',
-    });
+    }
+    const [userData, setUserData] = useState(initialUserData);
+
+
+    const initialInputArray = (() => {
+        const initialState = {};
+        for (const key in initialUserData) {
+            initialState[key] = false;
+        }
+        return initialState;
+    })();
+
+    const [inputArray, setInputArray] = useState(initialInputArray);
+
 
     const handleInputChange = (event) => {
-
+        const { name, value } = event.target;
         setUserData({
             ...userData,
-            [event.target.name] : event.target.value
+            [name] : value
         })
 
+        setInputArray({
+            ...inputArray,
+            [name]: value.trim() === '',
+        });
+
     };
+
+    const handleLogInButton = (userData) => {
+        if(userData.username !== '' && userData.password !== ''){
+            sendLogin(userData)
+            handleOpenLogin()
+            resetData()
+            console.log("Bienvenido " + userData.username)
+        } else{
+            
+            console.log("Faltan Datos")
+        }
+    }
+
+    const handleRegisterButton = (userData) => {
+
+        let dataMissing = false
+
+        for (const key in userData) {
+            if(userData[key]===''){
+                console.log("Faltan Datos")
+                dataMissing=true
+                return
+            }
+        }
+
+        if(!dataMissing){
+            sendRegister(userData)
+            handleOpenSignUp()
+            resetData()
+            console.log("Registro completado")
+        }
+    }
+
+    const resetData= () =>{
+        setInputArray(initialInputArray)
+        setUserData(initialUserData)
+    }
+
 
 
     useEffect(() => {
@@ -52,22 +108,24 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
           })
         }
 
+        if(!openLogin && !openSignUp){
+            resetData()
+        }
+
         
     }, [openLogin, openSignUp]);
 
+    
 
 
     const sendLogin = (userData) => {
-        if(userData.email !== '' && userData !== ''){
-            login(userData)
-        } else{
-            console.log("faltan datos")
-        }
+        const { username, password } = userData;
+        const newData = {username, password}
+        login(newData)
     }
 
     const sendRegister = (userData) => {
-        
-        login(userData)
+        register(userData)
 
     }
 
@@ -79,6 +137,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             open={openLogin}
             handler={handleOpenLogin}
             className="bg-transparent shadow-none"
+            
         >
             <Card className="mx-auto w-full max-w-[36rem]"> 
             <CardBody className="flex flex-col gap-4">
@@ -95,17 +154,20 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 Tu mail
                 </Typography>
-                <Input name="email" color="indigo" label="Mail" size="lg" onChange={handleInputChange}/>
+                <Input name="username" error={inputArray.username} color="indigo" label="Mail" size="lg"
+                onChange={(event) => {
+                handleInputChange(event);
+                }}/>
                 <Typography className="-mb-2" variant="h6">
                 Tu contraseña
                 </Typography>
-                <Input name="password" type={showPassword ? "password" : ""} color="indigo" label="Contraseña" size="lg" icon={<img className="password-icon" src={passwordIcon}/>} onChange={handleInputChange}/>
+                <Input name="password" error={inputArray.password}  type={showPassword ? "password" : ""} color="indigo" label="Contraseña" size="lg" icon={<img className="password-icon" src={passwordIcon}/>} onChange={handleInputChange}/>
                 <div className="-ml-2.5 -mt-3">
                 <Checkbox label="Recordarme" />
                 </div>
             </CardBody>
             <CardFooter className="pt-0">
-                <Button variant="gradient" onClick={() => {handleOpenLogin(), sendLogin(userData)}} fullWidth>
+                <Button variant="gradient" onClick={() => {handleLogInButton(userData)}} fullWidth>
                 Iniciar sesión
                 </Button>
                 <Typography variant="small" className="mt-4 flex justify-center">
@@ -150,26 +212,26 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 Tu mail
                 </Typography>
-                <Input color="indigo" label="Mail" size="lg" />
+                <Input error={inputArray.username} name="username" color="indigo" label="Mail" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Tu contraseña
                 </Typography>
-                <Input type={showPassword ? "password" : ""} color="indigo" label="Contraseña" size="lg" icon={<img className="password-icon" src={passwordIcon}/>}/>
+                <Input error={inputArray.password} name="password" type={showPassword ? "password" : ""} color="indigo" label="Contraseña" size="lg" icon={<img className="password-icon" src={passwordIcon}/>} onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Apellido/s
                 </Typography>
-                <Input color="indigo" label="Apellido/s" size="lg" />
+                <Input error={inputArray.lastname} name="lastname" color="indigo" label="Apellido/s" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 Nombre/s
                 </Typography>
-                <Input color="indigo" label="Nombre/s" size="lg" />
+                <Input error={inputArray.firstname} name="firstname" color="indigo" label="Nombre/s" size="lg" onChange={handleInputChange}/>
                 <Typography className="-mb-2" variant="h6">
                 País
                 </Typography>
-                <Input color="indigo" label="País" size="lg" />
+                <Input error={inputArray.country} name="country" color="indigo" label="País" size="lg" onChange={handleInputChange}/>
             </CardBody>
             <CardFooter className="pt-0">
-                <Button variant="gradient" onClick={handleOpenSignUp} fullWidth>
+                <Button variant="gradient" onClick={() => {handleRegisterButton(userData)}} fullWidth>
                 Registrarse
                 </Button>
                 <Typography variant="small" className="mt-4 flex justify-center">

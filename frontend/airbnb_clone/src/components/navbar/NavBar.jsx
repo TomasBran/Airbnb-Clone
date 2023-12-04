@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Forms from "../forms/Forms";
 
+
 const NavBar = () => {     
     const [isSearchOpen, setIsSearchOpen] = useState(false);
         
@@ -48,7 +49,7 @@ const NavBar = () => {
                             handleOpenSignUp={handleOpenSignUp}
                         />
 
-                    </div>
+                    </div>                    
                 </section>  
             </>
         
