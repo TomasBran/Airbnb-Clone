@@ -1,6 +1,6 @@
 package com.clonair.back.security.config;
 
-import com.clonair.back.repository.UserRepository;
+import com.clonair.back.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
