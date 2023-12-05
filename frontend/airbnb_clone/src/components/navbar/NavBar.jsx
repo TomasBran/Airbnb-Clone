@@ -41,9 +41,9 @@ const NavBar = () => {
    
     return ( 
             <> 
-                <section className="py-3 px-8 flex justify-between items-center text-md">        
-                    <a href="/"><LogoIcon/></a>
-                    <div className="flex flex-col justify-center items-center" ref={navRef}>
+                <section className="py-3 px-8 flex justify-between items-center">        
+                    <a href="/" className="w-fit"><LogoIcon/></a>
+                    <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
                         <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div>
                                 <h2 className="hidden md:inline">Destino | Fechas | Huéspedes</h2>
@@ -54,7 +54,7 @@ const NavBar = () => {
                         </Button>                    
                         {isSearchOpen && <Search/>}
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col md:flex-row gap-px md:gap-4">
                         
                         <Button variant="text" className="rounded-full" onClick={handleOpenSignUp}>Registrarse</Button>
                         <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>

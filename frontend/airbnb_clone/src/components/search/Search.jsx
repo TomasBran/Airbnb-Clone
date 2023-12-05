@@ -66,7 +66,7 @@ const Search = () => {
     console.log(destination);
 
     return (
-        <div className="flex justify-center absolute bg-white box-border mt-32 shadow-md hover:shadow-lg border-2 border-gray-300 rounded-xl"> 
+        <div className="flex justify-center absolute z-10 bg-white box-border mt-32 ml-20 shadow-md hover:shadow-lg border-2 border-gray-300 rounded-xl"> 
                 <div className="h-30 flex border items-center justify-around p-3 rounded-xl gap-4 text-sm">
                     <div className="flex items-center gap-2.5">   
                         <FontAwesomeIcon icon={faMapLocationDot} />            
@@ -80,7 +80,7 @@ const Search = () => {
                     <div className="flex items-center gap-2.5" ref={dateRef}>  
                         <FontAwesomeIcon icon={faCalendarDays} /> 
                         <div className="flex justify-center"> 
-                            <span className="md:hidden cursor-pointer text-gray-400">Fechas</span>            
+                            <span className="md:hidden cursor-pointer text-gray-400"  onClick={() => setOpenDate(!openDate)}>Fechas</span>            
                             <span
                             onClick={() => setOpenDate(!openDate)}
                             className="cursor-pointer text-gray-400 hidden md:inline"
@@ -103,7 +103,7 @@ const Search = () => {
                     <div className="flex items-center gap-2.5" ref={optionsRef}> 
                         <FontAwesomeIcon icon={faPerson} />
                         <div className="flex justify-center"> 
-                            <span className="md:hidden cursor-pointer text-gray-400">Huéspedes</span>     
+                            <span className="md:hidden cursor-pointer text-gray-400" onClick={() => setOpenOptions(!openOptions)}>Huéspedes</span>     
                             <span
                             onClick={() => setOpenOptions(!openOptions)}
                             className="cursor-pointer text-gray-400 hidden md:inline"
