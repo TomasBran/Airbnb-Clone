@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from 'react'
+import React from 'react';
 import {
     Button,
     Dialog,
@@ -9,6 +10,7 @@ import {
     Typography,
     Input,
     Checkbox,
+    Switch,
   } from '@material-tailwind/react'
 
 import { login, register } from "../../services/login"
@@ -17,8 +19,10 @@ import passwordIcon from '../../assets/password_icon.svg'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
+    const switchRef = useRef()
+    const [registerButtonPressed, setRegisterButtonPressed] = useState(false)
     
-    
+    const [dataMissing, setDataMissing] = useState(false)
     const [showPassword, setShowPassword] = useState(true);
     const handleShowPassword = () => setShowPassword((cur) => !cur);
     
@@ -28,9 +32,9 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         firstname: '',
         lastname: '',
         country:'',
+        role:'',
     }
     const [userData, setUserData] = useState(initialUserData);
-
 
     const initialInputArray = (() => {
         const initialState = {};
@@ -41,6 +45,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     })();
 
     const [inputArray, setInputArray] = useState(initialInputArray);
+
 
 
     const handleInputChange = (event) => {
@@ -57,6 +62,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     };
 
+
     const handleLogInButton = (userData) => {
         if(userData.username !== '' && userData.password !== ''){
             sendLogin(userData)
@@ -64,37 +70,62 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             resetData()
             console.log("Bienvenido " + userData.username)
         } else{
-            
-            console.log("Faltan Datos")
+            showEmptyInput()
+            setDataMissing(true)
         }
     }
 
-    const handleRegisterButton = (userData) => {
+    const handleRegisterButton = (newUserData) => {
 
-        let dataMissing = false
+        
 
-        for (const key in userData) {
-            if(userData[key]===''){
-                console.log("Faltan Datos")
-                dataMissing=true
+        for (const key in newUserData) {
+            if(newUserData[key]==='' && key!=="role"){
+                showEmptyInput()
+                setDataMissing(true)
                 return
             }
         }
 
-        if(!dataMissing){
-            sendRegister(userData)
-            handleOpenSignUp()
-            resetData()
-            console.log("Registro completado")
-        }
+        setRegisterButtonPressed(true)
+        setUserData(prevData => ({
+          ...prevData,
+          role: switchRef.current.checked ? 'owner' : 'user',
+        }));
+        
     }
+
+    useEffect(() => {
+        if (registerButtonPressed && !dataMissing) {
+      
+            sendRegister(userData);
+            handleOpenSignUp();
+            resetData();
+            setRegisterButtonPressed(false)
+        }
+    }), [registerButtonPressed]
+
+
 
     const resetData= () =>{
         setInputArray(initialInputArray)
         setUserData(initialUserData)
+        setDataMissing(false)
     }
 
+    const showEmptyInput = () => {
+        const properties = Object.keys(inputArray);
 
+        properties.forEach(property => {
+            if (userData[property] === '') {
+              setInputArray(prevState => ({
+                ...prevState,
+                [property]: true,
+              }));
+            }
+        });
+            
+    }
 
     useEffect(() => {
     
@@ -126,6 +157,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     const sendRegister = (userData) => {
         register(userData)
+        console.log(userData.role)
 
     }
 
@@ -145,12 +177,17 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 Iniciar Sesión
                 </Typography>
                 <Typography
-                className="mb-3 font-normal"
+                className="-mb-3 font-normal"
                 variant="paragraph"
                 color="gray"
                 >
                 Ingresa tu mail y contraseña para iniciar sesión
                 </Typography>
+                <div className="h-2">
+                    <Typography className="" variant="small" color="red">
+                    {dataMissing ? "* Completar todos los campos" : ""}
+                    </Typography>
+                </div>
                 <Typography className="-mb-2" variant="h6">
                 Tu mail
                 </Typography>
@@ -179,6 +216,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                     onClick={() => {
                     handleOpenLogin()
                     handleOpenSignUp()
+                    resetData()
                     
                     }}
                 >
@@ -199,16 +237,21 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         >
             <Card className="mx-auto w-full max-w-[36rem]">
             <CardBody className="flex flex-col gap-3">
-                <Typography variant="h4" color="blue-gray">
+                <Typography className='-mb-2' variant="h4" color="blue-gray">
                 Registrarse
                 </Typography>
                 <Typography
-                className="mb-3 font-normal"
+                className="-mb-3 font-normal"
                 variant="paragraph"
                 color="gray"
                 >
                 Ingresa tu mail y contraseña para el registro
                 </Typography>
+                <div className="h-2">
+                    <Typography className="" variant="small" color="red">
+                    {dataMissing ? "* Completar todos los campos" : ""}
+                    </Typography>
+                </div>
                 <Typography className="-mb-2" variant="h6">
                 Tu mail
                 </Typography>
@@ -229,6 +272,9 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 País
                 </Typography>
                 <Input error={inputArray.country} name="country" color="indigo" label="País" size="lg" onChange={handleInputChange}/>
+                <div className='-mb-3'>
+                    <Switch label="Soy propietario" inputRef={switchRef}/>
+                </div>
             </CardBody>
             <CardFooter className="pt-0">
                 <Button variant="gradient" onClick={() => {handleRegisterButton(userData)}} fullWidth>
@@ -243,15 +289,20 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                     onClick={() => {
                     handleOpenSignUp()
                     handleOpenLogin()
+                    resetData()
                     
                     }}
                 >
                     <span className="hover-pointer">Iniciar Sesión</span>
                 </Typography>
                 </Typography>
+                
             </CardFooter>
             </Card>
         </Dialog>
+
+
+
         </>
     )
 }
