@@ -1,7 +1,7 @@
 
-package com.clonair.back.service.implementation;
+package com.clonair.back.user.service.implementation;
 
-import com.clonair.back.service.UserService;
+import com.clonair.back.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service

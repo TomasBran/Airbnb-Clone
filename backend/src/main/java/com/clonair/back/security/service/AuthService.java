@@ -1,7 +1,7 @@
 package com.clonair.back.security.service;
 
-import com.clonair.back.entity.User;
-import com.clonair.back.repository.UserRepository;
+import com.clonair.back.user.entity.User;
+import com.clonair.back.user.repository.UserRepository;
 import com.clonair.back.security.dto.AuthResponse;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
