@@ -90,7 +90,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         setRegisterButtonPressed(true)
         setUserData(prevData => ({
           ...prevData,
-          role: switchRef.current.checked ? 'owner' : 'user',
+          role: switchRef.current.checked ? 'OWNER' : 'USER',
         }));
         
     }
@@ -157,7 +157,6 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     const sendRegister = (userData) => {
         register(userData)
-        console.log(userData.role)
 
     }
 
