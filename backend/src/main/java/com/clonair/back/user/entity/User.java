@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,8 +24,9 @@ import java.util.List;
 public class User implements UserDetails { // Esta interfaz es proporcionada por Spring Security y permite que los objetos User actúen como objetos de usuario autenticables por Spring Security.
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @GeneratedValue (generator= "uuid")
+    @GenericGenerator(name= "uuid", strategy = "uuid2")
+    String id;
 
     @Basic // Anotación de JPA que marca un campo como persistible, indicando que se debe incluir en las operaciones de persistencia, pero no agrega ninguna configuración adicional por defecto.
     @Column(nullable = false)
