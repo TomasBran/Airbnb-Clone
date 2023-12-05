@@ -38,9 +38,9 @@ export async function register(userData) {
         if(response.ok){
             const data = await response.json()
             localStorage.setItem('token', data.token);
-            console.log('Inicio de sesión exitoso. Token JWT guardado.');
+            console.log('Registro de usuario exitoso. Usuario guardado.');
         } else {
-            console.error('Error al iniciar sesión:', response.statusText);
+            console.error('Error al registrar usuario:', response.statusText);
         }
         
         } catch (error) {
