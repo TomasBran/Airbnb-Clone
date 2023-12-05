@@ -48,3 +48,11 @@ export async function register(userData) {
         }
     
   }
+
+
+  export function logout() {
+    if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        console.log('Sesión cerrada correctamente.')
+    }
+  }
