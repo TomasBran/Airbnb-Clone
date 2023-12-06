@@ -11,13 +11,13 @@ import org.springframework.web.filter.CorsFilter;
 public class CorsConfig {
     
     @Bean
-    public CorsConfigurationSource corsFilter() {
+    public CorsFilter corsFilter() {    
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*"); // Permite todos los orígenes, cámbialo según tu configuración
         config.addAllowedMethod("*"); // Permite todos los métodos HTTP (GET, POST, etc.)
         config.addAllowedHeader("*"); // Permite todos los encabezados
         source.registerCorsConfiguration("/**", config);
-        return source;
+        return new CorsFilter(source);
     }
 }
