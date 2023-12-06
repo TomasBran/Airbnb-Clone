@@ -5,6 +5,7 @@ import Search from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Forms from "../forms/Forms";
+import { Link } from "react-router-dom";
 
 
 const NavBar = () => {     
@@ -40,7 +41,7 @@ const NavBar = () => {
     return ( 
             <> 
                 <section className="py-3 px-8 flex justify-between items-center">        
-                    <a href="/" className="w-fit"><LogoIcon/></a>
+                <Link to="/"><LogoIcon/></Link>
                     <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
                         <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div>
