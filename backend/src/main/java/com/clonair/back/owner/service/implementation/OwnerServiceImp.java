@@ -21,10 +21,14 @@ public class OwnerServiceImp implements OwnerService{
         
     @Override
     public Owner getOwnerByRequest(String token) throws Exception {
-        Optional<User> opt = userRepository.findByUsername(jwtService.getUsernameFromToken(token));
-        if(opt.isPresent()){
-            return ownerRepository.getOne(opt.get().getId());
+        Optional<User> optUser = userRepository.findByUsername(jwtService.getUsernameFromToken(token));
+        if(optUser.isPresent()){
+            Optional<Owner> optOwner = ownerRepository.findById(optUser.get().getId());
+            if(optOwner.isPresent()){
+                return optOwner.get();
+            }
         }
+        return null;
     }
     
 }
