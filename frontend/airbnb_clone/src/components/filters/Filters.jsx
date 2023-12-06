@@ -11,9 +11,11 @@ import {
     Checkbox,
   } from "@material-tailwind/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Filters = () => {    
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     
     const handleOpen = () => {
         setOpen(!open)        
@@ -102,22 +104,44 @@ const Filters = () => {
         breakfast: false,
         smoke: false,
         pets: false
-      });
+    });
     
-      const handleCheckboxChange = (e) => {
+    const handleCheckboxChange = (e) => {
         const checkboxId = e.target.id;
         setCheckboxes({
           ...checkboxes,
           [checkboxId]: !checkboxes[checkboxId],
         });
-      };
+    };
 
-      const handleClearCheckboxes = () => {
+    const handleClearCheckboxes = () => {
         const clearedCheckboxes = Object.fromEntries(
           Object.keys(checkboxes).map((key) => [key, false])
         );
         setCheckboxes(clearedCheckboxes);
-      };
+    };
+    
+      
+
+    const handleFilters = () => {        
+        
+          
+        const searchParams = new URLSearchParams();  
+          
+        searchParams.set('minValue', minValue);
+        searchParams.set('maxValue', maxValue);
+        searchParams.set('propType', selectedTypes);
+        searchParams.set('selectedRooms', selectedRooms);
+        searchParams.set('selectedBeds', selectedBeds);
+        searchParams.set('selectedBaths', selectedBaths);
+        searchParams.set('services', checkboxes);
+        
+  
+          // Actualizar la URL
+          //ejemplo: http://localhost:5173/resultados?minValue=116&maxValue=844&propType=department%2Chotel&selectedRooms=2&selectedBeds=4&selectedBaths=cualquiera&services=%5Bobject+Object%5D
+          
+        navigate(`/resultados?${searchParams.toString()}`);
+    };
   
 
     return (
@@ -129,7 +153,7 @@ const Filters = () => {
                 <DialogHeader className="pl-10">Filtros</DialogHeader>
                 <DialogBody className="text-black max-h-96 overflow-y-auto px-2 md:px-10">
                     <section className="flex flex-col gap-4">
-                        <h2 className="text-lg font-bold">Rango Precios</h2>
+                        <h2 className="text-lg font-bold">Rango Precios (Por Noche)</h2>
                         <div className="pb-1 px-6">
                             <label htmlFor="minRange" className="text-sm">Valor Mínimo</label>                        
                             <input type="range"  id="minRange" min={0} max={1000} value={minValue} onChange={handleMinChange} className="appearance-none bg-red-300 h-2 w-full rounded-md outline-none"/>
@@ -218,7 +242,7 @@ const Filters = () => {
                         >
                             <span>Cerrar</span>
                         </Button>
-                        <Button variant="gradient" color="red" onClick={handleOpen}>
+                        <Button variant="gradient" color="red" onClick={handleFilters}>
                             <span>Filtrar</span>
                         </Button>
                     </div>
