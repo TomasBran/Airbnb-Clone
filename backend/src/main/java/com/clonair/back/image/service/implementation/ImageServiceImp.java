@@ -7,14 +7,18 @@ import com.clonair.back.image.service.ImageService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
+@Data
+@RequiredArgsConstructor
 public class ImageServiceImp implements ImageService{
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
     
     /**
      * Recupera un obj imagen por el nombre

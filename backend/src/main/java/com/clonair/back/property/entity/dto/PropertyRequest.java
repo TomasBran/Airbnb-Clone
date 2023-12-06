@@ -5,11 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public record PropertyRequest(
     String id,
+    String token,
     String category,
     String subCategory,
     String description,
     double value,
-    boolean active,
+    Boolean active,
     MultipartFile[] images,
     String country,
     String city        
