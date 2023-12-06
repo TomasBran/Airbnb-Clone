@@ -1,8 +1,9 @@
 import './App.css'
 import { HostCardItem } from './components/shared/HostCardItem/HostCardItem'
-import { Header } from './components/header'
+import { Header } from './components/header' 
+// import Router from './routes/Routes';
 
-const alojamientos = [
+ const alojamientos = [
   {
     id: 1,
     name: "Apartamento en el centro",
@@ -28,7 +29,7 @@ const alojamientos = [
     image: "https://source.unsplash.com/random"
   },
 ];
-
+ 
 
   function App() {
 
@@ -42,6 +43,7 @@ const alojamientos = [
           <HostCardItem key={alojamiento.id} name={alojamiento.name} address={alojamiento.address} availableDays={alojamiento.availableDays} pricePerNight={alojamiento.pricePerNight} image={alojamiento.image} />
         ))}
     </div>
+    {/* <Router/> */}
 
     </>
   )

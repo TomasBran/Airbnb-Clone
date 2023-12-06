@@ -26,9 +26,7 @@ const NavBar = () => {
     useEffect(() => {
         const handleClickOutside = (event) => {
         if (navRef.current && !navRef.current.contains(event.target)) {
-            setIsSearchOpen(false);
-            setOpenLogin(false);
-            setOpenSignUp(false);
+            setIsSearchOpen(false);           
         }
         };
 
