@@ -24,5 +24,4 @@ public class Image {
     //Lob es la anotación de JPA para indicar objetos grandes
     @Lob @Basic(fetch = FetchType.LAZY)
     private byte[] content;
-    private String url;
 }

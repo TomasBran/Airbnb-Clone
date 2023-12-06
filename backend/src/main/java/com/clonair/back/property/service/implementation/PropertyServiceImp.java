@@ -1,7 +1,5 @@
-
 package com.clonair.back.property.service.implementation;
 
-import com.clonair.back.image.entity.Image;
 import com.clonair.back.image.service.ImageService;
 import com.clonair.back.location.entity.Location;
 import com.clonair.back.owner.entity.Owner;
@@ -13,9 +11,8 @@ import com.clonair.back.property.entity.dto.PropertyRequest;
 import com.clonair.back.property.entity.dto.PropertyResponse;
 import com.clonair.back.property.repository.PropertyRepository;
 import com.clonair.back.property.service.PropertyService;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Data
 @RequiredArgsConstructor
 public class PropertyServiceImp implements PropertyService {
-    
+
     private final PropertyRepository propertyRepository;
     private final ImageService imageService;
     private final OwnerService ownerService;
@@ -44,18 +41,16 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public List<PropertyResponse> getAll() throws Exception {
-        List<Property> properties = propertyRepository.findAll();
-        return properties.stream()
-                .map(this::propertyToResponseMap)
-                .collect(Collectors.toList());
+        return propertyRepository.findAll().stream().map((prop) -> {
+            return propertyToResponseMap(prop);
+        }).toList();
     }
 
     @Override
     public List<PropertyResponse> filtered(String category) throws Exception {
-        List<Property> properties = propertyRepository.findByCategory(Category.valueOf(category));
-        return properties.stream()
-                .map(this::propertyToResponseMap)
-                .collect(Collectors.toList());
+        return propertyRepository.findByCategory(Category.valueOf(category)).stream().map((prop) -> {
+            return propertyToResponseMap(prop);
+        }).toList();
     }
 
     @Override
@@ -67,16 +62,17 @@ public class PropertyServiceImp implements PropertyService {
 
     private Property requestToPropertyMap(PropertyRequest request) throws Exception {
         Owner owner = ownerService.getOwnerByRequest(request.token());
+        if (owner == null) {
+            throw new Exception("Propietario no encontrado");
+        }
         Location location = new Location();
         Property property = new Property();
-
         // Si el ID está presente en la solicitud, obtenemos la propiedad existente
         if (request.id() != null) {
             property = propertyRepository.findById(request.id())
                     .orElseThrow(() -> new Exception("Property not found"));
             location = property.getLocation();
         }
-
         // Configuramos los datos en la entidad Property
         location.setCountry(request.country());
         location.setCity(request.city());
@@ -84,7 +80,7 @@ public class PropertyServiceImp implements PropertyService {
         property.setDescription(request.description());
         property.setValue(request.value());
         property.setLocation(location);
-        property.setImages(imageService.saveMulti(request.images())); // Guardamos las imágenes y obtenemos los objetos Image
+        property.setImages(imageService.saveMulti(request.images()));
         if (request.subCategory() != null) {
             property.setSubCategory(SubCategory.valueOf(request.subCategory()));
         }
@@ -92,12 +88,11 @@ public class PropertyServiceImp implements PropertyService {
             property.setActive(request.active());
         }
         property.setOwner(owner);
-
         return property;
     }
 
     private PropertyResponse propertyToResponseMap(Property property) {
-        PropertyResponse response = new PropertyResponse(
+        return new PropertyResponse(
                 property.getId(),
                 property.getOwner(),
                 property.getCategory(),
@@ -105,14 +100,14 @@ public class PropertyServiceImp implements PropertyService {
                 property.getDescription(),
                 property.getValue(),
                 property.isActive(),
-                property.getImages().stream()
-                        .map(Image::getUrl)
-                        .collect(Collectors.toList()),
+                property.getImages()
+                        .stream().map(
+                                (img) -> {
+                                    return img.getId();
+                                }
+                        ).toList(),
                 property.getLocation(),
-                property.getAvailability()
+                new ArrayList<>()
         );
-        return response;
     }
-
-
 }

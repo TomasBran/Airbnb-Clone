@@ -7,6 +7,8 @@ import com.clonair.back.owner.entity.Owner;
 import com.clonair.back.property.enumeration.Category;
 import com.clonair.back.property.enumeration.SubCategory;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -26,7 +28,9 @@ public class Property {
     @GeneratedValue (generator= "uuid")
     @GenericGenerator (name= "uuid", strategy = "uuid2")
     private String id;
+    @Enumerated(EnumType.STRING)
     private Category category;
+    @Enumerated(EnumType.STRING)
     private SubCategory subCategory;
     private String description;
     private double value;
