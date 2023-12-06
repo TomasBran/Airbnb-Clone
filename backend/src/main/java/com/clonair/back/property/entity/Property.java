@@ -38,5 +38,5 @@ public class Property {
     private Location location;
     @OneToMany
     private List<Image> images;
-    
+    private List<String> availability;
 }

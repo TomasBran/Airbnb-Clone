@@ -5,7 +5,7 @@ import com.clonair.back.user.repository.UserRepository;
 import com.clonair.back.security.dto.AuthResponse;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
-import com.clonair.back.utility.enumeration.Role;
+import com.clonair.back.user.enumeration.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
