@@ -1,5 +1,5 @@
 
-package com.clonair.back.utility.enumeration;
+package com.clonair.back.user.enumeration;
 
 public enum Role {    
     USER,

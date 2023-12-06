@@ -18,5 +18,7 @@ public interface ImageService {
     public List<Image> filter(List<Image> imageRepo, String[] imageIds) throws Exception;
     
     public void delete(String id) throws Exception;
+
+    public String getUrl(String id);
     
 }

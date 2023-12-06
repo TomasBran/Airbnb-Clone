@@ -18,7 +18,7 @@ public class OwnerServiceImp implements OwnerService{
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final OwnerRepository ownerRepository;
-        
+
     @Override
     public Owner getOwnerByRequest(String token) throws Exception {
         Optional<User> optUser = userRepository.findByUsername(jwtService.getUsernameFromToken(token));
@@ -29,6 +29,6 @@ public class OwnerServiceImp implements OwnerService{
             }
         }
         return null;
+
     }
-    
 }

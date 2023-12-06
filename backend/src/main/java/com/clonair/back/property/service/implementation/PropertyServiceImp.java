@@ -28,12 +28,15 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public PropertyResponse getOne(String id) throws Exception {
-        return propertyToResponseMap(propertyRepository.getOne(id));
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new Exception("Property not found"));
+        return propertyToResponseMap(property);
     }
 
     @Override
     public void save(PropertyRequest request) throws Exception {
-        propertyRepository.save(requestToPropertyMap(request));
+        Property property = requestToPropertyMap(request);
+        propertyRepository.save(property);
     }
 
     @Override
@@ -45,14 +48,16 @@ public class PropertyServiceImp implements PropertyService {
 
     @Override
     public List<PropertyResponse> filtered(String category) throws Exception {
-        return propertyRepository.findByCategory(category).stream().map((prop) -> {
+        return propertyRepository.findByCategory(Category.valueOf(category)).stream().map((prop) -> {
             return propertyToResponseMap(prop);
         }).toList();
     }
 
     @Override
     public void delete(String id) throws Exception {
-        propertyRepository.deleteById(id);
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new Exception("Property not found"));
+        propertyRepository.delete(property);
     }
 
     private Property requestToPropertyMap(PropertyRequest request) throws Exception {
@@ -62,13 +67,13 @@ public class PropertyServiceImp implements PropertyService {
         }
         Location location = new Location();
         Property property = new Property();
+        // Si el ID está presente en la solicitud, obtenemos la propiedad existente
         if (request.id() != null) {
-            property = propertyRepository.getOne(request.id());
+            property = propertyRepository.findById(request.id())
+                    .orElseThrow(() -> new Exception("Property not found"));
             location = property.getLocation();
-            if (!owner.equals(property.getOwner())) {
-                throw new Exception("El dueño de la propiedad no coincide con usuario loggeado");
-            }
         }
+        // Configuramos los datos en la entidad Property
         location.setCountry(request.country());
         location.setCity(request.city());
         property.setCategory(Category.valueOf(request.category()));
@@ -82,6 +87,7 @@ public class PropertyServiceImp implements PropertyService {
         if (request.active() != null) {
             property.setActive(request.active());
         }
+        property.setOwner(owner);
         return property;
     }
 
@@ -104,5 +110,4 @@ public class PropertyServiceImp implements PropertyService {
                 new ArrayList<>()
         );
     }
-
 }

@@ -1,10 +1,12 @@
 import LogoIcon from "../../assets/logoicon/LogoIcon";
 import { Button, IconButton } from "@material-tailwind/react";
-import  { useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import Search from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Forms from "../forms/Forms";
+import { Link } from "react-router-dom";
+
 
 const NavBar = () => {     
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -19,25 +21,39 @@ const NavBar = () => {
     const openSearch = () => {
         setIsSearchOpen(!isSearchOpen);
     };
+
+    const navRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+        if (navRef.current && !navRef.current.contains(event.target)) {
+            setIsSearchOpen(false);           
+        }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
    
     return ( 
             <> 
-                <section className="py-3 px-8 flex justify-between items-center text-md">        
-                    <a href="/"><LogoIcon/></a>
-                    <div className="flex flex-col justify-center items-center">
-                        <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">  
-                            {isSearchOpen ? 
-                            "Hide" :
+                <section className="py-3 px-8 flex justify-between items-center">        
+                <Link to="/"><LogoIcon/></Link>
+                    <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
+                        <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div>
                                 <h2 className="hidden md:inline">Destino | Fechas | Huéspedes</h2>
                                 <IconButton color="red" size = "sm" className="px-8 md:px-10 lg:px-1 rounded-full m-1.5">
                                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                                 </IconButton>
-                            </div>}                                                  
+                            </div>                                                  
                         </Button>                    
                         {isSearchOpen && <Search/>}
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col md:flex-row gap-px md:gap-4">
                         
                         <Button variant="text" className="rounded-full" onClick={handleOpenSignUp}>Registrarse</Button>
                         <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
@@ -48,12 +64,11 @@ const NavBar = () => {
                             handleOpenSignUp={handleOpenSignUp}
                         />
 
-                    </div>
+                    </div>                    
                 </section>  
             </>
         
     );
 };
-
 
 export default NavBar;

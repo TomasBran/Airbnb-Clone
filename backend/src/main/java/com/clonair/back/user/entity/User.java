@@ -1,7 +1,7 @@
 
 package com.clonair.back.user.entity;
 
-import com.clonair.back.utility.enumeration.Role;
+import com.clonair.back.user.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
