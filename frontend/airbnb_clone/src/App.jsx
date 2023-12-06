@@ -1,14 +1,12 @@
-import './App.css'
-import { Header } from './components/header'
-import { CardContainer } from './components/shared';
+import './App.css';
+import Router from './routes/Routes';
 
-  function App() {
+function App() {
   return (
-    <>
-    <Header/>   
-    <CardContainer />
+    <>             
+      <Router/> 
     </>
   )
 }
 
-  export default App
+export default App;
