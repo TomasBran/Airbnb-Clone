@@ -147,7 +147,7 @@ const Filters = () => {
 
     return (
         <>
-            <Button onClick={handleOpen} variant="outlined"  className="w-32 p-3 md:pl-6">
+            <Button onClick={handleOpen} variant="outlined"  className="w-32 p-3 md:pl-6 h-14 text-sm">
                 <h2 className="flex gap-2"><FontAwesomeIcon icon={faFilter} /> Filtrar</h2>
             </Button>
             <Dialog open={open} handler={handleOpen} size="lg">
