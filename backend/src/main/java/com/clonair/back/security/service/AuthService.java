@@ -1,11 +1,11 @@
 package com.clonair.back.security.service;
 
-import com.clonair.back.user.entity.User;
-import com.clonair.back.user.repository.UserRepository;
+import com.clonair.back.user.User;
+import com.clonair.back.user.UserRepository;
 import com.clonair.back.security.dto.AuthResponse;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
-import com.clonair.back.user.enumeration.Role;
+import com.clonair.back.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

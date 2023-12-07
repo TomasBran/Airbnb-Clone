@@ -28,50 +28,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService; // Service que maneja la generación, validación y extracción de tokens JWT.
     private final UserDetailsService userDetailsService; // Se utiliza para cargar los detalles del usuario a partir del nombre de usuario extraído del token JWT.
 
-    /**
-     * Este método se encarga de procesar las solicitudes entrantes y realizar la validación del token JWT.
-     * Se ejecuta en cada solicitud HTTP.
-     * */
+    /** FALTA EXPLICACION */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        final String token = getTokenFromRequest(request); // Se extrae el token JWT de la solicitud y se verifica si existe.
+        final String token = getTokenFromRequest(request);
         final String username;
 
-        // Si no hay token presente, se permite que la solicitud continúe sin autenticación (pasando por el FilterChain).
-        if (token == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        if (token != null) {
+            username = jwtService.getUsernameFromToken(token);
 
-        // Se obtiene el nombre de usuario del token JWT.
-        username = jwtService.getUsernameFromToken(token);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        // Verifica si se pudo extraer un nombre de usuario del token JWT. Y Comprueba si no hay ninguna autenticación actualmente establecida en el contexto de seguridad.
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (jwtService.isTokenValid(token, userDetails)) { // Llamada a isTokenValid con el token y userDetails
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
 
-            // Se carga la información del usuario desde el UserDetailsService utilizando el nombre de usuario extraído del token JWT.
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            // Se verifica si el token JWT es válido para el usuario actual.
-            if (jwtService.isTokenValid(token, userDetails)) {
-
-                // Se crea un objeto utilizado por Spring Security para representar información de autenticación.
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
-
-                // Se agregan detalles adicionales sobre la autenticación, proporcionados por WebAuthenticationDetailsSource, como la dirección IP, la sesión, el agente de usuario, etc.
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext() // Se proporciona acceso al contexto de seguridad de la aplicación.
-                        .setAuthentication(authToken); // Se establece la autenticación actual (authToken) en el contexto de seguridad, lo que significa que el usuario asociado con userDetails está ahora autenticado en la sesión actual.
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
         }
-        // Después de procesar la solicitud, se llama a filterChain.doFilter() para continuar con el flujo normal de la solicitud.
+
         filterChain.doFilter(request, response);
     }
+
 
     /**
      * Este método extrae el token JWT del encabezado de autorización de la solicitud.

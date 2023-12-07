@@ -7,7 +7,10 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +66,10 @@ public class JwtService {
      * Devuelve el nombre de usuario almacenado en el token.
      * */
     public String getUsernameFromToken(String token) {
-        return getClaim(token, Claims::getSubject);
+        if (StringUtils.hasText(token)) {
+            return getClaim(token, Claims::getSubject);
+        }
+        return null;
     }
 
     /**
@@ -74,23 +80,34 @@ public class JwtService {
      * Devuelve true si el token es válido (el nombre de usuario coincide y el token no ha expirado).
      * */
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername())&& !isTokenExpired(token));
+        if (StringUtils.hasText(token)) {
+            final String username = getUsernameFromToken(token);
+            return (username != null && username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        }
+        return false; // Retorna falso para tokens nulos o vacíos
     }
 
+/* REVISAR
+    public boolean isTokenValid(String token) {
+        return (!isTokenExpired(token));
+    }
+*/
     /**
      * Este método devuelve todos los Claims almacenados en el token JWT.
      * Utiliza la librería io.jsonwebtoken para analizar el token,
      * verifica la firma con la clave correspondiente
      * y devuelve el cuerpo (body) del token, que contiene todos los Claims.
      * */
-    private Claims getAllClaims(String token){
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    private Claims getAllClaims(String token) {
+        if (StringUtils.hasText(token)) {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }
+        return null;
     }
 
     /**
@@ -123,4 +140,12 @@ public class JwtService {
         return getExpiration(token).before(new Date());
     }
 
+    public static String getUserIdFromToken(String token) {
+        if (token != null && !token.isEmpty()) {
+            SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+            Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+            return claims.getSubject(); // Devuelve el ID del usuario como Subject del token
+        }
+        return null;
+    }
 }
