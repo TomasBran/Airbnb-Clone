@@ -6,7 +6,7 @@ const alojamientos = [
       location: "Apartamento en el centro",
       address: "Calle 50, Tegucigalpa, Honduras",
       reservationDate:"11-12 de dic",
-      price: "200$",
+      price: "200",
       image: "https://source.unsplash.com/random",
     },
     {
@@ -14,7 +14,7 @@ const alojamientos = [
       location: "Hotel Ritz, París, Francia",
       address: "15 Place Vendôme, 75001 París, Francia",
       reservationDate: "20-22 de dic",
-      price: "5000$",
+      price: "5000",
       image: "https://source.unsplash.com/random?q=hotel%20paris"
     },
     {
@@ -22,7 +22,7 @@ const alojamientos = [
       location: "Nueva York, Estados Unidos",
       address: "Tokio, Japón",
       reservationDate: "23 de dic",
-      price: "1000$",
+      price: "1000",
       image: "https://source.unsplash.com/random?q=vuelo%20new%20york%20tokio"
     },
     {
@@ -30,7 +30,7 @@ const alojamientos = [
       location: "Trattoria Da Cesare al Casaletto, Roma, Italia",
       address: "Via di Casaletto, 37, 00153 Roma RM, Italia",
       reservationDate: "26 de dic",
-      price: "100$",
+      price: "100",
       image: "https://source.unsplash.com/random?q=restaurante%20roma"
     },
     {
@@ -38,7 +38,7 @@ const alojamientos = [
       location: "Gran Cañón, Arizona, Estados Unidos",
       address: "Paseo en helicóptero",
       reservationDate: "27 de dic",
-      price: "200$",
+      price: "200",
       image: "https://source.unsplash.com/random?q=paseo%20helicóptero%20gran%20cañón"
     },
     {
@@ -46,7 +46,7 @@ const alojamientos = [
       location: "África",
       address: "Safari de tres días en la sabana africana",
       reservationDate: "29 de dic - 31 de dic",
-      price: "2000$",
+      price: "2000",
       image: "https://source.unsplash.com/random?q=safari+africano"
     }
   ];
