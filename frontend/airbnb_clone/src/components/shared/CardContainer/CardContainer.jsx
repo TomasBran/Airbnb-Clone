@@ -1,4 +1,5 @@
 import { Container, HostCardItem } from "..";
+import { DetailContainerCard } from "../../cards";
 
 const alojamientos = [
     {
@@ -53,7 +54,9 @@ const alojamientos = [
 
 export const CardContainer = () => {
   return (
-    <Container>
+
+    <>
+      <Container>
       <div 
           className="
             pt-6
@@ -72,5 +75,8 @@ export const CardContainer = () => {
           ))}
         </div>
     </Container>
+
+    <DetailContainerCard />
+    </>
   )
 }
