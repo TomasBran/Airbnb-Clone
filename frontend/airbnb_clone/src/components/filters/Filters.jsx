@@ -103,7 +103,8 @@ const Filters = () => {
         barbecue: false,
         breakfast: false,
         smoke: false,
-        pets: false
+        pets: false,
+        cancel: false
     });
     
     const handleCheckboxChange = (e) => {
@@ -122,7 +123,7 @@ const Filters = () => {
     };
     
       
-
+    //Filters Submit Button
     const handleFilters = () => {        
         
           
@@ -230,7 +231,8 @@ const Filters = () => {
                         <Checkbox id="cradle" label="Cuna" ripple={true} checked={checkboxes.cradle} onChange={handleCheckboxChange}/>  
                         <Checkbox id="barbecue" label="Parrilla" ripple={true} checked={checkboxes.barbecue} onChange={handleCheckboxChange}/>  
                         <Checkbox id="breakfast" label="Desayuno" ripple={true} checked={checkboxes.breakfast} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="smoke" label="Se permite fumar" ripple={true} checked={checkboxes.smoke} onChange={handleCheckboxChange}/>                                          
+                        <Checkbox id="smoke" label="Se permite fumar" ripple={true} checked={checkboxes.smoke} onChange={handleCheckboxChange}/>
+                        <Checkbox id="smoke" label="Cancelación Anticipada" ripple={true} checked={checkboxes.cancel} onChange={handleCheckboxChange}/>                                          
                     </section>
                 </DialogBody>
                 <DialogFooter className="flex justify-between">

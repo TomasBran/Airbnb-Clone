@@ -12,6 +12,7 @@ import {
     faMagnifyingGlass
   } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
+import { countries } from 'countries-list';
 
 const Search = () => {    
     const queryParams = new URLSearchParams(location.search);
@@ -70,8 +71,22 @@ const Search = () => {
     }, []);
 
     const handleSearchAnyDate = () => {
-        setSearchAnyDate(!searchAnyDate);
-      };
+        setSearchAnyDate(!searchAnyDate);        
+    };
+
+    const handleDateChange = (item) => {        
+        if (searchAnyDate) {
+            setDate([
+                {
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    key: 'selection',
+                },
+            ]);
+        } else {            
+            setDate([item.selection]);
+        }
+    }; 
    
     const handleSearch = () => {
         if (destination.trim() === '' ) {
@@ -103,18 +118,21 @@ const Search = () => {
         navigate(`/resultados?${searchParams.toString()}`);
     };
     
+    const countryNames = (Object.values(countries).map((country) => country.name)).sort();
 
     return (
         <div className="flex flex-col justify-center absolute z-10 bg-white box-border mt-32 ml-20 shadow-md hover:shadow-lg border-2 border-gray-300 rounded-xl"> 
                 <div className="h-30 flex border items-center justify-around p-3 rounded-xl gap-4 text-sm">
                     <div className="flex items-center gap-2.5">   
-                        <FontAwesomeIcon icon={faMapLocationDot} />            
-                        <input
-                        type="text"
-                        placeholder="¿A dónde vas?"
-                        className="border-0 outline-0 w-20 md:w-28"
-                        onChange={(e) => setDestination(e.target.value)}
-                        />
+                        <FontAwesomeIcon icon={faMapLocationDot} />
+                       <select value={destination} onChange={(e) => setDestination(e.target.value)} className="border-0 outline-0 w-20 md:w-28 cursor-pointer text-gray-400">
+                            <option className="text-gray-600">País</option>
+                            {countryNames.map((countryName) => (
+                                <option key={countryName} value={countryName} className="text-gray-600">
+                                    {countryName}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex items-center gap-2.5" ref={dateRef}>  
                         <FontAwesomeIcon icon={faCalendarDays} /> 
@@ -130,14 +148,14 @@ const Search = () => {
                             {openDate && (
                                 <div className="absolute z-10 shadow-md top-14 md:top-20 lg:top-14"> 
                                     <DateRange
-                                        editableDateInputs={true}
-                                        onChange={(item) => setDate([item.selection])}
+                                        editableDateInputs={!searchAnyDate}
+                                        onChange={handleDateChange}
                                         moveRangeOnFirstSelection={false}
-                                        ranges={date}
+                                        ranges={searchAnyDate ? [] : date}
                                         rangeColors={['rgb(244 67 54)']}
                                         minDate={new Date()}
                                     />
-                                    <div className="flex gap-4 px-3 pb-2">
+                                    <div className="flex gap-4 px-3 pb-2 bg-white">
                                         <Switch
                                             color="red"
                                             checked={searchAnyDate}
