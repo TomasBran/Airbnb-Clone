@@ -5,20 +5,25 @@ import com.clonair.back.image.entity.Image;
 import com.clonair.back.image.repository.ImageRepository;
 import com.clonair.back.image.service.ImageService;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
+@Data
+@RequiredArgsConstructor
 public class ImageServiceImp implements ImageService{
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
     
     /**
      * Recupera un obj imagen por el nombre
-     *@param id de la imagen
+     *@param -id de la imagen
      *@return el obj imagen o null si no existe
      */
     @Override
@@ -53,8 +58,8 @@ public class ImageServiceImp implements ImageService{
     
     /**
      * Actualiza un obj imagen
-     *@param input del MultipartFile de la imagen
-     *@param id id de la imagen a actualizar
+     *@param -input del MultipartFile de la imagen
+     *@param -id id de la imagen a actualizar
      *@return el obj imagen o null si no paso el MultipartFile como parametro
      */
     @Override
@@ -82,7 +87,7 @@ public class ImageServiceImp implements ImageService{
     
     /**
      * Persiste una lista de obj imagen
-     *@param input del arreglo de MultipartFile de las imagenes, 
+     *@param -input del arreglo de MultipartFile de las imagenes,
      *@return la List de obj imagen o null si no paso el MultipartFile como parametro
      */
     @Override
@@ -106,7 +111,7 @@ public class ImageServiceImp implements ImageService{
     
     /**
      * Persiste una lista de obj imagen
-     *@param input del arreglo de MultipartFile de las imagenes, 
+     *@param -input del arreglo de MultipartFile de las imagenes,
      *@return la List de obj imagen o null si no paso el MultipartFile como parametro
      */
     @Override
@@ -137,11 +142,15 @@ public class ImageServiceImp implements ImageService{
             imageRepository.deleteById(id);
         }        
     }
-    
+
+    @Override
+    @Transactional(readOnly = true)
+    public String getUrl(String id) {
+        Image image = imageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Image not found with ID: " + id));
+
+        String base64EncodedImage = Base64.getEncoder().encodeToString(image.getContent());
+        return "data:image/jpeg;base64," + base64EncodedImage;
+    }
+
 }
-
-/*
-
-
-    
- */

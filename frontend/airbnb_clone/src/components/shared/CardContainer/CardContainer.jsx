@@ -1,62 +1,76 @@
-import { HostCardItem } from "..";
+import { Container, HostCardItem } from "..";
 
 const alojamientos = [
     {
       id: 1,
-      name: "Apartamento en el centro",
+      location: "Apartamento en el centro",
       address: "Calle 50, Tegucigalpa, Honduras",
-      availableDays:"11-12 de dic",
-      pricePerNight: "200$",
-      image: "https://source.unsplash.com/random"
+      reservationDate:"11-12 de dic",
+      price: "200$",
+      image: "https://source.unsplash.com/random",
     },
     {
       id: 2,
-      name: "Casa en la playa",
-      address: "Playa Bonita, Roatán, Honduras",
-      availableDays: "11-12 de dic",
-      pricePerNight: "300$",
-      image: "https://source.unsplash.com/random"
+      location: "Hotel Ritz, París, Francia",
+      address: "15 Place Vendôme, 75001 París, Francia",
+      reservationDate: "20-22 de dic",
+      price: "5000$",
+      image: "https://source.unsplash.com/random?q=hotel%20paris"
     },
     {
       id: 3,
-      name: "Bungalow en la montaña",
-      address: "La Esperanza, Honduras",
-      availableDays: "11-12 de dic",
-      pricePerNight: "100$",
-      image: "https://source.unsplash.com/random"
+      location: "Nueva York, Estados Unidos",
+      address: "Tokio, Japón",
+      reservationDate: "23 de dic",
+      price: "1000$",
+      image: "https://source.unsplash.com/random?q=vuelo%20new%20york%20tokio"
     },
     {
-      id: 4,
-      name: "Apartamento en el centro",
-      address: "Calle 50, Tegucigalpa, Honduras",
-      availableDays:"11-12 de dic",
-      pricePerNight: "200$",
-      image: "https://source.unsplash.com/random"
+      id: 8,
+      location: "Trattoria Da Cesare al Casaletto, Roma, Italia",
+      address: "Via di Casaletto, 37, 00153 Roma RM, Italia",
+      reservationDate: "26 de dic",
+      price: "100$",
+      image: "https://source.unsplash.com/random?q=restaurante%20roma"
     },
     {
-      id: 5,
-      name: "Casa en la playa",
-      address: "Playa Bonita, Roatán, Honduras",
-      availableDays: "11-12 de dic",
-      pricePerNight: "300$",
-      image: "https://source.unsplash.com/random"
+      id: 9,
+      location: "Gran Cañón, Arizona, Estados Unidos",
+      address: "Paseo en helicóptero",
+      reservationDate: "27 de dic",
+      price: "200$",
+      image: "https://source.unsplash.com/random?q=paseo%20helicóptero%20gran%20cañón"
     },
     {
-      id: 6,
-      name: "Bungalow en la montaña",
-      address: "La Esperanza, Honduras",
-      availableDays: "11-12 de dic",
-      pricePerNight: "100$",
-      image: "https://source.unsplash.com/random"
-    },
+      id: 11,
+      location: "África",
+      address: "Safari de tres días en la sabana africana",
+      reservationDate: "29 de dic - 31 de dic",
+      price: "2000$",
+      image: "https://source.unsplash.com/random?q=safari+africano"
+    }
   ];
 
 export const CardContainer = () => {
   return (
-    <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-      {alojamientos.map((alojamiento) => (
-          <HostCardItem key={alojamiento.id} name={alojamiento.name} address={alojamiento.address} availableDays={alojamiento.availableDays} pricePerNight={alojamiento.pricePerNight} image={alojamiento.image} />
-        ))}
-      </div>
+    <Container>
+      <div 
+          className="
+            pt-6
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            md:grid-cols-3 
+            lg:grid-cols-4
+            xl:grid-cols-5
+            2xl:grid-cols-6
+            gap-8
+          "
+        >
+          {alojamientos.map((alojamiento) => (
+            <HostCardItem key={alojamiento.id} location={alojamiento.location} address={alojamiento.address} reservationDate={alojamiento.reservationDate} price={alojamiento.price} image={alojamiento.image} />
+          ))}
+        </div>
+    </Container>
   )
 }
