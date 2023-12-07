@@ -44,7 +44,7 @@ const alojamientos = [
     {
       id: 11,
       location: "África",
-      address: "Toto",
+      address: "Safari de tres días en la sabana africana",
       reservationDate: "29 de dic - 31 de dic",
       price: "2000",
       image: "https://source.unsplash.com/random?q=safari+africano"
