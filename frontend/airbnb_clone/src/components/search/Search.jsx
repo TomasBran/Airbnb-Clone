@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
-import { Button } from '@material-tailwind/react';
+import { Button, Switch, Typography } from '@material-tailwind/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPerson,
@@ -11,23 +11,30 @@ import {
     faMapLocationDot,
     faMagnifyingGlass
   } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
+import { countries } from 'countries-list';
 
-const Search = () => {
+const Search = () => {    
+    const queryParams = new URLSearchParams(location.search);
+    const navigate = useNavigate();
+
     const [destination, setDestination] = useState("");
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
         {
-        startDate: new Date(),
-        endDate: new Date(),
-        key: "selection",
+            startDate: queryParams.get('startDate') ? new Date(queryParams.get('startDate')) : new Date(),
+            endDate: queryParams.get('endDate') ? new Date(queryParams.get('endDate')) : new Date(),
+            key: "selection",
         },
     ]);
     const [openOptions, setOpenOptions] = useState(false);
     const [options, setOptions] = useState({
-        adult: 1,
-        children: 0,
-        room: 1,
+        adult: parseInt(queryParams.get('adults'), 10) || 1,
+        children: parseInt(queryParams.get('children'), 10) || 0,
+        room: parseInt(queryParams.get('rooms'), 10) || 1,
     });
+    const [emptyInput, setEmptyInput] = useState(false);
+    const [searchAnyDate, setSearchAnyDate] = useState(false);
 
     const handleOption = (name, operation) => {
         setOptions((prev) => {
@@ -62,41 +69,101 @@ const Search = () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }, []);
+
+    const handleSearchAnyDate = () => {
+        setSearchAnyDate(!searchAnyDate);        
+    };
+
+    const handleDateChange = (item) => {        
+        if (searchAnyDate) {
+            setDate([
+                {
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    key: 'selection',
+                },
+            ]);
+        } else {            
+            setDate([item.selection]);
+        }
+    }; 
    
-    console.log(destination);
+    const handleSearch = () => {
+        if (destination.trim() === '' ) {
+            setEmptyInput(true);
+            return;
+        }        
+        if (!searchAnyDate && date[0].startDate.toISOString() === date[0].endDate.toISOString()) {
+            setEmptyInput(true);
+            return;
+        }
+       
+        const searchParams = new URLSearchParams();    
+        
+        searchParams.set('destination', destination);
+        if (searchAnyDate) {            
+            searchParams.set('startDate', format(new Date(), 'yyyy-MM-dd'));
+            searchParams.set('endDate', format(new Date().setFullYear(new Date().getFullYear() + 5), 'yyyy-MM-dd'));
+        } else {
+            searchParams.set('startDate', format(date[0].startDate, 'yyyy-MM-dd'));
+            searchParams.set('endDate', format(date[0].endDate, 'yyyy-MM-dd'));
+        }
+        searchParams.set('adults', options.adult);
+        searchParams.set('children', options.children);
+        searchParams.set('rooms', options.room);
+    
+        //ejemplo: http://localhost:5173/resultados?destination=Paris&startDate=2024-05-08&endDate=2024-08-14&adults=2&children=1&rooms=2
+
+        // (cambiar '/resultados' por ruta real)
+        navigate(`/resultados?${searchParams.toString()}`);
+    };
+    
+    const countryNames = (Object.values(countries).map((country) => country.name)).sort();
 
     return (
-        <div className="flex justify-center absolute z-10 bg-white box-border mt-32 ml-20 shadow-md hover:shadow-lg border-2 border-gray-300 rounded-xl"> 
+        <div className="flex flex-col justify-center absolute z-10 bg-white box-border mt-32 ml-20 shadow-md hover:shadow-lg border-2 border-gray-300 rounded-xl"> 
                 <div className="h-30 flex border items-center justify-around p-3 rounded-xl gap-4 text-sm">
                     <div className="flex items-center gap-2.5">   
-                        <FontAwesomeIcon icon={faMapLocationDot} />            
-                        <input
-                        type="text"
-                        placeholder="¿A dónde vas?"
-                        className="border-0 outline-0 w-20 md:w-28"
-                        onChange={(e) => setDestination(e.target.value)}
-                        />
+                        <FontAwesomeIcon icon={faMapLocationDot} />
+                       <select value={destination} onChange={(e) => setDestination(e.target.value)} className="border-0 outline-0 w-20 md:w-28 cursor-pointer text-gray-400">
+                            <option className="text-gray-600">País</option>
+                            {countryNames.map((countryName) => (
+                                <option key={countryName} value={countryName} className="text-gray-600">
+                                    {countryName}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex items-center gap-2.5" ref={dateRef}>  
                         <FontAwesomeIcon icon={faCalendarDays} /> 
-                        <div className="flex justify-center"> 
+                        <div className="flex justify-center ">                             
                             <span className="md:hidden cursor-pointer text-gray-400"  onClick={() => setOpenDate(!openDate)}>Fechas</span>            
                             <span
                             onClick={() => setOpenDate(!openDate)}
-                            className="cursor-pointer text-gray-400 hidden md:inline"
+                            className="cursor-pointer text-gray-400 hidden md:inline relative"
                             >{`${format(date[0].startDate, "dd/MM/yyyy")} - ${format(
                             date[0].endDate,
                             "dd/MM/yyyy"
                             )}`}</span>
                             {openDate && (
-                            <DateRange
-                                editableDateInputs={true}
-                                onChange={(item) => setDate([item.selection])}
-                                moveRangeOnFirstSelection={false}
-                                ranges={date}
-                                className="absolute z-10 mt-20 sm:mt-14 lg:mt-10"
-                                minDate={new Date()}
-                            />
+                                <div className="absolute z-10 shadow-md top-14 md:top-20 lg:top-14"> 
+                                    <DateRange
+                                        editableDateInputs={!searchAnyDate}
+                                        onChange={handleDateChange}
+                                        moveRangeOnFirstSelection={false}
+                                        ranges={searchAnyDate ? [] : date}
+                                        rangeColors={['rgb(244 67 54)']}
+                                        minDate={new Date()}
+                                    />
+                                    <div className="flex gap-4 px-3 pb-2 bg-white">
+                                        <Switch
+                                            color="red"
+                                            checked={searchAnyDate}
+                                            onChange={handleSearchAnyDate}
+                                        />
+                                        <Typography color='gray'>Cualquier fecha</Typography>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>
@@ -178,10 +245,17 @@ const Search = () => {
                         </div>
                     </div>
                     <div className="flex items-center gap-2.5">
-                        <Button className="bg-red-500 md:hidden w-10 pl-3.5"><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
-                        <Button className="bg-red-500 hidden md:inline w-20 p-2">Search</Button>
+                        <Button className="bg-red-500 md:hidden w-10 pl-3.5" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} /></Button>
+                        <Button className="bg-red-500 hidden md:inline w-20 p-2" onClick={handleSearch}>Search</Button>
                     </div>
                 </div>
+                {emptyInput ?
+                <div className="h-fit p-1 text-center">
+                    <Typography className="" variant="small" color="red">
+                        * Faltan datos para realizar la búsqueda *
+                    </Typography>
+                </div> 
+                : "" }
         </div>
     );  
 };
