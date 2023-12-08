@@ -53,9 +53,15 @@ const NavBar = () => {
                         </Button>                    
                         {isSearchOpen && <Search/>}
                     </div>
-                    <div className="flex flex-col md:flex-row gap-px md:gap-4">
-                        
-                        <Button variant="text" className="rounded-full" onClick={handleOpenSignUp}>Registrarse</Button>
+                    <div className="flex flex-row gap-px md:gap-4">
+
+                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
+                        <Link to="/property-register">
+                            <Button variant="text">Registro de Propiedad</Button>
+                        </Link>
+                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
+
+                        <Button variant="text" className="rounded-full hidden sm:inline" onClick={handleOpenSignUp}>Registrarse</Button>
                         <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
                         <Forms
                             openLogin={openLogin}

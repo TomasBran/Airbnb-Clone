@@ -1,7 +1,6 @@
 
 package com.clonair.back.image;
 
-import com.clonair.back.image.Image;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 

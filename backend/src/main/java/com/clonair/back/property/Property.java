@@ -4,12 +4,7 @@ package com.clonair.back.property;
 import com.clonair.back.image.Image;
 import com.clonair.back.location.Location;
 import com.clonair.back.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
@@ -23,13 +18,21 @@ public class Property {
     @Id
     @GeneratedValue (generator= "uuid")
     @GenericGenerator (name= "uuid", strategy = "uuid2")
+    @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
     private String title;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    @Enumerated(EnumType.STRING)
     private SubCategory subCategory;
+
     private String description;
+
     private double value;
+
     private boolean active;
 
     @ManyToOne
