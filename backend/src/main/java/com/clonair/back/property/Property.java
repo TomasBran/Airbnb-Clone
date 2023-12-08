@@ -2,7 +2,6 @@
 package com.clonair.back.property;
 
 import com.clonair.back.image.Image;
-
 import com.clonair.back.location.Location;
 import com.clonair.back.user.User;
 import jakarta.persistence.Entity;
@@ -12,8 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.List;
-import java.util.Optional;
-
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
