@@ -43,7 +43,8 @@ public class Property {
     @Cascade(value = CascadeType.ALL)
     private Location location;
 
-    @OneToMany
+    @OneToMany(mappedBy = "property")
+    @Cascade(value = CascadeType.ALL)
     private List<Image> images;
 
     private List<String> availability;

@@ -1,6 +1,7 @@
 
 package com.clonair.back.image;
 
+import com.clonair.back.property.Property;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -24,5 +25,9 @@ public class Image {
     private byte[] content;
 
     private String url;
+
+    @ManyToOne
+    @JoinColumn(name = "property_id") // Nombre de la columna en la tabla Image que referencia a Property
+    private Property property;
 
 }
