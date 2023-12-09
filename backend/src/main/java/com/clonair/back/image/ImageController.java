@@ -23,7 +23,7 @@ public class ImageController {
         return ResponseEntity.ok(imageUrl);
     }
 
-    @GetMapping("/{id}/data")
+    @GetMapping("/{id}")
     public ResponseEntity<byte[]> getImageData(@PathVariable String id) throws Exception {
         Image image = imageService.getOne(id);
         byte[] img = image.getContent();

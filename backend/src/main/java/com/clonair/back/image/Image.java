@@ -1,12 +1,7 @@
 
 package com.clonair.back.image;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,6 +20,7 @@ public class Image {
 
     //Lob es la anotación de JPA para indicar objetos grandes
     @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] content;
 
     private String url;
