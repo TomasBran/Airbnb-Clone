@@ -15,6 +15,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import static com.clonair.back.security.utils.Utils.obtenerUserDetails;
 
 @Service
@@ -42,13 +44,20 @@ public class PropertyServiceImp implements PropertyService {
 
             if (jwtService.isTokenValid(token, userDetails)) { // Validación del token JWT con los UserDetails
                 Optional<User> userOptional = userService.findByUsername(userDetails.getUsername()); // Buscar el usuario por su nombre de usuario(email en este caso)
-                User user = userOptional.orElse(null); // Obtener el User del Optional
+                User user = userOptional.orElse(null); // Obtener el User del Optional.
 
                 if (user != null && user.getRole() == Role.OWNER) {
-                    // Crear una nueva propiedad sin establecer su ID explícitamente
+                    // Crear una nueva propiedad sin establecer su ID explícitamente.
                     Property property = requestToPropertyMap(request);
                     property.setUser(user);
-                    propertyRepository.save(property);
+
+                    // Asociar las imágenes con la propiedad creada
+                    List<Image> images = imageService.saveMulti(request.images().toArray(new MultipartFile[0]));
+                    images.forEach(image -> image.setProperty(property)); // Establecer la propiedad en cada imagen.
+
+                    property.setImages(images); // Establecer la lista de imágenes en la propiedad.
+
+                    propertyRepository.save(property); // Guardar la propiedad con las imágenes asociadas.
                 } else {
                     throw new Exception("El usuario no es un OWNER");
                 }
@@ -97,10 +106,6 @@ public class PropertyServiceImp implements PropertyService {
         property.setDescription(request.description());
         property.setValue(request.value());
         property.setLocation(location); // Asignar la nueva instancia de Location a la Property
-
-        // Guardar las imágenes y establecerlas en la propiedad
-        List<Image> images = imageService.saveMulti(request.images());
-        property.setImages(images);
 
         // Manejar subCategory y active (si son nulos, no establecerlos)
         if (request.subCategory() != null) {
