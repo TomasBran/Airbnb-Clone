@@ -1,6 +1,6 @@
 package com.clonair.back.security.config;
 
-import com.clonair.back.security.filter.JwtAuthenticationFilter;
+import com.clonair.back.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

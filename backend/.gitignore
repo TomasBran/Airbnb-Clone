@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 env.properties
+nbactions.tmp
 
 ### STS ###
 .apt_generated
