@@ -19,5 +19,7 @@ public interface ImageService {
     public void delete(String id) throws Exception;
 
     public String getUrl(String id);
+
+    public String generateImageUrl(String id);
     
 }
