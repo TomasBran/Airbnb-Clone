@@ -4,6 +4,7 @@ package com.clonair.back.property;
 import org.springframework.web.multipart.MultipartFile;
 
 public record PropertyRequest(
+    String title,
     String category,
     String subCategory,
     String description,

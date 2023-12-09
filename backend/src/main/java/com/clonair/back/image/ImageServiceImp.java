@@ -1,9 +1,6 @@
 
 package com.clonair.back.image;
 
-import com.clonair.back.image.Image;
-import com.clonair.back.image.ImageRepository;
-import com.clonair.back.image.ImageService;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;

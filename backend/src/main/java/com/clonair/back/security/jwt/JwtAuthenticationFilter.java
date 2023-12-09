@@ -1,6 +1,5 @@
-package com.clonair.back.security.filter;
+package com.clonair.back.security.jwt;
 
-import com.clonair.back.security.service.JwtService;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.FilterChain;

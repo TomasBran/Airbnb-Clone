@@ -1,4 +1,4 @@
-package com.clonair.back.security.controller;
+package com.clonair.back.security.demo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

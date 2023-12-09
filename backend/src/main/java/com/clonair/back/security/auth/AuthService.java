@@ -1,8 +1,8 @@
-package com.clonair.back.security.service;
+package com.clonair.back.security.auth;
 
+import com.clonair.back.security.jwt.JwtService;
 import com.clonair.back.user.User;
 import com.clonair.back.user.UserRepository;
-import com.clonair.back.security.dto.AuthResponse;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
 import com.clonair.back.user.Role;

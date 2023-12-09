@@ -7,6 +7,7 @@ import java.util.List;
 
 public record PropertyResponse(
         String id,
+        String title,
         User user,
         Category category,
         SubCategory subCategory,

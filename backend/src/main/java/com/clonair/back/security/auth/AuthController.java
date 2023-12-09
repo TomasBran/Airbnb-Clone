@@ -1,9 +1,7 @@
-package com.clonair.back.security.controller;
+package com.clonair.back.security.auth;
 
-import com.clonair.back.security.dto.AuthResponse;
 import com.clonair.back.security.request.LoginRequest;
 import com.clonair.back.security.request.RegisterRequest;
-import com.clonair.back.security.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -5,7 +5,7 @@ import com.clonair.back.image.ImageService;
 import com.clonair.back.location.Location;
 import java.util.List;
 import java.util.Optional;
-import com.clonair.back.security.service.JwtService;
+import com.clonair.back.security.jwt.JwtService;
 import com.clonair.back.user.Role;
 import com.clonair.back.user.User;
 import com.clonair.back.user.UserService;
@@ -92,6 +92,7 @@ public class PropertyServiceImp implements PropertyService {
         location.setCity(request.city());
 
         // Configurar los datos en la entidad Property
+        property.setTitle(request.title());
         property.setCategory(Category.valueOf(request.category()));
         property.setDescription(request.description());
         property.setValue(request.value());
@@ -114,6 +115,7 @@ public class PropertyServiceImp implements PropertyService {
     private PropertyResponse propertyToResponseMap(Property property) {
         return new PropertyResponse(
                 property.getId(),
+                property.getTitle(),
                 property.getUser(),
                 property.getCategory(),
                 property.getSubCategory(),

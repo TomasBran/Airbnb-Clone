@@ -1,4 +1,4 @@
-package com.clonair.back.security.service;
+package com.clonair.back.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

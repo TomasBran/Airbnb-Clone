@@ -1,4 +1,4 @@
-package com.clonair.back.security.dto;
+package com.clonair.back.security.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
