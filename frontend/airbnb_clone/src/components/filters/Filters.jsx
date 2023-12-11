@@ -170,7 +170,7 @@ const Filters = () => {
                     </section>
                     <section className="mt-10">
                         <h2 className="text-lg font-bold pb-2">Tipo de Propiedad</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
                             <Button variant="outlined" className={getButtonClassName('house')} onClick={() => handleTypeSelection('house')}> <FontAwesomeIcon icon={faHouse} size="xl"/>Casa</Button>
 
                             <Button variant="outlined" className={getButtonClassName('department')} onClick={() => handleTypeSelection('department')}> <FontAwesomeIcon icon={faBuilding} size="xl" />Departamento</Button>
