@@ -163,8 +163,8 @@ export const PropertyRegister = () => {
                             Servicios disponibles
                         </Typography>
                         <div className="flex w-full flex-wrap justify-center">
-                            {services.map((service) => (
-                                <Checkbox label={service}/>
+                            {services.map((service, index) => (
+                                <Checkbox key={index} label={service}/>
                             ))}
                         </div>
                     </div>

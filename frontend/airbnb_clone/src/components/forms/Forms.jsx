@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import React from 'react';
 import {
     Button,
     Dialog,
@@ -16,11 +15,14 @@ import {
 import { login, register } from "../../services/login"
 
 import passwordIcon from '../../assets/password_icon.svg'
+import { CountriesSelect } from '../countries/CountryList'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     const switchRef = useRef()
     const [registerButtonPressed, setRegisterButtonPressed] = useState(false)
+
+    const [countryValue, setCountryValue] = useState('')
     
     const [dataMissing, setDataMissing] = useState(false)
     const [showPassword, setShowPassword] = useState(true);
@@ -39,7 +41,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     const initialInputArray = (() => {
         const initialState = {};
         for (const key in initialUserData) {
-            initialState[key] = false;
+            initialState[key] = false; 
         }
         return initialState;
     })();
@@ -62,22 +64,34 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
     };
 
+    const handleCountryChange = () => {
+        setUserData({
+            ...userData,
+            ['country'] : countryValue
+        })
+    }
+
+    useEffect(() => {
+        setInputArray({
+            ...inputArray,
+            ['country'] : countryValue === ''
+        })
+    }, [countryValue])
+
 
     const handleLogInButton = (userData) => {
         if(userData.username !== '' && userData.password !== ''){
             sendLogin(userData)
             handleOpenLogin()
             resetData()
-            console.log("Bienvenido " + userData.username)
         } else{
             showEmptyInput()
             setDataMissing(true)
         }
     }
 
-    const handleRegisterButton = (newUserData) => {
 
-        
+    const handleRegisterButton = (newUserData) => {
 
         for (const key in newUserData) {
             if(newUserData[key]==='' && key!=="role"){
@@ -92,7 +106,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
           ...prevData,
           role: switchRef.current.checked ? 'OWNER' : 'USER',
         }));
-        
+
+
     }
 
     useEffect(() => {
@@ -146,6 +161,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         
     }, [openLogin, openSignUp]);
 
+
+    const validateEmailFormat = (email) => {
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regexEmail.test(email);
+    }
     
 
 
@@ -153,11 +173,12 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         const { username, password } = userData;
         const newData = {username, password}
         login(newData)
+        console.log("Data enviada al back:", userData)
     }
 
     const sendRegister = (userData) => {
         register(userData)
-
+        console.log("Data enviada al back:", userData)
     }
 
 
@@ -270,7 +291,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 País
                 </Typography>
-                <Input error={inputArray.country} name="country" color="indigo" label="País" size="lg" onChange={handleInputChange}/>
+                <CountriesSelect newError={inputArray.country} name="country" onChange={handleCountryChange} newValue={countryValue} setCountryValue={setCountryValue}/> 
                 <div className='-mb-3'>
                     <Switch label="Soy propietario" inputRef={switchRef}/>
                 </div>
