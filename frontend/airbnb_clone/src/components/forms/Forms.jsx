@@ -61,21 +61,24 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             ...inputArray,
             [name]: value.trim() === '',
         });
+        
+        setDataMissing(false)
 
     };
 
-    const handleCountryChange = () => {
+
+    useEffect(() => {
+
         setUserData({
             ...userData,
             ['country'] : countryValue
         })
-    }
 
-    useEffect(() => {
         setInputArray({
             ...inputArray,
             ['country'] : countryValue === ''
         })
+
     }, [countryValue])
 
 
@@ -291,7 +294,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography className="-mb-2" variant="h6">
                 País
                 </Typography>
-                <CountriesSelect newError={inputArray.country} name="country" onChange={handleCountryChange} newValue={countryValue} setCountryValue={setCountryValue}/> 
+                <CountriesSelect newError={inputArray.country} name="country" newValue={countryValue} setCountryValue={setCountryValue}/> 
                 <div className='-mb-3'>
                     <Switch label="Soy propietario" inputRef={switchRef}/>
                 </div>

@@ -11,12 +11,12 @@ for (const key in countries) {
 countryList.sort()
 
 
-export const CountriesSelect = ({ onChange, countryValue, setCountryValue, newError }) => {
+export const CountriesSelect = ({ countryValue, setCountryValue, newError }) => {
 
 
 
     return(
-            <Select label="País" color="indigo" className="w-full" value={countryValue} onChange={(e) =>{setCountryValue(e), onChange()}} error={newError}>
+            <Select label="País" color="indigo" className="w-full" value={countryValue} onChange={(e) =>setCountryValue(e)} error={newError}>
             {countryList.map((country, index) => (
                 <Option key={index} value={country}>{country}</Option>
             ))}
