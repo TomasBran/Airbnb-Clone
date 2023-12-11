@@ -8,7 +8,7 @@ const NavBarFilters = () => {
       
     return (
         <div className="box-border py-3 px-8 flex justify-between items-center gap-4 border-2 w-full">
-            <div className="border border-gray-300 rounded-lg text-md px-5 py-3 w-fit flex gap-8 overflow-auto min-w-11/12 text-gray-600">
+            <div className="border border-gray-300 rounded-lg text-md px-5 py-2 w-fit flex gap-8 overflow-auto min-w-11/12 text-gray-600">
                 <button className={getButtonClassName}><FontAwesomeIcon icon={faUmbrellaBeach} className="h-6"/>Playa</button>
                 <button className={getButtonClassName}><FontAwesomeIcon icon={faHouseFloodWater} className="h-6"/>Lago</button>
                 <button className={getButtonClassName}><FontAwesomeIcon icon={faMountainCity} className="h-6"/>Montaña</button>

@@ -58,7 +58,7 @@ const NavBar = () => {
                         {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
                         <Link to="/property-register">
                             <Button variant="text">Registro de Propiedad</Button>
-                        </Link>
+                        </Link> 
                         {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
 
                         <Button variant="text" className="rounded-full hidden sm:inline" onClick={handleOpenSignUp}>Registrarse</Button>
