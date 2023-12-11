@@ -147,12 +147,13 @@ const Filters = () => {
 
     return (
         <>
-            <Button onClick={handleOpen} variant="outlined"  className="w-32 p-3 md:pl-6 h-14 text-sm">
-                <h2 className="flex gap-2"><FontAwesomeIcon icon={faFilter} /> Filtrar</h2>
+            <Button onClick={handleOpen} variant="outlined"  className="w-32 p-8 md:pl-6 h-14 text-sm flex flex-col md:flex-row items-center justify-center gap-2">
+                <FontAwesomeIcon icon={faFilter}/>
+                <h2>Filtrar</h2>
             </Button>
             <Dialog open={open} handler={handleOpen} size="lg">
                 <DialogHeader className="pl-10">Filtros</DialogHeader>
-                <DialogBody className="text-black max-h-96 overflow-y-auto px-2 md:px-10">
+                <DialogBody className="text-black max-h-96 overflow-y-auto px-3 md:px-10">
                     <section className="flex flex-col gap-4">
                         <h2 className="text-lg font-bold">Rango Precios (Por Noche)</h2>
                         <div className="pb-1 px-6">
@@ -161,15 +162,15 @@ const Filters = () => {
                             <label htmlFor="maxRange" className="text-sm">Valor Máximo</label>
                             <input type="range"  id="maxRange" min={0} max={1000} value={maxValue} onChange={handleMaxChange} className="appearance-none bg-red-300 h-2 w-full rounded-md outline-none"/>
                         </div>                        
-                        <div className="flex gap-4 px-4">
+                        <div className="flex flex-col gap-2 md:flex-row md:gap-4 px-4">
                             <Input label="$ Mínimo" min={0} max={1000} value={minValue} onChange={handleMinChange}/>
                             _
                             <Input label="$ Máximo" min={0} max={1000} value={maxValue} onChange={handleMaxChange}/>
                         </div>                       
                     </section>
                     <section className="mt-10">
-                        <h2 className="text-lg font-bold">Tipo de Propiedad</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
+                        <h2 className="text-lg font-bold pb-2">Tipo de Propiedad</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
                             <Button variant="outlined" className={getButtonClassName('house')} onClick={() => handleTypeSelection('house')}> <FontAwesomeIcon icon={faHouse} size="xl"/>Casa</Button>
 
                             <Button variant="outlined" className={getButtonClassName('department')} onClick={() => handleTypeSelection('department')}> <FontAwesomeIcon icon={faBuilding} size="xl" />Departamento</Button>
@@ -180,8 +181,8 @@ const Filters = () => {
                         </div>
                     </section>
                     <section className="mt-10">
-                        <h2 className="text-lg font-bold">Habitaciones y Camas</h2>
-                        <div className="md:px-8">
+                        <h2 className="text-lg font-bold pb-2">Habitaciones y Camas</h2>
+                        <div className="px-4 md:px-8">
                             <h3>Dormitorios</h3>
                             <div className="flex flex-wrap gap-2 md:gap-4">
                                 <Radio name="rooms" label="Cualquiera" ripple={true} checked={selectedRooms === 'cualquiera'} onChange={() => handleRoomSelection('cualquiera')}/>
@@ -193,7 +194,7 @@ const Filters = () => {
                                 <Radio name="rooms" label="6+" ripple={true} checked={selectedRooms === '6+'} onChange={() => handleRoomSelection('6+')}/> 
                             </div>                          
                         </div>
-                        <div className="px-8">
+                        <div className="px-4 md:px-8">
                             <h3>Camas</h3>
                             <div className="flex flex-wrap gap-2 md:gap-4">
                                 <Radio name="beds" label="Cualquiera" ripple={true} checked={selectedBeds === 'cualquiera'} onChange={() => handleBedSelection('cualquiera')} />
@@ -205,7 +206,7 @@ const Filters = () => {
                                 <Radio name="beds" label="6+" ripple={true} checked={selectedBeds === '6+'} onChange={() => handleBedSelection('6+')}/>
                             </div>  
                         </div>
-                        <div className="px-8">
+                        <div className="px-4 md:px-8">
                             <h3>Baños</h3>
                             <div className="flex flex-wrap gap-2 md:gap-4">
                                 <Radio name="baths" label="Cualquiera" ripple={true} checked={selectedBaths === 'cualquiera'} onChange={() => handleBathSelection('cualquiera')}/>
@@ -219,20 +220,22 @@ const Filters = () => {
                         </div>                        
                     </section>
                     <section className="mt-10">
-                        <h2 className="text-lg font-bold">Servicios</h2> 
-                        <Checkbox id="wifi" label="Wifi" ripple={true} checked={checkboxes.wifi} onChange={handleCheckboxChange}/>
-                        <Checkbox id="kitchen" label="Cocina" ripple={true}checked={checkboxes.kitchen} onChange={handleCheckboxChange} />  
-                        <Checkbox id="washing" label="Lavarropas" ripple={true} checked={checkboxes.washing} onChange={handleCheckboxChange}/>
-                        <Checkbox id="air" label="Aire Acondicionado" ripple={true} checked={checkboxes.air} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="heating" label="Calefacción" ripple={true} checked={checkboxes.heating} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="pool" label="Pileta" ripple={true} checked={checkboxes.pool} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="pets" label="Permite Mascotas" ripple={true} checked={checkboxes.pets} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="parking" label="Estacionamiento" ripple={true} checked={checkboxes.parking} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="cradle" label="Cuna" ripple={true} checked={checkboxes.cradle} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="barbecue" label="Parrilla" ripple={true} checked={checkboxes.barbecue} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="breakfast" label="Desayuno" ripple={true} checked={checkboxes.breakfast} onChange={handleCheckboxChange}/>  
-                        <Checkbox id="smoke" label="Se permite fumar" ripple={true} checked={checkboxes.smoke} onChange={handleCheckboxChange}/>
-                        <Checkbox id="smoke" label="Cancelación Anticipada" ripple={true} checked={checkboxes.cancel} onChange={handleCheckboxChange}/>                                          
+                        <h2 className="text-lg font-bold pb-2">Servicios</h2> 
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                            <Checkbox id="wifi" label="Wifi" ripple={true} checked={checkboxes.wifi} onChange={handleCheckboxChange}/>
+                            <Checkbox id="kitchen" label="Cocina" ripple={true}checked={checkboxes.kitchen} onChange={handleCheckboxChange} />  
+                            <Checkbox id="washing" label="Lavarropas" ripple={true} checked={checkboxes.washing} onChange={handleCheckboxChange}/>
+                            <Checkbox id="air" label="Aire Acondicionado" ripple={true} checked={checkboxes.air} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="heating" label="Calefacción" ripple={true} checked={checkboxes.heating} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="pool" label="Pileta" ripple={true} checked={checkboxes.pool} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="pets" label="Permite Mascotas" ripple={true} checked={checkboxes.pets} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="parking" label="Estacionamiento" ripple={true} checked={checkboxes.parking} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="cradle" label="Cuna" ripple={true} checked={checkboxes.cradle} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="barbecue" label="Parrilla" ripple={true} checked={checkboxes.barbecue} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="breakfast" label="Desayuno" ripple={true} checked={checkboxes.breakfast} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="smoke" label="Se permite fumar" ripple={true} checked={checkboxes.smoke} onChange={handleCheckboxChange}/>
+                            <Checkbox id="smoke" label="Cancelación Anticipada" ripple={true} checked={checkboxes.cancel} onChange={handleCheckboxChange}/>   
+                        </div>                                       
                     </section>
                 </DialogBody>
                 <DialogFooter className="flex justify-between">
