@@ -14,5 +14,9 @@ public record PropertyRequest(
         Boolean active,
         List<MultipartFile> images,
         String country,
-        String city
+        String city,
+        int bathroom,
+        int bed,
+        int bedroom,
+        List<String> services
     ){}

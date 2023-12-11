@@ -9,7 +9,6 @@ import com.clonair.back.security.jwt.JwtService;
 import com.clonair.back.user.Role;
 import com.clonair.back.user.User;
 import com.clonair.back.user.UserService;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +91,20 @@ public class PropertyServiceImp implements PropertyService {
         propertyRepository.delete(property);
     }
 
+    private List<ServiceType> mapServices(List<String> servicesAsString) {
+        return servicesAsString.stream()
+                .map(this::getServiceFromString)
+                .collect(Collectors.toList());
+    }
+
+    private ServiceType getServiceFromString(String serviceString) {
+        try {
+            return ServiceType.valueOf(serviceString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid service: " + serviceString);
+        }
+    }
+
     private Property requestToPropertyMap(PropertyRequest request) throws Exception {
         Property property = new Property();
 
@@ -106,6 +119,14 @@ public class PropertyServiceImp implements PropertyService {
         property.setDescription(request.description());
         property.setValue(request.value());
         property.setLocation(location); // Asignar la nueva instancia de Location a la Property
+        property.setBathroom(request.bathroom());
+        property.setBed(request.bed());
+        property.setBedroom(request.bedroom());
+
+        // Mapear los servicios de String a Enums Service
+        List<ServiceType> serviceTypeEnums = mapServices(request.services());
+
+        property.setServiceTypes(serviceTypeEnums);
 
         // Manejar subCategory y active (si son nulos, no establecerlos)
         if (request.subCategory() != null) {
@@ -132,7 +153,10 @@ public class PropertyServiceImp implements PropertyService {
                         .map(Image::getUrl)
                         .collect(Collectors.toList()),
                 property.getLocation(),
-                new ArrayList<>()
+                property.getAvailability(),
+                property.getBathroom(),
+                property.getBed(),
+                property.getBedroom()
         );
     }
 

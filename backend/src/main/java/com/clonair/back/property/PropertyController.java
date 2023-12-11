@@ -37,12 +37,15 @@ public class PropertyController {
             @RequestParam("active") boolean active,
             @RequestParam("images") List<MultipartFile> images,
             @RequestParam("country") String country,
-            @RequestParam("city") String city
+            @RequestParam("city") String city,
+            @RequestParam("bathroom") int bathroom,
+            @RequestParam("bed") int bed,
+            @RequestParam("bedroom") int bedroom,
+            @RequestParam("services") List<String> services
     ) throws Exception {
-        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city);
+        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city, bathroom, bed, bedroom, services);
         propertyService.save(token, propertyRequest);
     }
-
 
     @PutMapping()
     public void update(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token, @RequestBody PropertyRequest body) throws Exception {
