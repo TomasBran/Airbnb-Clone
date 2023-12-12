@@ -1,4 +1,12 @@
-import { Button, Checkbox, Input, Option, Select, Switch, Textarea, Typography } from "@material-tailwind/react"
+import { Button,
+    Checkbox,
+    Input,
+    Option,
+    Select,
+    Switch,
+    Textarea,
+    Typography,
+} from "@material-tailwind/react"
 import { countries } from 'countries-list'
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -108,15 +116,15 @@ export const PropertyRegister = () => {
 
     return(
         <div className="flex m-4 flex-col items-center h-full">
-                    <Typography variant="h3">
-                        Información de la propiedad
-                    </Typography>
+            <Typography variant="h3">
+                Información de la propiedad
+            </Typography>
             <div className="w-full flex justify-around gap-6 p-5">
 
                 <div className="w-5/12 flex flex-col gap-4 items-center">
                     <div className="flex flex-col gap-4 justify-between w-full h-full">
                         <Input label="Título"/>
-                        <Textarea label="Descripción" size="md"/>
+                        <Textarea label="Descripción" size="md" maxLength="500"/>
                         <Input label="Fotos" type="file" multiple accept=".jpg, .jpeg, .png" name="pictures"/>
                         <div className="flex gap-2 w-full">
                             <Input label="Precio" type="number" className="w-full"/>
