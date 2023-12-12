@@ -27,20 +27,23 @@
 
 ✅ - Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
 
-✅ - Fechas Disponibles para Reservar: Permite a los usuarios verificar la disponibilidad de fechas para realizar reservas. <br>
+✅ - Fechas Disponibles para Reservar: Permite a los usuarios verificar la disponibilidad de fechas. <br>
 
 <br>
 
 <h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
 
-✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, desplegado en un contenedor Docker. <br>
+✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
 
-✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, desplegado en un contenedor Docker. <br>
+✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
 
 ✅ - Base de Datos: MySQL se utiliza para almacenar toda la información de manera eficiente y escalable, <br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
 
-✅ - Docker: Utilizado para contenerizar el frontend, backend y la base de datos, facilitando el despliegue en entornos de producción. <br>
+✅ - Docker: Utilizado para contenerizar el frontend, backend y la base de datos, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; facilitando el despliegue en entornos de producción. <br>
 
 ✅ - Sistema de Autenticación y Autorización: Utiliza tokens JWT para la autenticación y autorización de usuarios. <br>
 
@@ -48,8 +51,8 @@
 
 <h2> 📒 Sobre el proyecto 📑 </h2>
 
-✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada en Spring Boot, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; permitiendo a los usuarios utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; en Spring Boot, permitiendo a los usuarios utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
 
 ✅ - El backend contiene toda la lógica de los controladores, servicios y repositorios necesarios para la persistencia <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y manipulación de datos, garantizando una experiencia fluida y segura para los usuarios. <br>
