@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
 import { Container, HostCardItem } from "..";
-import { DetailContainerCard } from "../../cards";
 
 const alojamientos = [
     {
-      id: 1,
+      id: "1as4d",
       location: "Apartamento en el centro",
       address: "Calle 50, Tegucigalpa, Honduras",
       reservationDate:"11-12 de dic",
@@ -54,9 +54,7 @@ const alojamientos = [
 
 export const CardContainer = () => {
   return (
-
-    <>
-      <Container>
+    <Container>
       <div 
           className="
             pt-6
@@ -71,12 +69,12 @@ export const CardContainer = () => {
           "
         >
           {alojamientos.map((alojamiento) => (
-            <HostCardItem key={alojamiento.id} location={alojamiento.location} address={alojamiento.address} reservationDate={alojamiento.reservationDate} price={alojamiento.price} image={alojamiento.image} />
-          ))}
+            <Link key={alojamiento.id} to={`/property-detail/${alojamiento.id}`}>
+              <HostCardItem location={alojamiento.location} address={alojamiento.address} reservationDate={alojamiento.reservationDate} price={alojamiento.price} image={alojamiento.image} />
+            </Link>
+          )
+          )}
         </div>
     </Container>
-
-    <DetailContainerCard />
-    </>
   )
 }
