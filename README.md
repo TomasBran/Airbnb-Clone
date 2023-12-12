@@ -1,21 +1,61 @@
 
-<h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
+<h1 align="center"> 🏡 Proyecto de c15-33-ft-java-react 🏖 </h1>
 
 <br>
 
-<h2> 📒 Sobre el Proyecto 📑 </h2>
+<h2> 🏰 Clon de Airbnb API Restful 🚀 </h2>
 
-✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; implementada en Spring Boot, permitiendo a los usuarios registrarse, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+✅ - Este proyecto es un clon de Airbnb desarrollado con el objetivo de brindar una plataforma robusta <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; para la gestión de propiedades y reservas. Utiliza tecnologías modernas como React, Tailwind en el frontend <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y Spring Boot en el backend con integración de Spring Security y una API de imágenes completa. <br>
 
 ✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+<br>
+
+<h2> 🚩 Funcionalidades Principales ⚜ </h2>
+
+✅ - Registro de Usuarios: Permite a los usuarios crear cuentas para acceder a la plataforma. <br>
+
+✅ - Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
+
+✅ - Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
+
+✅ - Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servicios ofrecidos e imágenes para brindar una descripción detallada. <br>
+
+✅ - Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
+
+✅ - Fechas Disponibles para Reservar: Permite a los usuarios verificar la disponibilidad de fechas para realizar reservas. <br>
 
 <br>
 
-<h2> 💎 Team ✨ </h2>
+<h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
+
+✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, desplegado en un contenedor Docker. <br>
+
+✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, desplegado en un contenedor Docker. <br>
+
+✅ - Base de Datos: MySQL se utiliza para almacenar toda la información de manera eficiente y escalable, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
+
+✅ - Docker: Utilizado para contenerizar el frontend, backend y la base de datos, facilitando el despliegue en entornos de producción. <br>
+
+✅ - Sistema de Autenticación y Autorización: Utiliza tokens JWT para la autenticación y autorización de usuarios. <br>
+
+<br>
+
+<h2> 📒 Sobre el proyecto 📑 </h2>
+
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada en Spring Boot, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; permitiendo a los usuarios utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+
+✅ - El backend contiene toda la lógica de los controladores, servicios y repositorios necesarios para la persistencia <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y manipulación de datos, garantizando una experiencia fluida y segura para los usuarios. <br>
+
+<br>
+<h2> 💗 Team ✨ </h2>
 <dd>
     <a href="https://www.linkedin.com/in/mateo-jeremias-pg/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
     Mateo Jeremías Pinto | Team Lead 👨‍💻 
