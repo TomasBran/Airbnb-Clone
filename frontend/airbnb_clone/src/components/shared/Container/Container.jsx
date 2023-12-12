@@ -2,6 +2,7 @@ export const Container = ({ children }) => {
     return ( 
         <div
           className="
+            mt-2
             max-w-[2520px]
             mx-auto
             xl:px-20 
