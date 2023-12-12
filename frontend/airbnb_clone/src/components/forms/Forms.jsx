@@ -229,6 +229,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             return false;
         }
 
+        if (!/\d/.test(password)) {
+            return false;
+        }
+
+
         return true;
     }
 
@@ -356,7 +361,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                     Tu contraseña
                     </Typography>
                     <Typography className="" variant="small" color="red">
-                    {invalidPassword ? "* Mín. 8 caracteres y 1 mayúscula" : ""}
+                    {invalidPassword ? "* Mín. 8 caracteres, 1 mayúscula y 1 número" : ""}
                     </Typography>
 
                 </div>
