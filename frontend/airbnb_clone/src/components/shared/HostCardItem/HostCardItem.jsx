@@ -30,16 +30,16 @@ export const HostCardItem = ({location, address, reservationDate, price, image})
             ">
             </div>
           </div>
-          <div className="font-semibold text-lg">
+          <div className="font-semibold xl:text-sm md:text-base sm:text-lg truncate">
             {location}
           </div>
-          <div className="font-light text-gray-700">
+          <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
             {address}
           </div>
-          <div className="font-light text-gray-700">
+          <div className="font-light text-gray-700 xl:text-sm md:text-base sm:text-lg truncate">
             {reservationDate}
           </div>
-          <div className="font-semibold">
+          <div className="font-semibold xl:text-sm md:text-base sm:text-lg truncate">
             ${price} por noche
           </div>
         </div>
