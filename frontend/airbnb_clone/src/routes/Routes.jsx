@@ -4,9 +4,8 @@ import { Error404 } from "../components/error404/Error404";
 import { CardContainer } from "../components/shared";
 import { PropertyRegister } from "../components/property/PropertyRegister";
 import { DetailContainerCard } from "../components/cards";
-import { AccountSettingsDashboard } from "../components/user";
+import { AccountSettings } from "../components/user";
 import { AdminPanel } from "../components/admin/AdminPanel";
-
 
 const router = createBrowserRouter([
     {
@@ -28,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/account-settings",
-                element: <AccountSettingsDashboard />
+                element: <AccountSettings />
             },
             {
                 path: "/admin-panel",
