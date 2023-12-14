@@ -30,7 +30,7 @@ const router = createBrowserRouter([
                 element: <AccountSettings />
             },
             {
-                path: "admin-panel",
+                path: "/admin-panel",
                 element: <AdminPanel/>
             }
             
