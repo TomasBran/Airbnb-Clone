@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const SubcategoryButtons = ({ icon, text }) => {
+export const SubcategoryButtons = ({ icon, text }) => {
     const getButtonClassName = "flex flex-col items-center hover:text-gray-900 border-b-4 border-b-white hover:border-b-gray-900 p-2";
     
     return (
@@ -11,5 +11,3 @@ const SubcategoryButtons = ({ icon, text }) => {
         </button>
     );
 };
-
-export default SubcategoryButtons;

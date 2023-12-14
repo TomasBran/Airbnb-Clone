@@ -1,7 +1,7 @@
 import {NavBar, NavBarFilters} from "../navbar";
 
 
-const Header = () => {
+export const Header = () => {
     return (
         <header className="sticky top-0 z-50 bg-white">
             <NavBar/>
@@ -10,4 +10,3 @@ const Header = () => {
     );
 };
 
-export default Header;

@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Filters = () => {    
+export const Filters = () => {    
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     
@@ -257,4 +257,3 @@ const Filters = () => {
     )
 };
 
-export default Filters;

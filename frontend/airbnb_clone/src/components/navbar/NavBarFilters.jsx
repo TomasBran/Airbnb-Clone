@@ -1,8 +1,9 @@
+import { Button } from "@material-tailwind/react";
 import { Filters, SubcategoryButtons } from "../filters";
 import { faCampground, faCity, faHouseChimney, faHouseFloodWater, faMountainCity, faSun, faUmbrellaBeach, faWarehouse, faWaterLadder } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-
-const NavBarFilters = () => {
+export const NavBarFilters = () => {
     const filtersData = [
         { icon: faUmbrellaBeach, text: "Playa" },
         { icon: faHouseFloodWater, text: "Lago" },
@@ -17,14 +18,17 @@ const NavBarFilters = () => {
 
     return (
         <div className="box-border py-3 px-8 flex justify-between items-center gap-4 border-2 w-full">
-            <div className="border border-gray-300 rounded-lg text-md px-5 py-2 w-fit flex gap-8 overflow-auto min-w-11/12 text-gray-600">
-                {filtersData.map((filter, index) => (
-                    <SubcategoryButtons  key={index} icon={filter.icon} text={filter.text} />
-                ))}
-            </div>
+            <div className="border border-gray-300 rounded-lg text-md px-5 py-2 w-fit flex gap-8 overflow-auto min-w-11/12 text-gray-600">                
+                {filtersData.map((filter, index) => (                    
+                    <SubcategoryButtons  key={index} icon={filter.icon} text={filter.text}/>
+                ))}   
+            </div>  
+            {/* Boton Admin temporal */} 
+            <Link to="/admin-panel">
+                <Button variant="text">Admin</Button>
+            </Link>          
             <Filters />
         </div>
     );
 };
 
-export default NavBarFilters;

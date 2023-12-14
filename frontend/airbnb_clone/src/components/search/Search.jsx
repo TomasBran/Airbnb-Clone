@@ -14,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
 
-const Search = () => {    
+export const Search = () => {    
     const queryParams = new URLSearchParams(location.search);
     const navigate = useNavigate();
 
@@ -113,7 +113,7 @@ const Search = () => {
         searchParams.set('rooms', options.room);
     
         //ejemplo: http://localhost:5173/resultados?destination=Paris&startDate=2024-05-08&endDate=2024-08-14&adults=2&children=1&rooms=2
-
+        
         // (cambiar '/resultados' por ruta real)
         navigate(`/resultados?${searchParams.toString()}`);
     };
@@ -176,7 +176,7 @@ const Search = () => {
                             className="cursor-pointer text-gray-400 hidden md:inline"
                             >{`${options.adult} adultos · ${options.children} menores · ${options.room} habitaciones`}</span>
                             {openOptions && (
-                            <div className="z-10 absolute mt-20 sm:mt-14 lg:mt-10 text-gray-700 shadow-lg bg-white">
+                            <div className="z-10 absolute mt-10 text-gray-700 shadow-lg bg-white">
                                 <div className="w-52 flex justify-between m-3">
                                     <span className="flex items-center px-1.5">Adultos</span>
                                     <div className="flex items-center gap-2.5 text-black">
@@ -260,4 +260,3 @@ const Search = () => {
     );  
 };
 
-export default Search;
