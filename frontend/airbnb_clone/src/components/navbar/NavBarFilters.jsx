@@ -27,8 +27,8 @@ export const NavBarFilters = () => {
             <Link to="/admin-panel">
                 <Button variant="text">Admin</Button>
             </Link>     
-            <Link to="/property-register">
-                <Button variant="text">Registro Propiedad</Button>
+            <Link to="/account-settings">
+                <Button variant="text">Cuenta</Button>
             </Link>  
             {/* Boton Admin y registro de propiedad temporales */}    
 
