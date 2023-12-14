@@ -1,5 +1,5 @@
 import LogoIcon from "../../assets/logoicon/LogoIcon";
-import { Button, IconButton } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import  { useEffect, useRef, useState } from 'react';
 import { Search } from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  CardFooter,
 } from "@material-tailwind/react";
 import { useState } from "react";
  
@@ -91,6 +92,58 @@ const TABLE_ROWS = [
     bookings: "",
   },
 ];
+
+const TABLE_PROPS_HEAD = ["Título", "Owner", "Status", ""];
+
+//Hay que traer la info del back
+const TABLE_PROPS_ROWS = [
+  {
+    title: "Casa en la Playa",
+    owner: "Manager",
+    status: "Activa",
+  },
+  {
+    title: "Departamento 3 ambientes",
+    owner: "Manager",
+    status: "Inactiva",
+  },
+  {
+    title: "Cabaña en la Montaña",
+    owner: "Manager",
+    status: "Activa",
+  },
+  {
+    title: "Casa con Pileta",
+    owner: "Manager",
+    status: "Inactiva",
+  },  
+]; 
+
+const TABLE_BOOKINGS_HEAD = ["Título", "Owner", "Status", ""];
+
+//Hay que traer la info del back
+const TABLE_BOOKINGS_ROWS = [
+  {
+    title: "Casa en la Playa",
+    owner: "Manager",
+    status: "Activa",
+  },
+  {
+    title: "Departamento 3 ambientes",
+    owner: "Manager",
+    status: "Inactiva",
+  },
+  {
+    title: "Cabaña en la Montaña",
+    owner: "Manager",
+    status: "Activa",
+  },
+  {
+    title: "Casa con Pileta",
+    owner: "Manager",
+    status: "Inactiva",
+  },  
+]; 
  
 export const AdminPanel = () => {
   const [searchText, setSearchText] = useState('');
@@ -114,7 +167,6 @@ export const AdminPanel = () => {
   
     return false;
   });
-
 
   return (
     <Card className="h-full w-full">
@@ -216,11 +268,62 @@ export const AdminPanel = () => {
                             {user==="User" ? "-" : 
                             <Button variant="text" className="p-1" onClick={handleOpenPropList}>
                               {property}
-                            </Button>}
-                            <Dialog open={openPropList} handler={handleOpenPropList}>
+                            </Button>}                            
+                            <Dialog open={openPropList}>
                               <DialogHeader>Listado de Propiedades</DialogHeader>
                               <DialogBody>
-                                Tabla con listado de propiedades y opciones de editar/eliminar.
+                                <Card className="h-full w-full overflow-auto">
+                                  <table className="w-full min-w-max table-auto text-left">
+                                    <thead>
+                                      <tr>
+                                        {TABLE_PROPS_HEAD.map((head) => (
+                                          <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                            <Typography
+                                              variant="small"
+                                              color="blue-gray"
+                                              className="font-normal leading-none opacity-70"
+                                            >
+                                              {head}
+                                            </Typography>
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {TABLE_PROPS_ROWS.map(({ title, owner, status }, index) => (
+                                        <tr key={title} className="even:bg-blue-gray-50/50">
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {title}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {owner}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {status}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Tooltip content="Edit Property Status">
+                                              <IconButton variant="text">
+                                                <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
+                                              </IconButton>
+                                            </Tooltip>
+                                            <Tooltip content="Delete Property">
+                                              <IconButton variant="text">                        
+                                                <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
+                                              </IconButton>
+                                            </Tooltip>                                            
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </Card>
                               </DialogBody>
                               <DialogFooter>
                                 <Button
@@ -229,10 +332,10 @@ export const AdminPanel = () => {
                                   onClick={handleOpenPropList}
                                   className="mr-1"
                                 >
-                                  <span>Cancel</span>
+                                  <span>Cancelar</span>
                                 </Button>
                                 <Button variant="gradient" color="green" onClick={handleOpenPropList}>
-                                  <span>Confirm</span>
+                                  <span>Confirmar</span>
                                 </Button>
                               </DialogFooter>
                             </Dialog>
@@ -268,10 +371,61 @@ export const AdminPanel = () => {
                             <Button variant="text" className="p-1"  onClick={handleOpenBookingsList}>
                               {bookings}
                             </Button>} 
-                            <Dialog open={openBookingsList} handler={handleOpenBookingsList}>
+                            <Dialog open={openBookingsList} >
                               <DialogHeader>Listado de Reservas</DialogHeader>
                               <DialogBody>
-                                Tabla con listado de reservas y opciones de editar/eliminar.
+                              <Card className="h-full w-full overflow-auto">
+                                  <table className="w-full min-w-max table-auto text-left">
+                                    <thead>
+                                      <tr>
+                                        {TABLE_BOOKINGS_HEAD.map((head) => (
+                                          <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                            <Typography
+                                              variant="small"
+                                              color="blue-gray"
+                                              className="font-normal leading-none opacity-70"
+                                            >
+                                              {head}
+                                            </Typography>
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {TABLE_BOOKINGS_ROWS.map(({ title, owner, status }, index) => (
+                                        <tr key={title} className="even:bg-blue-gray-50/50">
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {title}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {owner}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {status}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Tooltip content="Edit Property Status">
+                                              <IconButton variant="text">
+                                                <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
+                                              </IconButton>
+                                            </Tooltip>
+                                            <Tooltip content="Delete Property">
+                                              <IconButton variant="text">                        
+                                                <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
+                                              </IconButton>
+                                            </Tooltip>                                            
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </Card>
                               </DialogBody>
                               <DialogFooter>
                                 <Button
@@ -280,17 +434,17 @@ export const AdminPanel = () => {
                                   onClick={handleOpenBookingsList}
                                   className="mr-1"
                                 >
-                                  <span>Cancel</span>
+                                  <span>Cancelar</span>
                                 </Button>
                                 <Button variant="gradient" color="green" onClick={handleOpenBookingsList}>
-                                  <span>Confirm</span>
+                                  <span>Confirmar</span>
                                 </Button>
                               </DialogFooter>
                             </Dialog>                       
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Tooltip content="Edit User">
+                      <Tooltip content="Edit User Status">
                         <IconButton variant="text">
                           <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
                         </IconButton>
