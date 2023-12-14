@@ -49,4 +49,14 @@ public class Property {
 
     private List<String> availability;
 
+    private int bathroom;
+
+    private int bed;
+
+    private int bedroom;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<ServiceType> serviceTypes;
+
 }

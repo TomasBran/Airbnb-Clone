@@ -1,21 +1,64 @@
 
-<h1 align="center"> 👨‍💻 Proyecto de c15-33-ft-java-react: Clon de Airbnb 🚀 </h1>
+<h1 align="center"> 🏡 Proyecto de c15-33-ft-java-react 🏖 </h1>
 
 <br>
 
-<h2> 📒 Sobre el Proyecto 📑 </h2>
+<h2> 🏰 Clon de Airbnb API Restful 🚀 </h2>
 
-✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; implementada en Spring Boot, permitiendo a los usuarios registrarse, <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iniciar sesión y utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+✅ - Este proyecto es un clon de Airbnb desarrollado con el objetivo de brindar una plataforma robusta <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; para la gestión de propiedades y reservas. Utiliza tecnologías modernas como React, Tailwind en el frontend <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y Spring Boot en el backend con integración de Spring Security y una API de imágenes completa. <br>
 
 ✅ - El proyecto proporciona un sistema completo de autenticación y autorización de usuarios <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mediante la generación y validación de tokens JWT, asegurando que solo los usuarios autenticados y <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autorizados puedan acceder a ciertos recursos de la aplicación. <br>
+<br>
+
+<h2> 🚩 Funcionalidades Principales ⚜ </h2>
+
+✅ - Registro de Usuarios: Permite a los usuarios crear cuentas para acceder a la plataforma. <br>
+
+✅ - Autenticación y Login: Proceso seguro de inicio de sesión para acceder a funcionalidades exclusivas. <br>
+
+✅ - Búsqueda de Propiedades: Facilita la búsqueda de propiedades utilizando filtros y criterios específicos. <br>
+
+✅ - Carga de Propiedades: Los usuarios registrados como dueños pueden cargar propiedades con detalles, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servicios ofrecidos e imágenes para brindar una descripción detallada. <br>
+
+✅ - Detalles de Servicios: Muestra información detallada sobre los servicios disponibles en cada propiedad. <br>
+
+✅ - Fechas Disponibles para Reservar: Permite a los usuarios verificar la disponibilidad de fechas. <br>
 
 <br>
 
-<h2> 💎 Team ✨ </h2>
+<h2> 👨‍💻 Tecnologías Utilizadas 🔮 </h2>
+
+✅ - Frontend: React y Tailwind para una interfaz de usuario moderna y amigable, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
+
+✅ - Backend: Spring Boot para la lógica del servidor y la gestión de datos, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
+
+✅ - Base de Datos: MySQL se utiliza para almacenar toda la información de manera eficiente y escalable, <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; desplegado en un contenedor Docker. <br>
+
+✅ - Docker: Utilizado para contenerizar el frontend, backend y la base de datos, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; facilitando el despliegue en entornos de producción. <br>
+
+✅ - Sistema de Autenticación y Autorización: Utiliza tokens JWT para la autenticación y autorización de usuarios. <br>
+
+<br>
+
+<h2> 📒 Sobre el proyecto 📑 </h2>
+
+✅ - La aplicación frontend desarrollada con React y Tailwind CSS interactúa con la API RESTful implementada<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; en Spring Boot, permitiendo a los usuarios utilizar el sistema mediante una interfaz intuitiva y estilizada.  <br>
+
+✅ - El backend contiene toda la lógica de los controladores, servicios y repositorios necesarios para la persistencia <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y manipulación de datos, garantizando una experiencia fluida y segura para los usuarios. <br>
+
+<br>
+<h2> 💗 Team ✨ </h2>
 <dd>
     <a href="https://www.linkedin.com/in/mateo-jeremias-pg/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
     Mateo Jeremías Pinto | Team Lead 👨‍💻 
@@ -40,8 +83,9 @@
 <dd>
     <a href="https://www.linkedin.com/in/matias-nicolas-acevedo/" target="blank"><img align="center" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="logoLinkedin" width="100" height="25" target="blank"/></a>  
     Matias Nicolas Acevedo | Back End 👨‍💻 
-</dd> <br>
+</dd> 
 
+<br>
 
 <h2 align="left">🛠 Language and tools ⚒ </h2>
 
@@ -66,6 +110,86 @@
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="40" alt="docker logo"  />
 </div>
+
+<br>
+<br>
+
+<h2> 🏘 API de Propiedades 🏩 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Esta API de propiedades desarrollada en Spring Boot proporciona endpoints para la gestión <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de propiedades inmobiliarias, permitiendo operaciones CRUD (Crear, Leer, Actualizar, Eliminar).  <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Está diseñada para interactuar con una base de datos MySQL para almacenar la información de las propiedades. <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ Obtener una propiedad por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera una propiedad específica según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID de la propiedad a recuperar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con los detalles de la propiedad en formato PropertyResponse.<br>
+
+✅ Obtener todas las propiedades <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Obtiene todas las propiedades almacenadas.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con una lista de todas las propiedades<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;en formato List<PropertyResponse>.<br>
+
+✅ Registrar una nueva propiedad <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Registra una nueva propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: POST<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- title: Título de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- category: Categoría de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- subCategory: Subcategoría de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- description: Descripción de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- value: Valor de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- active: Estado de activación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- images: Lista de imágenes de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- country: País de la ubicación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- city: Ciudad de la ubicación de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bathroom: Número de baños.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bed: Número de camas.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bedroom: Número de habitaciones.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- services: Lista de servicios disponibles.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se registra correctamente.<br>
+
+✅ Actualizar una propiedad existente <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Actualiza una propiedad existente según los detalles proporcionados en el cuerpo de la solicitud.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: PUT<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cuerpo de la solicitud con los detalles actualizados de la propiedad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se actualiza correctamente.<br>
+
+✅ Eliminar una propiedad <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina una propiedad según el cuerpo de la solicitud.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/property<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cuerpo de la solicitud con el ID de la propiedad a eliminar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se elimina correctamente.<br>
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su información.<br>
+
+✅ - Filtrado por Categoría: Es posible filtrar propiedades por categorías específicas. <br>
+
+✅ - Proporciona funcionalidades completas de Crear, Leer, Actualizar y Eliminar propiedades en la base de datos.<br>
+
+✅ - El proceso de guardado de una propiedad implica la validación del token JWT proporcionado <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para asegurar la autorización del usuario, la asociación de imágenes con la propiedad y<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;la gestión de la información detallada para almacenarla en la base de datos MySQL.<br>
 
 <br>
 
@@ -118,6 +242,55 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- JwtService se encarga de la generación y validación de los tokens JWT. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Genera tokens con información de usuario y tiempos de expiración. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Valida la autenticidad y el tiempo de expiración de los tokens durante el proceso de filtrado. <br>
+
+<br>
+
+<h2> 🖼 API de Imágenes con Spring Boot - Integrada en el Proyecto 📷 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Esta API de imágenes desarrollada en Spring Boot permite la gestión y manipulación de imágenes, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proporcionando endpoints para operaciones CRUD sobre una base de datos MySQL. <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ GET /api/img/{id}/url: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene la URL de una imagen mediante su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la URL de la imagen.<br>
+
+✅ GET /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Obtiene los datos de una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen en formato de bytes.<br>
+
+✅ POST /api/img: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube una imagen a la base de datos.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen guardada.<br>
+
+✅ POST /api/img/multi: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Sube múltiples imágenes a la base de datos.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se esperan varios archivos (MultipartFile[]) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna la lista de imágenes guardadas.<br>
+
+✅ PUT /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Actualiza una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Request: Se espera un archivo (MultipartFile) como parámetro.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna los datos de la imagen actualizada.<br>
+
+✅ DELETE /api/img/{id}: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Elimina una imagen por su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Response: Retorna una respuesta sin contenido.<br>
+
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - La API utiliza la clase Image que representa una imagen con propiedades como ID, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tipo MIME, contenido en bytes, URL y una referencia a una entidad Property. <br>
+
+✅ - El ImageController maneja las operaciones sobre estas imágenes, utilizando el ImageService <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;para guardar, actualizar, eliminar y obtener información de las imágenes.<br>
+
+✅ - El ImageService se encarga de interactuar con el repositorio ImageRepository,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;permitiendo la manipulación de los datos de las imágenes en la base de datos MySQL.<br>
 
 <br>
 

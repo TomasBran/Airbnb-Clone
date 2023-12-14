@@ -1,7 +1,6 @@
 
 package com.clonair.back.user;
 
-
 import com.clonair.back.property.Property;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -52,8 +50,6 @@ public class User implements UserDetails { // Esta interfaz es proporcionada por
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
-
-
     // Métodos implementados por UserDetails.
 
     /**
@@ -84,4 +80,5 @@ public class User implements UserDetails { // Esta interfaz es proporcionada por
     public boolean isEnabled() {
         return true;
     }
+
 }
