@@ -1,10 +1,10 @@
 import { Button, Checkbox, Input, Option, Select, Switch, Textarea, Typography } from "@material-tailwind/react";
-import { countries } from 'countries-list';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { DateRange } from 'react-date-range';
 import { useRef, useState } from "react";
 import { useEffect } from "react";
+import { CountriesSelect } from '../countries/CountryList'
 
 const categories = [
     {
@@ -67,36 +67,140 @@ const subcategories = [
 const quantity = ["1", "2", "3", "4", "5", "6+"];
 
 const services = [
-    "Wi-Fi", "Cocina", "Lavarropas", "Aire Acondicionado", "Calefacción", "Pileta", "Estacionamiento", "Cuna", "Parilla", "Desayuno", "Se puede fumar", "Permite mascotas", "Cancelación anticipada"
+    {text: "Wi-Fi", value: "wifi" },
+    {text: "Cocina", value: "kitchen" },
+    {text: "Lavarropas", value: "washing_machine" },
+    {text: "Aire Acondicionado", value: "air_conditioner" },
+    {text: "Calefacción", value: "heating" },
+    {text: "Pileta", value: "swimming_pool" },
+    {text: "Estacionamiento", value: "parking_lot" },
+    {text: "Cuna", value: "cradle" },
+    {text: "Parilla", value: "grill" },
+    {text: "Desayuno", value: "breakfast" },
+    {text: "Se puede fumar", value: "smoking_allowed" },
+    {text: "Permite mascotas", value: "pets_allowed" },
+    {text: "Cancelación anticipada", value: "early_cancellation"}
 ];
 
-const countryList = [];
-for (const key in countries) {
-    if (countries.hasOwnProperty(key)) {
-        countryList.push(countries[key].name);
-    }
-}
-
-countryList.sort();
 
 export const PropertyRegister = () => {
+
+
+    const [propertyData, setPropertyData] = useState({
+        title: null,
+        description: null,
+        images: [],
+        value: null,
+        location: null,
+        category: null,
+        subCategory: null,
+        bathroom: null,
+        bed: null,
+        bedroom: null,
+        serviceTypes: [],
+        permanent_availability: 'true',
+        availability: [],
+        active: 'true',
+        user: 'user_owner_placeholder'
+    })
+
+    const [countryValue, setCountryValue] = useState('')
+
     const switchRef = useRef();
     const [openDate, setOpenDate] = useState(false);
     const [dateRange, setDateRange] = useState([
         {
-            startDate: new Date(),
-            endDate: new Date(),
+            start_date: new Date(),
+            end_date: new Date(),
             key: 'selection',
         },
     ]);
 
     const handleSelect = (ranges) => {
         setDateRange([ranges.selection]);
+        setPropertyData((prevData) => ({
+            ...prevData,
+            availability: ranges.selection,
+          }));
     };
 
     const handleSwitch = () => {
+        if(openDate){
+            setPropertyData((prevData) => ({
+                ...prevData,
+                availability: [],
+            }));
+        } else {
+            setPropertyData((prevData) => ({
+                ...prevData,
+                availability: dateRange[0],
+            }));
+        }
+        setPropertyData((prevData) => ({
+            ...prevData,
+            permanent_availability: !prevData.permanent_availability,
+          }));
         setOpenDate(current => !current);
     };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setPropertyData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+    };
+
+    const handleSelectChange = (name, value) => {
+        setPropertyData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleCheckboxChange = (value) => {
+        setPropertyData((prevData) => {
+          let updatedServices;
+          
+          if (prevData.serviceTypes.includes(value)) {
+            updatedServices = prevData.serviceTypes.filter((service) => service !== value);
+          } else {
+            updatedServices = [...prevData.serviceTypes, value];
+          }
+      
+          return {
+            ...prevData,
+            serviceTypes: updatedServices,
+          };
+        });
+    };
+
+
+    const handleFileChange = (event) => {
+        const fileList = event.target.files;
+        const imageArray = Array.from(fileList).map((file) => ({
+          file,
+          previewURL: URL.createObjectURL(file),
+        }));
+    
+        setPropertyData((prevData) => ({
+          ...prevData,
+          images: [...prevData.images, ...imageArray],
+        }));
+    };
+
+    useEffect(() => {
+        handleSelectChange("location", countryValue)
+    }, [countryValue])
+
+    
+
+
+    const sendPropertyInfo = () => {
+
+
+        console.log("Data para el backend:", propertyData)
+    }
 
     return (
         <div className="flex flex-col items-center mb-8 px-14">
@@ -112,7 +216,7 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Escribí un título llamativo. Por este nombre será llamada tu propiedad.
                     </Typography>
-                    <Input name="title" maxLength="100" />
+                    <Input name="title" maxLength="100" onChange={handleInputChange} />
                 </div>
     
                 <div className="flex flex-col gap-2">
@@ -122,7 +226,7 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Describí lo mejor posible tu propiedad para atraer más clientes.
                     </Typography>
-                    <Textarea name="description" size="md" maxLength="500" />
+                    <Textarea name="description" size="md" maxLength="500" onChange={handleInputChange}/>
                 </div>
     
                 <div className="flex flex-col gap-2">
@@ -133,10 +237,11 @@ export const PropertyRegister = () => {
                         Subí las fotos de tu propiedad
                     </Typography>
                     <input
-                        name="pictures"
+                        name="images"
                         type="file"
                         multiple
                         accept=".jpg, .jpeg, .png"
+                        onChange={handleFileChange}
                     />
                 </div>
     
@@ -148,7 +253,7 @@ export const PropertyRegister = () => {
                         Por noche en USD.
                     </Typography>
                     <div className="md:w-4/12 w-full">
-                        <Input type="number" />
+                        <Input name="value" type="number" onChange={handleInputChange}/>
                     </div>
                 </div>
     
@@ -159,11 +264,7 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Elegí el país donde está ubicada la propiedad
                     </Typography>
-                    <Select label="País" className="w-full">
-                        {countryList.map((country, index) => (
-                            <Option key={index}>{country}</Option>
-                        ))}
-                    </Select>
+                    <CountriesSelect name="location" newValue={countryValue} setCountryValue={setCountryValue} newError={false}/>
                 </div>
     
                 <div className="flex flex-col gap-2 md:w-7/12 w-full">
@@ -173,14 +274,22 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Seleccioná el tipo de alojamiento
                     </Typography>
-                    <Select label="Categoría">
+                    <Select
+                    name="category"
+                    label="Categoría"
+                    onChange={(value) => handleSelectChange("category", value)}
+                    >
                         {categories.map((category, index) => (
                             <Option key={index} value={category.value}>{category.name}</Option>
                         ))}
                     </Select>
-                    <Select label="Subcategoría">
-                        {subcategories.map((subcategory, index) => (
-                            <Option key={index} value={subcategory.value}>{subcategory.name}</Option>
+                    <Select
+                    name="subCategory"
+                    label="Subcategoría"
+                    onChange={(value) => handleSelectChange("subCategory", value)}
+                    >
+                        {subcategories.map((subCategory, index) => (
+                            <Option key={index} value={subCategory.value}>{subCategory.name}</Option>
                         ))}
                     </Select>
                 </div>
@@ -192,7 +301,10 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Cantidad de baños (incluyendo toilette)
                     </Typography>
-                    <Select>
+                    <Select
+                    name="bathroom"
+                    onChange={(value) => handleSelectChange("bathroom", value)}
+                    >
                         {quantity.map((quantity, index) => (
                             <Option key={index} value={quantity.charAt(0)}>{quantity}</Option>
                         ))}
@@ -200,7 +312,10 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Cantidad de camas
                     </Typography>
-                    <Select>
+                    <Select
+                    name="bed"
+                    onChange={(value) => handleSelectChange("bed", value)}
+                    >
                         {quantity.map((quantity, index) => (
                             <Option key={index} value={quantity.charAt(0)}>{quantity}</Option>
                         ))}
@@ -208,7 +323,10 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Cantidad de dormitorios
                     </Typography>
-                    <Select>
+                    <Select
+                    name="bedroom"
+                    onChange={(value) => handleSelectChange("bedroom", value)}
+                    >
                         {quantity.map((quantity, index) => (
                             <Option key={index} value={quantity.charAt(0)}>{quantity}</Option>
                         ))}
@@ -220,7 +338,12 @@ export const PropertyRegister = () => {
                 </Typography>
                 <div className="flex flex-wrap">
                     {services.map((service, index) => (
-                        <Checkbox key={index} label={service} />
+                        <Checkbox
+                        name={service.value}
+                        key={index}
+                        label={service.text} 
+                        onChange={() => handleCheckboxChange(service.value)}
+                        />
                     ))}
                 </div>
     
@@ -233,7 +356,7 @@ export const PropertyRegister = () => {
                 </div>
     
                 <div className="flex justify-center">
-                    <Button className="mt-4">Enviar Formulario</Button>
+                    <Button className="mt-4" onClick={sendPropertyInfo}>Enviar Formulario</Button>
                 </div>
             </div>
         </div>
