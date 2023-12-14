@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../components/root/Root";
-import Error404 from "../components/error404/Error404";
+import { Error404 } from "../components/error404/Error404";
 import { CardContainer } from "../components/shared";
 import { PropertyRegister } from "../components/property/PropertyRegister";
 import { DetailContainerCard } from "../components/cards";
 import { AccountSettingsDashboard } from "../components/user";
+import { AdminPanel } from "../components/admin/AdminPanel";
 
 
 const router = createBrowserRouter([
@@ -28,13 +29,16 @@ const router = createBrowserRouter([
             {
                 path: "/account-settings",
                 element: <AccountSettingsDashboard />
+            },
+            {
+                path: "admin-panel",
+                element: <AdminPanel/>
             }
+            
         ],
     },
 ]);
 
-const Router = () => {
+export const Router = () => {
     return <RouterProvider router={router} />;
 };
-
-export default Router;

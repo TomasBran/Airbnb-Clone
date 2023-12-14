@@ -7,13 +7,15 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import LogoIcon from "../../assets/logoicon/LogoIcon";
 
-const Error404 = () => {
+export const Error404 = () => {
   return (
     <>      
-      <div className="box-border w-full h-11/12 flex flex-col gap-8 items-center justify-center p-12 pt-28 md:p-32">              
+      <div className="box-border w-full h-11/12 flex flex-col gap-8 items-center justify-center p-12 md:p-14">              
         <Card className="flex items-center justify-center">
-          <CardHeader color="blue-gray" floated={false}>
+          <CardHeader color="white" floated={false} className="flex flex-col lg:items-center gap-2">
+          <Link to="/"><LogoIcon/></Link>
             <img
               src="https://midu.dev/images/this-is-fine-404.gif"
               alt="imagen de error 404, página no encontrada"
@@ -35,5 +37,3 @@ const Error404 = () => {
     </>    
   );     
 };
-
-export default Error404;
