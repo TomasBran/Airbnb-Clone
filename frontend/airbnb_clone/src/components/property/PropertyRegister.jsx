@@ -202,6 +202,7 @@ export const PropertyRegister = () => {
         console.log("Data para el backend:", propertyData)
     }
 
+
     return (
         <div className="flex flex-col items-center mb-8 px-14">
             <Typography variant="h3" className="text-center my-8">
@@ -347,7 +348,7 @@ export const PropertyRegister = () => {
                     ))}
                 </div>
     
-                <div className="flex flex-col gap-4 md:w-full w-full">
+                <div className="flex flex-col gap-4 md:w-7/12 w-full">
                     <Switch defaultChecked label="Disponibilidad permanente" inputRef={switchRef} onChange={handleSwitch} />
                     {openDate && (<DateRange
                         ranges={dateRange}
