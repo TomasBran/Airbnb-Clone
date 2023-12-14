@@ -23,10 +23,15 @@ export const NavBarFilters = () => {
                     <SubcategoryButtons  key={index} icon={filter.icon} text={filter.text}/>
                 ))}   
             </div>  
-            {/* Boton Admin temporal */} 
+            {/* Boton Admin y registro de propiedad temporales */} 
             <Link to="/admin-panel">
                 <Button variant="text">Admin</Button>
-            </Link>          
+            </Link>     
+            <Link to="/property-register">
+                <Button variant="text">Registro Propiedad</Button>
+            </Link>  
+            {/* Boton Admin y registro de propiedad temporales */}    
+
             <Filters />
         </div>
     );
