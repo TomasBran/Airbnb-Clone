@@ -44,7 +44,16 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void delete(String id, String token) throws Exception {
+        User user = findById(id);
+        if (user != null) {
+            // Realizar aquí cualquier validación adicional necesaria antes de permitir la eliminación del usuario.
+            // Por ejemplo, verificar si el usuario tiene permiso para realizar esta acción, tal vez a través del token proporcionado.
 
+            // Si se completan las validaciones, proceder con la eliminación.
+            userRepository.deleteById(id);
+        } else {
+            throw new Exception("User not found");
+        }
     }
 
     private UserResponse mapUserToResponse(User user) {
