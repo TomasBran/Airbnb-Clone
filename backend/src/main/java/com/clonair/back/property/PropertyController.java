@@ -48,7 +48,7 @@ public class PropertyController {
     }
 
     @PutMapping("/{id}")
-    public void updateProperty(
+    public void update(
             @PathVariable String id,
             @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
             @RequestParam("title") String title,
