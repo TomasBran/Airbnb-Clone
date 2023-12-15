@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:8080/auth';
+const apiUrl = 'http://149.50.133.215:80/auth';
 
 export async function login(userData) {
     try {
