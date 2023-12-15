@@ -114,6 +114,53 @@
 <br>
 <br>
 
+<h2> 🌈 API de Usuarios 👥 </h2>
+
+☑ INFO: <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- La API de Usuarios desarrollada en Spring Boot permite gestionar usuarios registrados en el sistema. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Está diseñada para interactuar con una base de datos para almacenar la información de los usuarios.  <br> 
+
+<h3>🔸 Endpoints 🔸</h3>
+
+✅ Obtener un usuario por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera un usuario específico según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID del usuario a recuperar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con los detalles del usuario en formato UserResponse.<br>
+
+✅ Obtener todos los usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Obtiene toda la información de los usuarios almacenados.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con una lista de todos los usuarios en formato List<UserResponse>.<br>
+
+✅ Eliminar un usuario por ID <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Elimina un usuario específico según su ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: DELETE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/{id}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- id: ID del usuario a eliminar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK si se elimina correctamente.<br>
+
+<h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
+
+✅ - Registro y Gestión de Propiedades: La API permite el registro y la gestión de usuarios con toda su info.<br>
+
+✅ - Acciones de Eliminación: Proporciona funcionalidades completas para eliminar usuarios del sistema. <br>
+
+✅ - Proceso de Eliminación: Implica la validación del token JWT proporcionado para asegurar <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; la autorización del usuario y la eliminación efectiva del usuario en la base de datos.<br>
+
+✅ - Gestión de Usuarios: La API se encarga de asociar propiedades con sus respectivos usuarios <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y realizar acciones de eliminación correctamente autorizadas.<br>
+
+<br>
+
 <h2> 🏘 API de Propiedades 🏩 </h2>
 
 ☑ INFO: <br> 
@@ -181,7 +228,7 @@
 
 <h3>🔸 Funcionalidad y Proceso de Guardado 🔸</h3>
 
-✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su información.<br>
+✅ - Registro y Gestión de Propiedades: La API permite el registro detallado de propiedades con toda su info.<br>
 
 ✅ - Filtrado por Categoría: Es posible filtrar propiedades por categorías específicas. <br>
 
