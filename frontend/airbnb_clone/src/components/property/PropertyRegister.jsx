@@ -5,7 +5,7 @@ import { DateRange } from 'react-date-range';
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { CountriesSelect } from '../countries/CountryList'
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/authContext.jsx";
 
 const categories = [
     {

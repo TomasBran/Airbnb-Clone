@@ -1,4 +1,4 @@
-import { AuthProvider } from '../../context/AuthContext.jsx';
+import { AuthProvider } from '../../context/authContext.jsx';
 import { Header } from '../header/Header';
 import { Outlet } from 'react-router-dom';
 
