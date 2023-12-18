@@ -19,7 +19,7 @@ import { useAuth } from '../../context/authContext.jsx'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
-    const {loginUser, setUser} = useAuth()
+    const {setUser} = useAuth()
 
     const switchRef = useRef()
     const [registerButtonPressed, setRegisterButtonPressed] = useState(false)
@@ -247,11 +247,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     
 
 
-    const sendLogin = (userData) => {
+    const sendLogin = async (userData) => {
         const { username, password } = userData;
         const newData = {username, password}
-        loginUser(newData)
-        updateUserData(setUser)
+        await login(newData)
+        updateUserData(setUser, username)
         console.log("Data enviada al back:", userData)
     }
 

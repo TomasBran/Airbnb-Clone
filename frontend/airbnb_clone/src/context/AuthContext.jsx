@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { login, logout } from '../services/apiRequests';
+import { logout } from '../services/apiRequests';
 
 const AuthContext = createContext();
 
@@ -10,18 +10,10 @@ export const AuthProvider = ({ children }) => {
       logout()
       setUser(null);
     };
-
-    
-  const loginUser = (userData) => {
-    
-    login(userData)
-  };     
-
-
   
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, setUser, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );
