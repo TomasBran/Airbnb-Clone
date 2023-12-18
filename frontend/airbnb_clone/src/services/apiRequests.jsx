@@ -1,5 +1,3 @@
-
-
 const apiUrl = 'http://149.50.133.215:80';
 const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 const id = "3208e346-1573-4dd8-9e24-32769f1884c9"
@@ -54,12 +52,12 @@ export async function register(userData) {
   }
 
 
-  export function logout() {
-    if (localStorage.getItem('token')) {
-        localStorage.removeItem('token');
-        console.log('Sesión cerrada correctamente.')
-    }
-  }
+export function logout() {
+if (localStorage.getItem('token')) {
+    localStorage.removeItem('token');
+    console.log('Sesión cerrada correctamente.')
+}
+}
 
 
 export async function submitProperty(formData) {
@@ -93,7 +91,9 @@ export function forceLogout () {
 
 
 
-export async function updateUserData (setUser) {
+export async function updateUserData (setUser, username) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+
     try {
         const response = await fetch(`${apiUrl}/api/user/${id}`, {
             method: 'GET',
