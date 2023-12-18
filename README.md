@@ -122,6 +122,16 @@
 
 <h3>🔸 Endpoints 🔸</h3>
 
+✅ Obtener un usuario por username(email) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera un usuario específico según su username.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Endpoint: /api/user/username/{username}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Parámetros de solicitud:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- username: username del usuario a recuperar.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Respuesta exitosa:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 200 OK junto con los detalles del usuario.<br>
+
+
 ✅ Obtener un usuario por ID <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Descripción: Recupera un usuario específico según su ID.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Método HTTP: GET<br>
