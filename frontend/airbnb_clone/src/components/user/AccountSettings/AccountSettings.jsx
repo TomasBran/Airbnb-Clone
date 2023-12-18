@@ -8,7 +8,7 @@ const ownerSections = [
         id: 1,
       title: "Información personal",
       description: "Proporciona tus datos personales e indícanos cómo podemos ponernos en contacto contigo.",
-      path: "/account/settings/information",
+      path: "/personal-info",
       icon: <FontAwesomeIcon icon={faAddressCard} />,
     },
     {
@@ -81,12 +81,12 @@ export const AccountSettings = () => {
             "
         >
           {isOwner ? ownerSections.map((section) => (
-            <Link key={section.id} to={`#`}>
+            <Link key={section.id} to={section.path}>
               <UserCardDashboard section={section} />
             </Link>
           )) : 
           userSections.map((section) => (
-            <Link key={section.id} to={`#`}>
+            <Link key={section.id} to={section.path}>
               <UserCardDashboard section={section} />
             </Link>
           ))}
