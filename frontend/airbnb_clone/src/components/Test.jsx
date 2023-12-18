@@ -1,37 +1,14 @@
 import { Button } from "@material-tailwind/react"
-
+import { useAuth } from "../context/authContext";
+import { updateUserData } from "../services/apiRequests";
 
 
 export const Test = () => {
     const apiUrl = 'http://149.50.133.215:80';
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MDI5MTQzMjcsImV4cCI6MTcwMjkxNTc2N30.ii_eZ_wlP7MkXK6exY6G9YtCMivA3HtJfANWHi64uH0'
-    const id = "11131b21-eb85-4df7-b181-9d718897a267"
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
+    const { user, setUser } = useAuth()
 
-    const getData = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/api/user`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            if(response.ok){
-                const data = await response.json()
-                console.log(data);
-            } else {
-                if(response.status === 403){
-                    console.log("FUE ERROR 403")
-                }
-                console.error('error de respuesta');
-            }
-            
-            } catch (error) {
-                console.error('Error de red:', error);
-            }
-      }
-      
 
       const property = {
         "title": "Titulo",
@@ -60,10 +37,12 @@ export const Test = () => {
             const response = await fetch(`${apiUrl}/api/property`, {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
                 body: property
             });
+            
 
             if (!response.ok) {
                 throw new Error();
@@ -79,7 +58,7 @@ export const Test = () => {
 
     return (
         <>
-            <Button onClick={getData}>Get Data</Button>
+            <Button onClick={() => updateUserData(setUser)}>Get Data</Button>
             <Button onClick={sendProperty}>Send Property</Button>
         </>
     )

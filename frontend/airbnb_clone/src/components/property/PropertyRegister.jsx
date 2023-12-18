@@ -5,6 +5,7 @@ import { DateRange } from 'react-date-range';
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { CountriesSelect } from '../countries/CountryList'
+import { useAuth } from "../../context/authContext";
 
 const categories = [
     {
@@ -84,6 +85,8 @@ const services = [
 
 
 export const PropertyRegister = () => {
+
+    const { user } = useAuth()
 
 
     const [propertyData, setPropertyData] = useState({

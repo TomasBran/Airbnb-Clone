@@ -1,14 +1,18 @@
 import LogoIcon from "../../assets/logoicon/LogoIcon";
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import  { useEffect, useRef, useState } from 'react';
 import { Search } from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Forms from "../forms/Forms";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 
 export const NavBar = () => {     
+
+    const { user, logoutUser } = useAuth()
+
     const [isSearchOpen, setIsSearchOpen] = useState(false);
         
     const [openLogin, setOpenLogin] = useState(false);
@@ -59,8 +63,18 @@ export const NavBar = () => {
                         </Link>  
                         {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
 
-                        <Button variant="text" className="rounded-full hidden sm:inline" onClick={handleOpenSignUp}>Registrarse</Button>
-                        <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
+
+                        {!user && <div className="flex items-center gap-2">
+                            <Button variant="text" className="rounded-full hidden sm:inline" onClick={handleOpenSignUp}>Registrarse</Button>
+                            <Button variant="outlined" className="rounded-full" onClick={handleOpenLogin}>Iniciar Sesión</Button>
+
+                        </div>}
+                        {user && <div className="flex items-center gap-2">
+                            <Typography>
+                                Bienvenido: {user ? user.firstname : ""}
+                            </Typography>
+                            <Button variant="text" className="rounded-full" onClick={() => logoutUser()}>Cerrar Sesión</Button>
+                        </div>}
                         <Forms
                             openLogin={openLogin}
                             openSignUp={openSignUp}
