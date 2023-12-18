@@ -6,6 +6,7 @@ import { PropertyRegister } from "../components/property/PropertyRegister";
 import { DetailContainerCard } from "../components/cards";
 import { AccountSettings } from "../components/user";
 import { AdminPanel } from "../components/admin/AdminPanel";
+import { Test } from "../components/Test";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin-panel",
                 element: <AdminPanel/>
+            },
+            {
+                path: "/test",
+                element: <Test/>
             }
             
         ],

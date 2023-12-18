@@ -11,7 +11,7 @@ import {
     Switch,
   } from '@material-tailwind/react'
 
-import { login, register } from "../../services/login"
+import { login, register } from "../../services/apiRequests.jsx"
 
 import passwordIcon from '../../assets/password_icon.svg'
 import { CountriesSelect } from '../countries/CountryList'
