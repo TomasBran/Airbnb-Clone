@@ -15,7 +15,7 @@ const ownerSections = [
       id: 2,
       title: "Reservas activas",
       description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/account/settings/payments",
+      path: "/trips",
       icon: <FontAwesomeIcon icon={faSuitcase} />,
     },
     {
@@ -39,7 +39,7 @@ const ownerSections = [
       id: 2,
       title: "Reservas activas",
       description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/account/settings/payments",
+      path: "/trips",
       icon: <FontAwesomeIcon icon={faSuitcase} />,
     },
   ];
