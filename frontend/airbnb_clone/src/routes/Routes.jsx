@@ -6,6 +6,7 @@ import { PropertyRegister } from "../components/property/PropertyRegister";
 import { DetailContainerCard } from "../components/cards";
 import { AccountSettings, PersonalInfoForm, TripsContainer } from "../components/user";
 import { AdminPanel } from "../components/admin/AdminPanel";
+import { Test } from "../components/Test";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "/personal-info",
                 element: <PersonalInfoForm />
+            },
+            {
+                path: "/test",
+                element: <Test/>
             }
             ,
             {

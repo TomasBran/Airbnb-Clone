@@ -11,12 +11,15 @@ import {
     Switch,
   } from '@material-tailwind/react'
 
-import { login, register } from "../../services/login"
+import { login, register, updateUserData } from "../../services/apiRequests.jsx"
 
 import passwordIcon from '../../assets/password_icon.svg'
 import { CountriesSelect } from '../countries/CountryList'
+import { useAuth } from '../../context/authContext.jsx'
 
 const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
+
+    const {setUser} = useAuth()
 
     const switchRef = useRef()
     const [registerButtonPressed, setRegisterButtonPressed] = useState(false)
@@ -244,10 +247,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     
 
 
-    const sendLogin = (userData) => {
+    const sendLogin = async (userData) => {
         const { username, password } = userData;
         const newData = {username, password}
-        login(newData)
+        await login(newData)
+        updateUserData(setUser, username)
         console.log("Data enviada al back:", userData)
     }
 
