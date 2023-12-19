@@ -8,14 +8,14 @@ const ownerSections = [
         id: 1,
       title: "Información personal",
       description: "Proporciona tus datos personales e indícanos cómo podemos ponernos en contacto contigo.",
-      path: "/account/settings/information",
+      path: "/personal-info",
       icon: <FontAwesomeIcon icon={faAddressCard} />,
     },
     {
       id: 2,
       title: "Reservas activas",
       description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/account/settings/payments",
+      path: "/trips",
       icon: <FontAwesomeIcon icon={faSuitcase} />,
     },
     {
@@ -39,7 +39,7 @@ const ownerSections = [
       id: 2,
       title: "Reservas activas",
       description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/account/settings/payments",
+      path: "/trips",
       icon: <FontAwesomeIcon icon={faSuitcase} />,
     },
   ];
@@ -81,12 +81,12 @@ export const AccountSettings = () => {
             "
         >
           {isOwner ? ownerSections.map((section) => (
-            <Link key={section.id} to={`#`}>
+            <Link key={section.id} to={section.path}>
               <UserCardDashboard section={section} />
             </Link>
           )) : 
           userSections.map((section) => (
-            <Link key={section.id} to={`#`}>
+            <Link key={section.id} to={section.path}>
               <UserCardDashboard section={section} />
             </Link>
           ))}

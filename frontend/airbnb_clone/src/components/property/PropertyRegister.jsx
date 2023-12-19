@@ -5,6 +5,7 @@ import { DateRange } from 'react-date-range';
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { CountriesSelect } from '../countries/CountryList'
+import { useAuth } from "../../context/authContext.jsx";
 
 const categories = [
     {
@@ -85,6 +86,8 @@ const services = [
 
 export const PropertyRegister = () => {
 
+    const { user } = useAuth()
+
 
     const [propertyData, setPropertyData] = useState({
         title: null,
@@ -103,6 +106,7 @@ export const PropertyRegister = () => {
         active: 'true',
         user: 'user_owner_placeholder'
     })
+
 
     const [countryValue, setCountryValue] = useState('')
 
@@ -201,6 +205,7 @@ export const PropertyRegister = () => {
 
         console.log("Data para el backend:", propertyData)
     }
+
 
     return (
         <div className="flex flex-col items-center mb-8 px-14">
@@ -347,7 +352,7 @@ export const PropertyRegister = () => {
                     ))}
                 </div>
     
-                <div className="flex flex-col gap-4 md:w-full w-full">
+                <div className="flex flex-col gap-4 md:w-7/12 w-full">
                     <Switch defaultChecked label="Disponibilidad permanente" inputRef={switchRef} onChange={handleSwitch} />
                     {openDate && (<DateRange
                         ranges={dateRange}
