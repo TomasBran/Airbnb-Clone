@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("/api/property")
 public class PropertyController {
-    
+
     private final PropertyService propertyService;
 
     @GetMapping("{id}")
@@ -36,7 +36,6 @@ public class PropertyController {
             @RequestParam("value") double value,
             @RequestParam("active") boolean active,
             @RequestParam("images") List<MultipartFile> images,
-            @RequestParam("availability") List<String> availability,
             @RequestParam("country") String country,
             @RequestParam("city") String city,
             @RequestParam("bathroom") int bathroom,
@@ -44,7 +43,20 @@ public class PropertyController {
             @RequestParam("bedroom") int bedroom,
             @RequestParam("services") List<String> services
     ) throws Exception {
-        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, availability, country, city, bathroom, bed, bedroom, services);
+        // Conversión de tipos de datos
+        double parsedValue = Double.parseDouble(String.valueOf(value));
+        boolean parsedActive = Boolean.parseBoolean(String.valueOf(active));
+        int parsedBathroom = Integer.parseInt(String.valueOf(bathroom));
+        int parsedBed = Integer.parseInt(String.valueOf(bed));
+        int parsedBedroom = Integer.parseInt(String.valueOf(bedroom));
+
+        // Ajuste de categoría y subcategoría a mayúsculas para coincidir con los enums
+        Category enumCategory = Category.valueOf(category.toUpperCase());
+        SubCategory enumSubCategory = SubCategory.valueOf(subCategory.toUpperCase());
+
+        // Proceso de guardado
+        PropertyRequest propertyRequest = new PropertyRequest(title, enumCategory.name(), enumSubCategory.name(), description, parsedValue, parsedActive, images, country, city, parsedBathroom, parsedBed, parsedBedroom, services);
+        System.out.println(propertyRequest.toString());
         propertyService.save(token, propertyRequest);
     }
 
@@ -59,7 +71,6 @@ public class PropertyController {
             @RequestParam("value") double value,
             @RequestParam("active") boolean active,
             @RequestParam("images") List<MultipartFile> images,
-            @RequestParam("availability") List<String> availability,
             @RequestParam("country") String country,
             @RequestParam("city") String city,
             @RequestParam("bathroom") int bathroom,
@@ -67,7 +78,7 @@ public class PropertyController {
             @RequestParam("bedroom") int bedroom,
             @RequestParam("services") List<String> services
     ) throws Exception {
-        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, availability, country, city, bathroom, bed, bedroom, services);
+        PropertyRequest propertyRequest = new PropertyRequest(title, category, subCategory, description, value, active, images, country, city, bathroom, bed, bedroom, services);
         propertyService.update(id, token, propertyRequest);
     }
 
@@ -75,5 +86,5 @@ public class PropertyController {
     public void delete(@PathVariable String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String token ) throws Exception{
         propertyService.delete(id, token);
     }
-    
+
 }

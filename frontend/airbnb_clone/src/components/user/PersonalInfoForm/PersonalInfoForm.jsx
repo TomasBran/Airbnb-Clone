@@ -89,76 +89,76 @@ export const PersonalInfoForm = () => {
   return (
     <div className="container mx-auto mt-8">
         <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white rounded-lg shadow-none font-mono">
-            <h2 className="text-2xl font-semibold mb-4">Información personal</h2>
-            
-            <div className="mb-4">
-              <Typography variant="h5" className="mb-2">Nombre</Typography>
+          <h2 className="text-2xl font-semibold mb-4">Información personal</h2>
+          
+          <div className="mb-4">
+            <Typography variant="h5" className="mb-2">Nombre</Typography>
 
-              <Input name="name" maxLength="200" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} readOnly={!isNameEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('name')} icon={faPenToSquare} />} />
+            <Input name="name" maxLength="200" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} readOnly={!isNameEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('name')} icon={faPenToSquare} />} />
 
-              {isNameEditing && (
-                <Button className="mt-2" onClick={() => handleSave('name')}
+            {isNameEditing && (
+              <Button className="mt-2" onClick={() => handleSave('name')}
+              >
+                Guardar
+              </Button>
+            )}
+          </div>
+
+          <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Correo electrónico</Typography>
+
+              <Input name="email" maxLength="200" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} readOnly={!isEmailEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('email')} icon={faPenToSquare} />} />
+
+              {isEmailEditing && (
+                <Button className="mt-2" onClick={() => handleSave('email')}
                 >
                   Guardar
                 </Button>
               )}
-            </div>
+          </div>
 
-            <div className="mb-4">
-                <Typography variant="h5" className="mb-2">Correo electrónico</Typography>
+          <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Número de teléfono</Typography>
 
-                <Input name="email" maxLength="200" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} readOnly={!isEmailEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('email')} icon={faPenToSquare} />} />
+              <Input name="phone" maxLength="200" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} readOnly={!isPhoneEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('phone')} icon={faPenToSquare} />} />
 
-                {isEmailEditing && (
-                  <Button className="mt-2" onClick={() => handleSave('email')}
-                  >
-                    Guardar
-                  </Button>
-                )}
-            </div>
+              {isPhoneEditing && (
+                <Button className="mt-2" onClick={() => handleSave('phone')}
+                >
+                  Guardar
+                </Button>
+              )}
+          </div>
 
-            <div className="mb-4">
-                <Typography variant="h5" className="mb-2">Número de teléfono</Typography>
+          <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Cédula de identidad</Typography>
 
-                <Input name="phone" maxLength="200" value={formData.phone} onChange={(e) => handleChange('phone', e.target.value)} readOnly={!isPhoneEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('phone')} icon={faPenToSquare} />} />
+              <Input name="dni" maxLength="200" value={formData.dni} onChange={(e) => handleChange('dni', e.target.value)} readOnly={!isDniEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('dni')} icon={faPenToSquare} />} />
 
-                {isPhoneEditing && (
-                  <Button className="mt-2" onClick={() => handleSave('phone')}
-                  >
-                    Guardar
-                  </Button>
-                )}
-            </div>
+              {isDniEditing && (
+                <Button className="mt-2" onClick={() => handleSave('dni')}
+                >
+                  Guardar
+                </Button>
+              )}
+          </div>
 
-            <div className="mb-4">
-                <Typography variant="h5" className="mb-2">Cédula de identidad</Typography>
+          <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Dirección</Typography>
 
-                <Input name="dni" maxLength="200" value={formData.dni} onChange={(e) => handleChange('dni', e.target.value)} readOnly={!isDniEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('dni')} icon={faPenToSquare} />} />
+              <Input name="direccion" maxLength="200" value={formData.direccion} onChange={(e) => handleChange('direccion', e.target.value)} readOnly={!isDireccionEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('direccion')} icon={faPenToSquare} />} />
 
-                {isDniEditing && (
-                  <Button className="mt-2" onClick={() => handleSave('dni')}
-                  >
-                    Guardar
-                  </Button>
-                )}
-            </div>
+              {isDireccionEditing && (
+                <Button className="mt-2" onClick={() => handleSave('direccion')}
+                >
+                  Guardar
+                </Button>
+              )}
+          </div>
 
-            <div className="mb-4">
-                <Typography variant="h5" className="mb-2">Dirección</Typography>
-
-                <Input name="direccion" maxLength="200" value={formData.direccion} onChange={(e) => handleChange('direccion', e.target.value)} readOnly={!isDireccionEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('direccion')} icon={faPenToSquare} />} />
-
-                {isDireccionEditing && (
-                  <Button className="mt-2" onClick={() => handleSave('direccion')}
-                  >
-                    Guardar
-                  </Button>
-                )}
-            </div>
-
-            <div className="flex justify-center mt-4">
-                <Button type="submit">Guardar cambios</Button>
-            </div>
+          <div className="flex justify-center mt-4">
+              <Button type="submit">Guardar cambios</Button>
+          </div>
         </form>
     </div>
   )
