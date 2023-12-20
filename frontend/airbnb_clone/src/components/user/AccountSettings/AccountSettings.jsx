@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
 import { UserCardDashboard } from "../../cards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressCard, faHotel, faSuitcase } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faAddressCard,
+  faHotel,
+  // faSuitcase 
+} from "@fortawesome/free-solid-svg-icons";
 
 const ownerSections = [
     {
-        id: 1,
+      id: 1,
       title: "Información personal",
       description: "Proporciona tus datos personales e indícanos cómo podemos ponernos en contacto contigo.",
       path: "/personal-info",
       icon: <FontAwesomeIcon icon={faAddressCard} />,
     },
-    {
-      id: 2,
-      title: "Reservas activas",
-      description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/trips",
-      icon: <FontAwesomeIcon icon={faSuitcase} />,
-    },
+    // {
+    //   id: 2,
+    //   title: "Reservas activas",
+    //   description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
+    //   path: "/trips",
+    //   icon: <FontAwesomeIcon icon={faSuitcase} />,
+    // },
     {
       id: 3,
       title: "Información de las propiedades",
@@ -35,13 +39,13 @@ const ownerSections = [
       path: "/personal-info",
       icon: <FontAwesomeIcon icon={faAddressCard} />,
     },
-    {
-      id: 2,
-      title: "Reservas activas",
-      description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
-      path: "/trips",
-      icon: <FontAwesomeIcon icon={faSuitcase} />,
-    },
+    // {
+    //   id: 2,
+    //   title: "Reservas activas",
+    //   description: "Aquí puedes ver todas tus reservas activas, junto con la información del alojamiento.",
+    //   path: "/trips",
+    //   icon: <FontAwesomeIcon icon={faSuitcase} />,
+    // },
   ];
 
 export const AccountSettings = () => {
@@ -70,15 +74,15 @@ export const AccountSettings = () => {
           </span>
         </div>
         <div 
-            className="
-            pt-6
-            grid 
-            grid-cols-1 
-            sm:grid-cols-1
-            md:grid-cols-2
-            xl:grid-cols-3
-            gap-8
-            "
+          className="
+          pt-6
+          grid 
+          grid-cols-1 
+          sm:grid-cols-1
+          md:grid-cols-2
+          xl:grid-cols-3
+          gap-8
+          "
         >
           {isOwner ? ownerSections.map((section) => (
             <Link key={section.id} to={section.path}>

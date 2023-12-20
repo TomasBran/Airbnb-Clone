@@ -1,5 +1,4 @@
 
-
 export const DetailCardCategory = ({label, littleDescription}) => {
     return ( 
         <div className="flex flex-col gap-6">
@@ -18,5 +17,5 @@ export const DetailCardCategory = ({label, littleDescription}) => {
                 </div>
             </div>
         </div>
-       );
+    );
 }
