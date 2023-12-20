@@ -1,6 +1,5 @@
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-// import { PropertiesUpdateForm } from "../../owner";
 
 export const PropertieCard = ({description, country, value, image, handleCancel, id}) => {
   // categories
@@ -9,7 +8,6 @@ export const PropertieCard = ({description, country, value, image, handleCancel,
   // bed
   // bedroom
   // services
-
   return (
     <div
         className="col-span-1 cursor-pointer group"
@@ -34,7 +32,7 @@ export const PropertieCard = ({description, country, value, image, handleCancel,
                   group-hover:scale-110 
                   transition"
               />
-              
+
               <div className="
                 absolute
                 top-3

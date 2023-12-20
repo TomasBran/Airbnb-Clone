@@ -1,58 +1,105 @@
 import { Link } from "react-router-dom";
-import { Container, HostCardItem } from "..";
+import { Container, EmptyState, HostCardItem } from "..";
 
-const alojamientos = [
-    {
-      id: "1as4d",
-      location: "Apartamento en el centro",
-      address: "Calle 50, Tegucigalpa, Honduras",
-      reservationDate:"11-12 de dic",
-      price: "200",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 2,
-      location: "Hotel Ritz, París, Francia",
-      address: "15 Place Vendôme, 75001 París, Francia",
-      reservationDate: "20-22 de dic",
-      price: "5000",
-      image: "https://source.unsplash.com/random?q=hotel%20paris"
-    },
-    {
-      id: 3,
-      location: "Nueva York, Estados Unidos",
-      address: "Tokio, Japón",
-      reservationDate: "23 de dic",
-      price: "1000",
-      image: "https://source.unsplash.com/random?q=vuelo%20new%20york%20tokio"
-    },
-    {
-      id: 8,
-      location: "Trattoria Da Cesare al Casaletto, Roma, Italia",
-      address: "Via di Casaletto, 37, 00153 Roma RM, Italia",
-      reservationDate: "26 de dic",
-      price: "100",
-      image: "https://source.unsplash.com/random?q=restaurante%20roma"
-    },
-    {
-      id: 9,
-      location: "Gran Cañón, Arizona, Estados Unidos",
-      address: "Paseo en helicóptero",
-      reservationDate: "27 de dic",
-      price: "200",
-      image: "https://source.unsplash.com/random?q=paseo%20helicóptero%20gran%20cañón"
-    },
-    {
-      id: 11,
-      location: "África",
-      address: "Safari de tres días en la sabana africana",
-      reservationDate: "29 de dic - 31 de dic",
-      price: "2000",
-      image: "https://source.unsplash.com/random?q=safari+africano"
-    }
-  ];
+const propertiesList = [
+  {
+    id: 1,
+    description: "Casa moderna en el centro de la ciudad",
+    image: "https://source.unsplash.com/random",
+    value: 5000,
+    country: "Estados Unidos",
+    categories: ["Residencial", "Centro urbano"],
+    subCategory: "Casa",
+    bathroom: 3,
+    bed: 4,
+    bedroom: 3,
+    services: ["Electricidad", "Agua", "Gas"],
+    reservationDate:"11-12 de dic",
+  },
+  {
+    id: 2,
+    description: "Apartamento con terraza panorámica",
+    image: "https://source.unsplash.com/random?q=hotel%20paris",
+    value: 2500,
+    country: "España",
+    categories: ["Residencial", "Vistas panorámicas"],
+    subCategory: "Apartamento",
+    bathroom: 2,
+    bed: 2,
+    bedroom: 1,
+    services: ["Internet", "Agua", "Seguridad"],
+    reservationDate: "20-22 de dic",
+  },
+  {
+    id: 3,
+    description: "Terreno amplio para desarrollo",
+    image: "https://source.unsplash.com/random?q=vuelo%20new%20york%20tokio",
+    value: 10000,
+    country: "Argentina",
+    categories: ["Terreno", "Desarrollo"],
+    subCategory: "Terreno",
+    bathroom: 0,
+    bed: 0,
+    bedroom: 0,
+    services: [],
+    reservationDate: "23 de dic",
+  },
+  {
+    id: 4,
+    description: "Casa colonial con jardín exuberante",
+    image: "https://source.unsplash.com/random?q=restaurante%20roma",
+    value: 7000,
+    country: "México",
+    categories: ["Residencial", "Jardín"],
+    subCategory: "Casa",
+    bathroom: 4,
+    bed: 5,
+    bedroom: 4,
+    services: ["Electricidad", "Agua", "Mantenimiento de jardín"],
+    reservationDate: "26 de dic",
+  },
+  {
+    id: 5,
+    description: "Apartamento moderno en zona comercial",
+    image: "https://source.unsplash.com/random?q=paseo%20helicóptero%20gran%20cañón",
+    value: 350,
+    country: "Italia",
+    categories: ["Residencial", "Zona comercial"],
+    subCategory: "Apartamento",
+    bathroom: 2,
+    bed: 3,
+    bedroom: 2,
+    services: ["Internet", "Agua", "Seguridad"],
+    reservationDate: "27 de dic",
+  },
+  {
+    id: 6,
+    description: "Casa de playa con acceso privado",
+    image: "https://source.unsplash.com/random?q=safari+africano",
+    value: 800,
+    country: "Brasil",
+    categories: ["Residencial", "Playa"],
+    subCategory: "Casa",
+    bathroom: 3,
+    bed: 4,
+    bedroom: 3,
+    services: ["Electricidad", "Agua", "Acceso privado a la playa"],
+    reservationDate: "29 de dic",
+  },
+];
 
 export const CardContainer = () => {
+
+  if (propertiesList.length === 0) {
+    return (
+      <EmptyState
+        title={"Alojamientos"}
+        subtitle={"No hay ningún alojamiento publicado... ¡por ahora!"}
+        showReset={true}
+      />
+    );
+  }
+
   return (
     <Container>
       <div 
@@ -68,9 +115,32 @@ export const CardContainer = () => {
             gap-8
           "
         >
-          {alojamientos.map((alojamiento) => (
-            <Link key={alojamiento.id} to={`/property-detail/${alojamiento.id}`}>
-              <HostCardItem location={alojamiento.location} address={alojamiento.address} reservationDate={alojamiento.reservationDate} price={alojamiento.price} image={alojamiento.image} />
+          {propertiesList.map((propertie) => (
+            <Link
+              key={propertie.id}
+              to={`/property-detail/${propertie.id}`}
+              state={{
+                description: propertie.description,
+                country: propertie.country,
+                value: propertie.value,
+                image: propertie.image,
+
+                bedroom: propertie.bedroom,
+                bed: propertie.bed,
+                bathroom: propertie.bathroom,
+
+                // categories={propertie.categories}
+                // subCategory={propertie.subCategory}
+                // services={propertie.services}
+              }}
+            >
+              <HostCardItem
+                description={propertie.description}
+                country={propertie.country}
+                reservationDate={propertie.reservationDate}
+                value={propertie.value}
+                image={propertie.image}
+              />
             </Link>
           )
           )}

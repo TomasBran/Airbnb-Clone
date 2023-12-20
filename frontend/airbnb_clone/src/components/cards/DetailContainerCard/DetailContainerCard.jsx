@@ -1,10 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Container } from "../../shared";
 import { DetailCardHead, DetailCardInfo, DetailCardReservation } from "../";
 
 export const DetailContainerCard = () => {
+
   const id = useParams();
-  console.log(id);
+  id
+
+  let { state } = useLocation();
+  const {description, country, value, image, bedroom, bed, bathroom} = state;
+
+  let totalPrice = value;
 
   return ( 
     <Container>
@@ -16,9 +22,9 @@ export const DetailContainerCard = () => {
       >
         <div className="flex flex-col gap-6">
           <DetailCardHead
-            location={"Nueva York, Estados Unidos"}
-            address={"Tokio, Japón"}
-            image={"https://source.unsplash.com/random?q=hotel%20paris"}
+            description={description}
+            country={country}
+            image={image}
           />
           <div 
             className="
@@ -31,11 +37,10 @@ export const DetailContainerCard = () => {
           >
             <DetailCardInfo
               userName={"Kasey"}
-              description={"Escápese de todo en nuestra cabaña de 1969 bellamente renovada, ubicada en las montañas de Nuevo México, escondida en la pequeña ciudad de Angel Fire. Todas esas vibraciones de la cabaña desde fuera, pero modernas desde dentro. Nuestro 2 dormitorios, 2 baños recién actualizado cabaña alpina está situado entre el esquí, ciclismo, golf y senderismo. Tenemos todo lo que necesitas y quieres para disfrutar de la estancia más relajante de tus vacaciones en la montaña."}
-              roomCount={2}
-              guestCount={6}
-              bathroomCount={2}
-              locationValue={250}
+              description={description}
+              bedroom={bedroom}
+              bed={bed}
+              bathroom={bathroom}
               label={"Favorito entre los huespedes"}
               littleDescription={"Uno de los alojamientos preferidos entre los huéspedes en Airbnb"}
             />
@@ -48,8 +53,8 @@ export const DetailContainerCard = () => {
               "
             >
               <DetailCardReservation
-                price={100}
-                totalPrice={350}
+                value={value}
+                totalPrice={totalPrice}
               />
             </div>
           </div>
