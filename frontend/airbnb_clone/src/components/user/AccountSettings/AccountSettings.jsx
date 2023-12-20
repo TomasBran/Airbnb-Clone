@@ -22,7 +22,7 @@ const ownerSections = [
       id: 3,
       title: "Información de las propiedades",
       description: "Proporciona los detalles de tus propiedades para que los viajeros puedan reservarla.",
-      path: "/account/settings/payments",
+      path: "/properties",
       icon: <FontAwesomeIcon icon={faHotel} />,
     },
   ];
@@ -32,7 +32,7 @@ const ownerSections = [
         id: 1,
       title: "Información personal",
       description: "Proporciona tus datos personales e indícanos cómo podemos ponernos en contacto contigo.",
-      path: "/account/settings/information",
+      path: "/personal-info",
       icon: <FontAwesomeIcon icon={faAddressCard} />,
     },
     {

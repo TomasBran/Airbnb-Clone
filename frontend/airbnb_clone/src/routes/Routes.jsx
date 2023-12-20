@@ -7,6 +7,8 @@ import { DetailContainerCard } from "../components/cards";
 import { AccountSettings, PersonalInfoForm, TripsContainer } from "../components/user";
 import { AdminPanel } from "../components/admin/AdminPanel";
 import { Test } from "../components/Test";
+import { PropertiesContainer } from "../components";
+import { PropertiesUpdateForm } from "../components/owner";
 
 const router = createBrowserRouter([
     {
@@ -41,11 +43,18 @@ const router = createBrowserRouter([
             {
                 path: "/test",
                 element: <Test/>
-            }
-            ,
+            },
             {
                 path: "/trips",
                 element: <TripsContainer />
+            },
+            {
+                path: "/properties",
+                element: <PropertiesContainer />
+            },
+            {
+                path: "/properties-form",
+                element: <PropertiesUpdateForm />
             }
         ],
     },
