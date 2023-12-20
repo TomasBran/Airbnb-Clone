@@ -7,3 +7,4 @@ export * from "./DetailCardReservation";
 export * from "./DetailCardButton";
 export * from "./UserCardDashboard";
 export * from "./ReservationCard";
+export * from "./PropertieCard";
