@@ -119,8 +119,7 @@ export async function deleteUser (id) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-            },
-            body: property
+            },            
         });
         
 
@@ -144,7 +143,8 @@ export async function getAllUsers () {
         })
 
         if(response.ok){
-            const data = await response.json()
+            const data = await response.json()            
+            return data
         } else {
             console.error('error de respuesta');
         }

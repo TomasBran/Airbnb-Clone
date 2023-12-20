@@ -49,7 +49,7 @@ export const NavBar = () => {
                     <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
                         <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div className="flex items-center">
-                                <h2 className="hidden md:inline mr-1">Destino | Fechas | Huéspedes</h2>                               
+                                <h2 className="hidden md:inline mr-1">País de Destino | Huéspedes</h2>                               
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className="p-3 rounded-full m-0.5 bg-red-500 text-white text-sm" />                                
                             </div>                                                  
                         </Button>                    
