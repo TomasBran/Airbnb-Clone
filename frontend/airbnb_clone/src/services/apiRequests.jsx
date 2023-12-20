@@ -1,6 +1,4 @@
 const apiUrl = 'http://149.50.133.215:80';
-const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-const id = "3208e346-1573-4dd8-9e24-32769f1884c9"
 
 export async function login(userData) {
     try {
@@ -24,7 +22,7 @@ export async function login(userData) {
             console.error('Error de red:', error);
         }
     
-  }
+}
 
 export async function register(userData) {
     
@@ -49,18 +47,17 @@ export async function register(userData) {
             console.error('Error de red:', error);
         }
     
-  }
-
+}
 
 export function logout() {
-if (localStorage.getItem('token')) {
-    localStorage.removeItem('token');
-    console.log('Sesión cerrada correctamente.')
+    if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        console.log('Sesión cerrada correctamente.')
+    }
 }
-}
-
 
 export async function submitProperty(formData) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
         try {
             const response = await fetch(`${apiUrl}/api/property`, {
@@ -77,25 +74,22 @@ export async function submitProperty(formData) {
             }
 
             const data = await response.json();
-            console.log('Property saved:', data);
         } catch (error) {
             console.error('There was an error:', error);
         }
 }
-
 
 export function forceLogout () {
     logout()
     alert('Sesión expirada, vuelve a logear')
 }
 
-
-
 export async function updateUserData (setUser, username) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
+
     try {
-        const response = await fetch(`${apiUrl}/api/user/${id}`, {
+        const response = await fetch(`${apiUrl}/api/user/username/${username}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -105,7 +99,6 @@ export async function updateUserData (setUser, username) {
         if(response.ok){
             const data = await response.json()
             setUser(data)
-            console.log(data)
         } else {
             if(response.status === 403){
                 forceLogout()
@@ -116,4 +109,48 @@ export async function updateUserData (setUser, username) {
         } catch (error) {
             console.error('Error de red:', error);
         }
-  }
+}
+
+export async function deleteUser (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/user/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: property
+        });
+        
+
+        if (!response.ok) {
+            throw new Error();
+        }
+
+    } catch (error) {
+        console.error('There was an error:', error);
+    }
+}
+
+export async function getAllUsers () {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/user`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+        } else {
+            console.error('error de respuesta');
+        }
+        
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
+}
+
