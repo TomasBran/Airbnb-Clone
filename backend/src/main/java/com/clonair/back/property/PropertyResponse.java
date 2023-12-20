@@ -15,7 +15,6 @@ public record PropertyResponse(
         boolean active,
         List<String> imageUrls,
         Location location,
-        List<String> availability,
         int bathroom,
         int bed,
         int bedroom
