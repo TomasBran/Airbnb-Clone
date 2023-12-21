@@ -1,5 +1,5 @@
 import LogoIcon from "../../assets/logoicon/LogoIcon";
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Menu, MenuHandler, MenuItem, MenuList, Typography } from "@material-tailwind/react";
 import  { useEffect, useRef, useState } from 'react';
 import { Search } from "../search/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +9,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 
-export const NavBar = () => {     
+export const NavBar = ({ hideSearch }) => {      
+   
 
-    const { user, logoutUser } = useAuth()
+    const { user, logoutUser, isAdmin, isOwner } = useAuth()
 
     const [isSearchOpen, setIsSearchOpen] = useState(false);
         
@@ -40,28 +41,23 @@ export const NavBar = () => {
         return () => {
         document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, []);   
+
    
     return ( 
             <> 
                 <section className="py-3 px-8 flex justify-between items-center">        
                 <Link to="/"><LogoIcon/></Link>
-                    <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
+                    {!hideSearch && <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
                         <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div className="flex items-center">
-                                <h2 className="hidden md:inline mr-1">Destino | Fechas | Huéspedes</h2>                               
+                                <h2 className="hidden md:inline mr-1">País de Destino | Huéspedes</h2>                               
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className="p-3 rounded-full m-0.5 bg-red-500 text-white text-sm" />                                
                             </div>                                                  
                         </Button>                    
-                        {isSearchOpen && <Search/>}
-                    </div>
-                    <div className="flex flex-row gap-px md:gap-4">
-
-                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
-                        <Link to="/property-register">
-                            <Button variant="text">Registro de Propiedad</Button>
-                        </Link>  
-                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
+                        {isSearchOpen && <Search />}
+                    </div>}
+                    <div className="flex flex-row gap-px md:gap-4">                       
 
 
                         {!user && <div className="flex items-center gap-2">
@@ -73,7 +69,17 @@ export const NavBar = () => {
                             <Typography>
                                 Bienvenido: {user ? user.firstname : ""}
                             </Typography>
-                            <Button variant="text" className="rounded-full" onClick={() => logoutUser()}>Cerrar Sesión</Button>
+                            <Menu>
+                                <MenuHandler>
+                                    <Button variant="outlined" className="rounded-full">Menu</Button>
+                                </MenuHandler>
+                                <MenuList>
+                                    {isAdmin && <Link to="/admin-panel"><MenuItem>Panel Admin</MenuItem></Link>}
+                                    {isOwner && <Link to="/property-register"><MenuItem>Registar una Propiedad</MenuItem></Link>}
+                                    <Link to="/account-settings"><MenuItem>Cuenta</MenuItem></Link>
+                                    <MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem>
+                                </MenuList>
+                            </Menu>
                         </div>}
                         <Forms
                             openLogin={openLogin}

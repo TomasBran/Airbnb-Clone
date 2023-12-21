@@ -1,32 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { format } from "date-fns";
-import { Button, Switch, Typography } from '@material-tailwind/react';
+import { Button, Typography } from '@material-tailwind/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faPerson,
-    faCalendarDays,
+    faPerson,    
     faMapLocationDot,
     faMagnifyingGlass
   } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
+import { getAllProperties } from '../../services/apiRequests';
 
 export const Search = () => {    
-    const queryParams = new URLSearchParams(location.search);
-    const navigate = useNavigate();
+    const queryParams = new URLSearchParams(location.search);    
 
-    const [destination, setDestination] = useState("");
-    const [openDate, setOpenDate] = useState(false);
-    const [date, setDate] = useState([
-        {
-            startDate: queryParams.get('startDate') ? new Date(queryParams.get('startDate')) : new Date(),
-            endDate: queryParams.get('endDate') ? new Date(queryParams.get('endDate')) : new Date(),
-            key: "selection",
-        },
-    ]);
+    const [destination, setDestination] = useState("");  
     const [openOptions, setOpenOptions] = useState(false);
     const [options, setOptions] = useState({
         adult: parseInt(queryParams.get('adults'), 10) || 1,
@@ -34,7 +20,7 @@ export const Search = () => {
         room: parseInt(queryParams.get('rooms'), 10) || 1,
     });
     const [emptyInput, setEmptyInput] = useState(false);
-    const [searchAnyDate, setSearchAnyDate] = useState(false);
+   
 
     const handleOption = (name, operation) => {
         setOptions((prev) => {
@@ -45,22 +31,15 @@ export const Search = () => {
         });
     }; 
 
-    const dateRef = useRef(null);
     const optionsRef = useRef(null);
   
     useEffect(() => {
       const handleClickOutside = (event) => {
-        if (
-            (dateRef.current && !dateRef.current.contains(event.target)) &&
+        if (            
             (optionsRef.current && !optionsRef.current.contains(event.target))
-          ) {
-            setOpenDate(false);
-            setOpenOptions(false);
-          } else if (dateRef.current && !dateRef.current.contains(event.target)) {
-            setOpenDate(false);
-          } else if (optionsRef.current && !optionsRef.current.contains(event.target)) {
-            setOpenOptions(false);
-          }
+          ) {            
+            setOpenOptions(false);          
+          } 
       };
   
       document.addEventListener('mousedown', handleClickOutside);
@@ -69,53 +48,30 @@ export const Search = () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }, []);
-
-    const handleSearchAnyDate = () => {
-        setSearchAnyDate(!searchAnyDate);        
-    };
-
-    const handleDateChange = (item) => {        
-        if (searchAnyDate) {
-            setDate([
-                {
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    key: 'selection',
-                },
-            ]);
-        } else {            
-            setDate([item.selection]);
-        }
-    }; 
-   
-    const handleSearch = () => {
+  
+    const handleSearch = async () => {
         if (destination.trim() === '' ) {
             setEmptyInput(true);
             return;
-        }        
-        if (!searchAnyDate && date[0].startDate.toISOString() === date[0].endDate.toISOString()) {
-            setEmptyInput(true);
-            return;
-        }
+        }  
        
-        const searchParams = new URLSearchParams();    
+        try {
+            const properties = await getAllProperties();
+
+            const filteredProperties = properties.filter(property => {                
+                const matchesCountry = property.location.country === destination;               
+                const matchesRooms = property.bedroom >= options.room;
+                const totalGuests = options.adult + options.children;                
+                const enoughBeds = property.bed >= totalGuests;
+                
+                return matchesCountry && matchesRooms && enoughBeds;
+            });            
         
-        searchParams.set('destination', destination);
-        if (searchAnyDate) {            
-            searchParams.set('startDate', format(new Date(), 'yyyy-MM-dd'));
-            searchParams.set('endDate', format(new Date().setFullYear(new Date().getFullYear() + 5), 'yyyy-MM-dd'));
-        } else {
-            searchParams.set('startDate', format(date[0].startDate, 'yyyy-MM-dd'));
-            searchParams.set('endDate', format(date[0].endDate, 'yyyy-MM-dd'));
+            console.log(filteredProperties);
+        
+        } catch (error) {
+            console.error('Error al obtener propiedades:', error);
         }
-        searchParams.set('adults', options.adult);
-        searchParams.set('children', options.children);
-        searchParams.set('rooms', options.room);
-    
-        //ejemplo: http://localhost:5173/resultados?destination=Paris&startDate=2024-05-08&endDate=2024-08-14&adults=2&children=1&rooms=2
-        
-        // (cambiar '/resultados' por ruta real)
-        navigate(`/resultados?${searchParams.toString()}`);
     };
     
     const countryNames = (Object.values(countries).map((country) => country.name)).sort();
@@ -133,40 +89,7 @@ export const Search = () => {
                                 </option>
                             ))}
                         </select>
-                    </div>
-                    <div className="flex items-center gap-2.5" ref={dateRef}>  
-                        <FontAwesomeIcon icon={faCalendarDays} /> 
-                        <div className="flex justify-center ">                             
-                            <span className="md:hidden cursor-pointer text-gray-400"  onClick={() => setOpenDate(!openDate)}>Fechas</span>            
-                            <span
-                            onClick={() => setOpenDate(!openDate)}
-                            className="cursor-pointer text-gray-400 hidden md:inline relative"
-                            >{`${format(date[0].startDate, "dd/MM/yyyy")} - ${format(
-                            date[0].endDate,
-                            "dd/MM/yyyy"
-                            )}`}</span>
-                            {openDate && (
-                                <div className="absolute z-10 shadow-md top-14 md:top-20 lg:top-14"> 
-                                    <DateRange
-                                        editableDateInputs={!searchAnyDate}
-                                        onChange={handleDateChange}
-                                        moveRangeOnFirstSelection={false}
-                                        ranges={searchAnyDate ? [] : date}
-                                        rangeColors={['rgb(244 67 54)']}
-                                        minDate={new Date()}
-                                    />
-                                    <div className="flex gap-4 px-3 pb-2 bg-white">
-                                        <Switch
-                                            color="red"
-                                            checked={searchAnyDate}
-                                            onChange={handleSearchAnyDate}
-                                        />
-                                        <Typography color='gray'>Cualquier fecha</Typography>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    </div>                   
                     <div className="flex items-center gap-2.5" ref={optionsRef}> 
                         <FontAwesomeIcon icon={faPerson} />
                         <div className="flex justify-center"> 
