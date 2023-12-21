@@ -1,26 +1,25 @@
 import { Heading } from "../";
 
-export const DetailCardHead = ({image, location, address}) => {
-    return ( 
-      <>
-        <Heading
-          title={location}
-          subtitle={address}
+export const DetailCardHead = ({image, description, country}) => {
+  return ( 
+    <>
+      <Heading
+        title={description}
+        subtitle={country}
+      />
+      <div className="
+        w-full
+        h-[60vh]
+        overflow-hidden
+        rounded-xl
+        relative"
+      >
+        <img
+          className=" w-full object-cover object-center"
+          src={image}
+          alt="image"
         />
-        <div className="
-            w-full
-            h-[60vh]
-            overflow-hidden
-            rounded-xl
-            relative
-          "
-        >
-          <img
-            className=" w-full object-cover object-center"
-            src={image}
-            alt="image"
-          />
-        </div>
-      </>
-      );
+      </div>
+    </>
+  );
 }

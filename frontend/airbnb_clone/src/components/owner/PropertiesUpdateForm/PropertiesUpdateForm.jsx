@@ -6,78 +6,78 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export const PropertiesUpdateForm = () => {
 
-    let { state } = useLocation();
+  let { state } = useLocation();
 
-    const {description, country, value, image, id} = state;
+  const {description, country, value, image, id} = state;
 
-    const [formData, setFormData] = useState({
-        description,
-        country,
-        value,
-        image,
-        id,
-    });
+  const [formData, setFormData] = useState({
+    description,
+    country,
+    value,
+    image,
+    id,
+  });
 
-    const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
-    const [isCountryEditing, setIsCountryEditing] = useState(false);
-    const [isValueEditing, setIsValueEditing] = useState(false);
-    const [isImageEditing, setIsImageEditing] = useState(false);
+  const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
+  const [isCountryEditing, setIsCountryEditing] = useState(false);
+  const [isValueEditing, setIsValueEditing] = useState(false);
+  const [isImageEditing, setIsImageEditing] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Formulario enviado:', formData);
-    };
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log('Formulario enviado:', formData);
+  };
     
-    const handleSave = (field) => {
-        switch (field) {
-          case 'description':
-            setIsDescriptionEditing(false);
-            break;
-    
-          case 'country':
-            setIsCountryEditing(false);
-            break;
-    
-          case 'value':
-            setIsValueEditing(false);
-            break;
-    
-          case 'image':
-            setIsImageEditing(false);
-            break;
-        
-          default:
-            break;
-        }
-        console.log(`Guardando ${field}: ${formData[field]}`);
-    };
+  const handleSave = (field) => {
+      switch (field) {
+        case 'description':
+          setIsDescriptionEditing(false);
+          break;
+  
+        case 'country':
+          setIsCountryEditing(false);
+          break;
+  
+        case 'value':
+          setIsValueEditing(false);
+          break;
+  
+        case 'image':
+          setIsImageEditing(false);
+          break;
+      
+        default:
+          break;
+      }
+      console.log(`Guardando ${field}: ${formData[field]}`);
+  };
 
-    const handleEdit = (field) => {
-        switch (field) {
-          case 'description':
-            setIsDescriptionEditing(true);
-            break;
-    
-          case 'country':
-            setIsCountryEditing(true);
-            break;
-    
-          case 'value':
-            setIsValueEditing(true);
-            break;
-    
-          case 'image':
-            setIsImageEditing(true);
-            break;
-        
-          default:
-            break;
-        }
-    };
+  const handleEdit = (field) => {
+      switch (field) {
+        case 'description':
+          setIsDescriptionEditing(true);
+          break;
+  
+        case 'country':
+          setIsCountryEditing(true);
+          break;
+  
+        case 'value':
+          setIsValueEditing(true);
+          break;
+  
+        case 'image':
+          setIsImageEditing(true);
+          break;
+      
+        default:
+          break;
+      }
+  };
 
-    const handleChange = (field, value) => {
-        setFormData({ ...formData, [field]: value });
-    };
+  const handleChange = (field, value) => {
+      setFormData({ ...formData, [field]: value });
+  };
 
   return (
     <div className="container mx-auto mt-8">
