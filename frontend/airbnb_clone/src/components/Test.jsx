@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react"
 import { useAuth } from "../context/authContext";
-import { updateUserData } from "../services/apiRequests";
+import { getAllProperties } from "../services/apiRequests";
 
 
 export const Test = () => {
@@ -31,52 +31,6 @@ export const Test = () => {
         "user": "user_owner_placeholder"
     }
 
-
-      const sendProperty = async () => {
-        try {
-            const response = await fetch(`${apiUrl}/api/property`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: property
-            });
-            
-
-            if (!response.ok) {
-                throw new Error();
-            }
-
-            const data = await response.json();
-            console.log('Property saved:', data);
-        } catch (error) {
-            console.error('There was an error:', error);
-        }
-      }
-
-      const deleteUser = async (id) => {
-        try {
-            const response = await fetch(`${apiUrl}/api/user/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: property
-            });
-            
-
-            if (!response.ok) {
-                throw new Error();
-            }
-
-        } catch (error) {
-            console.error('There was an error:', error);
-        }
-      }
-
-
       const getUsers = async () => {
         try {
             const response = await fetch(`${apiUrl}/api/user`, {
@@ -98,17 +52,12 @@ export const Test = () => {
             }
       }
 
+      const id = "1681b20b-813b-40ca-ad21-47b6c5583dee"
 
-    async function checkUserByMail () {
+       async function getProperty (id) {
         const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-        if (token === ''){
-            alert("No estás logeado")
-            return
-        }
-
-    
         try {
-            const response = await fetch(`${apiUrl}/api/user/username/${user.username}`, {
+            const response = await fetch(`${apiUrl}/api/property/${id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -117,7 +66,7 @@ export const Test = () => {
     
             if(response.ok){
                 const data = await response.json()
-                console.log(data)
+                return data
             } else {
                 console.error('error de respuesta');
             }
@@ -127,13 +76,14 @@ export const Test = () => {
             }
     }
 
+    
 
     return (
         <>
-            <Button onClick={getUsers}>Get Data</Button>
-            {/* <Button onClick={sendProperty}>Send Property</Button> */}
-            {/* <Button onClick={deleteUser}>Delete User</Button> */}
-            <Button onClick={checkUserByMail}>get user con mail</Button>
+            {/* <Button onClick={getUsers}>Get Data</Button>
+            <Button onClick={() => getProperty(id)}>Get Property</Button>
+            <Button onClick={getAllProperties}>Get Properties</Button> */}
+
         </>
     )
 }
