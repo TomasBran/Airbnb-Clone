@@ -277,3 +277,23 @@ export async function getPropertiesByUserId (userId) {
         console.error('Error de red:', error);
     }
 }
+export async function deleteProperty (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        
+        if (!response.ok) {
+            throw new Error();
+        }
+
+
+    } catch (error) {
+        console.error('There was an error:', error);
+    }
+}
