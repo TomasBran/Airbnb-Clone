@@ -230,9 +230,9 @@ export async function getAllProperties () {
             console.error('error de respuesta');
         }
         
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
 }
 
 export async function getProperty (id) {
