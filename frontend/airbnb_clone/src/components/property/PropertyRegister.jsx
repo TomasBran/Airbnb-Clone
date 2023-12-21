@@ -87,9 +87,6 @@ const services = [
 
 export const PropertyRegister = () => {
 
-    const { user } = useAuth()
-
-
     const [propertyData, setPropertyData] = useState({
         title: null,
         description: null,
@@ -108,43 +105,6 @@ export const PropertyRegister = () => {
 
 
     const [countryValue, setCountryValue] = useState('')
-
-    // const switchRef = useRef();
-    // const [openDate, setOpenDate] = useState(false);
-    // const [dateRange, setDateRange] = useState([
-    //     {
-    //         start_date: new Date(),
-    //         end_date: new Date(),
-    //         key: 'selection',
-    //     },
-    // ]);
-
-    // const handleSelect = (ranges) => {
-    //     setDateRange([ranges.selection]);
-    //     setPropertyData((prevData) => ({
-    //         ...prevData,
-    //         availability: ranges.selection,
-    //       }));
-    // };
-
-    // const handleSwitch = () => {
-    //     if(openDate){
-    //         setPropertyData((prevData) => ({
-    //             ...prevData,
-    //             availability: [],
-    //         }));
-    //     } else {
-    //         setPropertyData((prevData) => ({
-    //             ...prevData,
-    //             availability: dateRange[0],
-    //         }));
-    //     }
-    //     setPropertyData((prevData) => ({
-    //         ...prevData,
-    //         permanent_availability: !prevData.permanent_availability,
-    //       }));
-    //     setOpenDate(current => !current);
-    // };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -201,7 +161,6 @@ export const PropertyRegister = () => {
 
     const sendPropertyInfo = () => {
 
-        console.log("Data para el backend:", propertyData)
         submitProperty(propertyData)
 
     }
@@ -352,13 +311,6 @@ export const PropertyRegister = () => {
                     ))}
                 </div>
     
-                {/* <div className="flex flex-col gap-4 md:w-7/12 w-full">
-                    <Switch defaultChecked label="Disponibilidad permanente" inputRef={switchRef} onChange={handleSwitch} />
-                    {openDate && (<DateRange
-                        ranges={dateRange}
-                        onChange={handleSelect}
-                    />)}
-                </div> */}
     
                 <div className="flex justify-center">
                     <Button className="mt-4" onClick={sendPropertyInfo}>Enviar Formulario</Button>

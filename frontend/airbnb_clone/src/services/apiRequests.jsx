@@ -103,6 +103,8 @@ export async function submitProperty(formData) {
                 throw new Error();
             }
 
+            alert("Tu propiedad fue registrada exitosamente.")
+
         } catch (error) {
             console.error('There was an error:', error);
         }
@@ -290,4 +292,29 @@ export async function deleteProperty (id) {
     } catch (error) {
         console.error('There was an error:', error);
     }
+}
+
+export async function getImageUrlById (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+
+    try {
+        const response = await fetch(`${apiUrl}/api/img/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            console.log('URL de la imagen:', imageUrl);
+            return imageUrl;
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
 }
