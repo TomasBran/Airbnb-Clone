@@ -62,7 +62,6 @@ export async function submitProperty(formData) {
         try {
             const form = new FormData();
 
-            console.log(formData)
             for (const key in formData) {
                 const value = formData[key];
 
@@ -99,9 +98,6 @@ export async function submitProperty(formData) {
                 },
                 body: form
             });
-            for (let entry of form) {
-                console.log(entry);
-            }
 
             if (!response.ok) {
                 throw new Error();
@@ -153,7 +149,6 @@ export async function deleteUser (id) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: property
         });
         
 
@@ -201,7 +196,6 @@ export async function getUser (username) {
 
         if(response.ok){
             const data = await response.json()
-            console.log(data)
             return data
         } else {
             console.error('error de respuesta');
@@ -224,7 +218,6 @@ export async function getAllProperties () {
 
         if(response.ok){
             const data = await response.json()
-            console.log(data)
             return data
         } else {
             console.error('error de respuesta');
@@ -239,6 +232,49 @@ export async function getProperty (id) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
     try {
         const response = await fetch(`${apiUrl}/api/property/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+}
+
+export async function deleteProperty (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        
+        if (!response.ok) {
+            throw new Error();
+        }
+
+
+    } catch (error) {
+        console.error('There was an error:', error);
+    }
+}
+
+export async function getPropertiesByUserId (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/user/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
