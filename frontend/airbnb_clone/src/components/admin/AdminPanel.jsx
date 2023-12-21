@@ -21,7 +21,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { deleteUser, getAllUsers } from "../../services/apiRequests";
+import { deleteUser, getAllUsers, getPropertiesByUserId } from "../../services/apiRequests";
  
 const TABS = [
   {
@@ -40,10 +40,10 @@ const TABS = [
  
 const TABLE_HEAD = ["Username", "Tipo Usuario", "UserId", "Contacto", "Country", "Opciones"];
 
-const TABLE_PROPS_HEAD = ["Título", "Owner", "Status", ""];
+const TABLE_PROPS_HEAD = ["Título", "PropertyID", "Owner", "Status", ""];
 
 //Hay que traer la info del back
-const TABLE_PROPS_ROWS = [
+/* const TABLE_PROPS_ROWS = [
   {
     title: "Casa en la Playa",
     owner: "Manager",
@@ -64,7 +64,7 @@ const TABLE_PROPS_ROWS = [
     owner: "Manager",
     status: "Inactiva",
   },  
-]; 
+];  */
  
  
 export const AdminPanel = () => {
@@ -74,9 +74,16 @@ export const AdminPanel = () => {
   const [usersData, setUsersData] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
+  const [userProperties, setUserProperties] = useState([]);
  
   const handleOpenAlert = () => setOpenAlert(!openAlert);
-  const handleOpenPropList = () => setOpenPropList(!openPropList);
+
+  const handleOpenPropList = (userId) => {
+    setOpenPropList(!openPropList);    
+    if (!openPropList) {      
+      fetchUserProperties(userId);
+    }
+  };
 
   const handleDeleteUser = async (id) => {
     try {
@@ -86,11 +93,20 @@ export const AdminPanel = () => {
     } catch (error) {
         console.error('Error deleting user:', error);
     }
-};
+  };
+
+  const fetchUserProperties = async (userId) => {
+    try {
+      const properties = await getPropertiesByUserId(userId);      
+      setUserProperties(properties);
+    } catch (error) {
+      console.error('Error al obtener propiedades:', error);
+    }
+  };
 
   const fetchData = async () => {
     try {
-      const data = await getAllUsers(); // Esperar la respuesta de getAllUsers
+      const data = await getAllUsers();
       if (data) {
         console.log('Usuarios recibidos:', data);
         setUsersData(data);
@@ -127,10 +143,10 @@ export const AdminPanel = () => {
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none flex flex-col gap-2 px-2">        
-        <div className="p-1 flex justify-center">
-            <Typography variant="h5" color="blue-gray">
-              Panel de Administración de Usuarios
-            </Typography>                           
+        <div className="p-1 flex justify-center">          
+          <Typography variant="h5" color="blue-gray">
+            Panel de Administración de Usuarios
+          </Typography>                           
         </div>
         <section className="flex flex-col sm:flex-row justify-between gap-2">
           <div className="w-1/2 md:w-72">
@@ -221,7 +237,7 @@ export const AdminPanel = () => {
                           color="blue-gray"
                           className="font-normal opacity-70">
                             {role==="USER" ? "-" : 
-                            <Button variant="text" className="p-1" onClick={handleOpenPropList}>
+                            <Button variant="text" className="p-1" onClick={()=>handleOpenPropList(id)}>
                               Propiedades
                             </Button>}                            
                             <Dialog open={openPropList}>
@@ -245,11 +261,16 @@ export const AdminPanel = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {TABLE_PROPS_ROWS.map(({ title, owner, status }, index) => (
-                                        <tr key={title} className="even:bg-blue-gray-50/50">
+                                      {userProperties==""?<p>No hay propiedades registradas</p> :userProperties.map(({ title, propertyId,  owner, status }) => (
+                                        <tr key={propertyId} className="even:bg-blue-gray-50/50">
                                           <td className="p-4">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
                                               {title}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {propertyId}
                                             </Typography>
                                           </td>
                                           <td className="p-4">
