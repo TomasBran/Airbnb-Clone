@@ -148,7 +148,7 @@ export async function deleteUser (id) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-            },
+            },            
         });
         
 
@@ -249,6 +249,27 @@ export async function getProperty (id) {
             console.error('Error de red:', error);
         }
 }
+export async function getPropertiesByUserId (userId) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/user/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()      
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
+}
 
 export async function deleteProperty (id) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
@@ -269,26 +290,4 @@ export async function deleteProperty (id) {
     } catch (error) {
         console.error('There was an error:', error);
     }
-}
-
-export async function getPropertiesByUserId (id) {
-    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-    try {
-        const response = await fetch(`${apiUrl}/api/property/user/${id}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-
-        if(response.ok){
-            const data = await response.json()
-            return data
-        } else {
-            console.error('error de respuesta');
-        }
-        
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
 }

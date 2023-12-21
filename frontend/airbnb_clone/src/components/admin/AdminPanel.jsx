@@ -20,7 +20,8 @@ import {
   DialogFooter,
   CardFooter,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { deleteUser, getAllUsers, getPropertiesByUserId } from "../../services/apiRequests";
  
 const TABS = [
   {
@@ -29,74 +30,20 @@ const TABS = [
   },
   {
     label: "User",
-    value: "user",
+    value: "USER",
   },
   {
     label: "Owner",
-    value: "owner",
+    value: "OWNER",
   },
 ];
  
-const TABLE_HEAD = ["Username", "Tipo Usuario", "Status", "Contacto", "Reservas", "Opciones"];
+const TABLE_HEAD = ["Username", "Tipo Usuario", "UserId", "Contacto", "Country", "Opciones"];
+
+const TABLE_PROPS_HEAD = ["Título", "PropertyID", "Owner", "Status", ""];
 
 //Hay que traer la info del back
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    user: "User",
-    property: "-",
-    status: true,
-    phone: "12345678",
-    bookings: "info",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    user: "Owner",
-    property: "Propiedades",
-    status: false,
-    phone: "23456789",
-    bookings: "",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    user: "Owner",
-    property: "Propiedades",
-    status: false,
-    phone: "34567890",
-    bookings: "info",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    user: "User",
-    property: "-",
-    status: true,
-    phone: "45678901",
-    bookings: "info",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    user: "User",
-    property: "-",
-    status: false,
-    phone: "56789012",
-    bookings: "",
-  },
-];
-
-const TABLE_PROPS_HEAD = ["Título", "Owner", "Status", ""];
-
-//Hay que traer la info del back
-const TABLE_PROPS_ROWS = [
+/* const TABLE_PROPS_ROWS = [
   {
     title: "Casa en la Playa",
     owner: "Manager",
@@ -117,64 +64,89 @@ const TABLE_PROPS_ROWS = [
     owner: "Manager",
     status: "Inactiva",
   },  
-]; 
-
-const TABLE_BOOKINGS_HEAD = ["Título", "Owner", "Status", ""];
-
-//Hay que traer la info del back
-const TABLE_BOOKINGS_ROWS = [
-  {
-    title: "Casa en la Playa",
-    owner: "Manager",
-    status: "Activa",
-  },
-  {
-    title: "Departamento 3 ambientes",
-    owner: "Manager",
-    status: "Inactiva",
-  },
-  {
-    title: "Cabaña en la Montaña",
-    owner: "Manager",
-    status: "Activa",
-  },
-  {
-    title: "Casa con Pileta",
-    owner: "Manager",
-    status: "Inactiva",
-  },  
-]; 
+];  */
+ 
  
 export const AdminPanel = () => {
   const [searchText, setSearchText] = useState('');
   const [activeTab, setActiveTab] = useState('all');
   const [openPropList, setOpenPropList] = useState(false);
-  const [openBookingsList, setOpenBookingsList] = useState(false);
+  const [usersData, setUsersData] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [userProperties, setUserProperties] = useState([]);
+ 
+  const handleOpenAlert = () => setOpenAlert(!openAlert);
 
-  const handleOpenPropList = () => setOpenPropList(!openPropList);
-  const handleOpenBookingsList = () => setOpenBookingsList(!openBookingsList);
-
-  const filteredRows = TABLE_ROWS.filter((row) => {
-    const isMatchingSearch = row.name.toLowerCase().includes(searchText.toLowerCase());
-  
-    if (activeTab === 'all') {
-      return isMatchingSearch;
-    } else if (activeTab === 'user' && row.user === 'User') {
-      return isMatchingSearch;
-    } else if (activeTab === 'owner' && row.user === 'Owner') {
-      return isMatchingSearch;
+  const handleOpenPropList = (userId) => {
+    setOpenPropList(!openPropList);    
+    if (!openPropList) {      
+      fetchUserProperties(userId);
     }
+  };
+
+  const handleDeleteUser = async (id) => {
+    try {
+        await deleteUser(id);        
+        const updatedUsers = await getAllUsers();
+        setUsersData(updatedUsers);
+    } catch (error) {
+        console.error('Error deleting user:', error);
+    }
+  };
+
+  const fetchUserProperties = async (userId) => {
+    try {
+      const properties = await getPropertiesByUserId(userId);      
+      setUserProperties(properties);
+    } catch (error) {
+      console.error('Error al obtener propiedades:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const data = await getAllUsers();
+      if (data) {
+        console.log('Usuarios recibidos:', data);
+        setUsersData(data);
+      } else {
+        console.error('No se recibieron datos de usuarios.');
+      }
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+ 
+   useEffect(() => {
+    fetchData();
+  }, []);  
+
+  useEffect(() => {    
+    const filtered = usersData.filter((row) => {
+      const isMatchingSearch = (row.firstname.toLowerCase()|| row.lastname.toLowerCase()).includes(searchText.toLowerCase());
+      
+      if (activeTab === 'all') {
+        return isMatchingSearch;
+      } else if (activeTab === 'USER' && row.role === 'USER') {
+        return isMatchingSearch;
+      } else if (activeTab === 'OWNER' && row.role === 'OWNER') {
+        return isMatchingSearch;
+      }
   
-    return false;
-  });
+      return false;
+    });
+
+    setFilteredUsers(filtered);
+  }, [usersData, searchText, activeTab]);
 
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none flex flex-col gap-2 px-2">        
         <div className="p-1 flex justify-center">          
-            <Typography variant="h5" color="blue-gray">
-              Panel de Administración de Usuarios
-            </Typography>                           
+          <Typography variant="h5" color="blue-gray">
+            Panel de Administración de Usuarios
+          </Typography>                           
         </div>
         <section className="flex flex-col sm:flex-row justify-between gap-2">
           <div className="w-1/2 md:w-72">
@@ -223,31 +195,30 @@ export const AdminPanel = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredRows.map(
-              ({ img, name, email, user, property, status, phone, bookings }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+            {filteredUsers?.map(
+              ({ firstname, lastname, role, username, id, contact, country }, index) => {
+                const isLast = index === TABLE_HEAD.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50"; 
                 return (
-                  <tr key={name}>
+                  <tr key={username}>
                     <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" />
+                      <div className="flex items-center gap-3">                        
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {name}
+                            {firstname+" "+lastname}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {email}
+                            {username}
                           </Typography>
                         </div>
                       </div>
@@ -259,15 +230,15 @@ export const AdminPanel = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {user}
+                          {role}
                         </Typography>                        
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70">
-                            {user==="User" ? "-" : 
-                            <Button variant="text" className="p-1" onClick={handleOpenPropList}>
-                              {property}
+                            {role==="USER" ? "-" : 
+                            <Button variant="text" className="p-1" onClick={()=>handleOpenPropList(id)}>
+                              Propiedades
                             </Button>}                            
                             <Dialog open={openPropList}>
                               <DialogHeader>Listado de Propiedades</DialogHeader>
@@ -290,11 +261,16 @@ export const AdminPanel = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {TABLE_PROPS_ROWS.map(({ title, owner, status }, index) => (
-                                        <tr key={title} className="even:bg-blue-gray-50/50">
+                                      {userProperties==""?<p>No hay propiedades registradas</p> :userProperties.map(({ title, propertyId,  owner, status }) => (
+                                        <tr key={propertyId} className="even:bg-blue-gray-50/50">
                                           <td className="p-4">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
                                               {title}
+                                            </Typography>
+                                          </td>
+                                          <td className="p-4">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                              {propertyId}
                                             </Typography>
                                           </td>
                                           <td className="p-4">
@@ -344,12 +320,13 @@ export const AdminPanel = () => {
                     </td>
                     <td className={classes}>
                       <div className="w-max">
-                        <Chip
-                          variant="ghost"
-                          size="sm"
-                          value={status ? "activo" : "inactivo"}
-                          color={status ? "green" : "blue-gray"}
-                        />
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {id}
+                      </Typography>
                       </div>
                     </td>
                     <td className={classes}>
@@ -358,7 +335,7 @@ export const AdminPanel = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {phone}
+                        {contact?contact:"-"}
                       </Typography>
                     </td>
                     <td className={classes}>
@@ -367,93 +344,39 @@ export const AdminPanel = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {!bookings ? "-" : 
-                            <Button variant="text" className="p-1"  onClick={handleOpenBookingsList}>
-                              {bookings}
-                            </Button>} 
-                            <Dialog open={openBookingsList} >
-                              <DialogHeader>Listado de Reservas</DialogHeader>
-                              <DialogBody>
-                              <Card className="h-full w-full overflow-auto">
-                                  <table className="w-full min-w-max table-auto text-left">
-                                    <thead>
-                                      <tr>
-                                        {TABLE_BOOKINGS_HEAD.map((head) => (
-                                          <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                            <Typography
-                                              variant="small"
-                                              color="blue-gray"
-                                              className="font-normal leading-none opacity-70"
-                                            >
-                                              {head}
-                                            </Typography>
-                                          </th>
-                                        ))}
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {TABLE_BOOKINGS_ROWS.map(({ title, owner, status }, index) => (
-                                        <tr key={title} className="even:bg-blue-gray-50/50">
-                                          <td className="p-4">
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {title}
-                                            </Typography>
-                                          </td>
-                                          <td className="p-4">
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {owner}
-                                            </Typography>
-                                          </td>
-                                          <td className="p-4">
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                              {status}
-                                            </Typography>
-                                          </td>
-                                          <td className="p-4">
-                                            <Tooltip content="Edit Property Status">
-                                              <IconButton variant="text">
-                                                <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
-                                              </IconButton>
-                                            </Tooltip>
-                                            <Tooltip content="Delete Property">
-                                              <IconButton variant="text">                        
-                                                <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
-                                              </IconButton>
-                                            </Tooltip>                                            
-                                          </td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </Card>
-                              </DialogBody>
-                              <DialogFooter>
-                                <Button
-                                  variant="text"
-                                  color="red"
-                                  onClick={handleOpenBookingsList}
-                                  className="mr-1"
-                                >
-                                  <span>Cancelar</span>
-                                </Button>
-                                <Button variant="gradient" color="green" onClick={handleOpenBookingsList}>
-                                  <span>Confirmar</span>
-                                </Button>
-                              </DialogFooter>
-                            </Dialog>                       
+                        {country}                                             
                       </Typography>
                     </td>
-                    <td className={classes}>
-                      <Tooltip content="Edit User Status">
-                        <IconButton variant="text">
-                          <FontAwesomeIcon icon={faPencil} className="h-4 w-4"/>
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip content="Delete User">
-                        <IconButton variant="text">                        
-                          <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
-                        </IconButton>
-                      </Tooltip>
+                    <td className={classes}> 
+                    { role === "ADMIN" ? " " :
+                      <>                    
+                        <Tooltip content="Borrar Usuario">
+                          <IconButton variant="text" onClick={handleOpenAlert}>                      
+                            <FontAwesomeIcon icon={faTrashCan} className="h-4 w-4"/>
+                          </IconButton>
+                        </Tooltip>
+                          <Dialog open={openAlert} handler={handleOpenAlert}>
+                            <DialogHeader>¿Eliminar usuario?</DialogHeader>
+                            <DialogBody>
+                              <Typography variant="h5">¿Estás seguro que deseas borrar el usuario?</Typography>
+                              <Typography variant="h6">Los datos no podrán recuperarse y el usuario deberá volver a registrarse.</Typography>                            
+                            </DialogBody>
+                            <DialogFooter>
+                              <Button
+                                variant="text"
+                                color="red"
+                                onClick={handleOpenAlert}
+                                className="mr-1"
+                              >
+                                <span>Cancel</span>
+                              </Button>
+                              <Button variant="gradient" color="green" onClick={() => handleDeleteUser(id)}>
+                                <span>Confirm</span>
+                              </Button>
+                            </DialogFooter>
+                          </Dialog>
+                      </>
+                    }                    
                     </td>
                   </tr>
                 );
