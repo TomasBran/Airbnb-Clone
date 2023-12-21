@@ -60,20 +60,53 @@ export async function submitProperty(formData) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
         try {
+            const form = new FormData();
+
+            console.log(formData)
+            for (const key in formData) {
+                const value = formData[key];
+
+                if (key === 'images' && Array.isArray(value)) {
+                    value.forEach((imageObject, index) => {
+                        const file = imageObject.file;
+
+                        if (file instanceof File) {
+                            form.append('images', file);
+                        }
+                    });
+                } else if (key === 'serviceTypes' && Array.isArray(value)) {
+                    const selectedServices = value.map(service => service.toString());
+                    form.append('services', selectedServices.join(','));
+                } else if (value instanceof File) {
+                    form.append(key, value);
+                } else if (Array.isArray(value)) {
+                    value.forEach((item, index) => {
+                        if (item instanceof File) {
+                            form.append(`${key}[${index}]`, item);
+                        } else {
+                            form.append(`${key}[${index}]`, item.toString());
+                        }
+                    });
+                } else if (typeof value === 'string' || typeof value === 'number') {
+                    form.append(key, value.toString());
+                }
+            }
+
             const response = await fetch(`${apiUrl}/api/property`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: formData
+                body: form
             });
+            for (let entry of form) {
+                console.log(entry);
+            }
 
             if (!response.ok) {
                 throw new Error();
             }
 
-            const data = await response.json();
         } catch (error) {
             console.error('There was an error:', error);
         }
@@ -143,7 +176,7 @@ export async function getAllUsers () {
         })
 
         if(response.ok){
-            const data = await response.json()            
+            const data = await response.json()
             return data
         } else {
             console.error('error de respuesta');
@@ -154,6 +187,74 @@ export async function getAllUsers () {
     }
 }
 
+export async function getUser (username) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+
+    try {
+        const response = await fetch(`${apiUrl}/api/user/username/${username}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+}
+
+export async function getAllProperties () {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+}
+
+export async function getProperty (id) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+}
 export async function getPropertiesByUserId (userId) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
     try {

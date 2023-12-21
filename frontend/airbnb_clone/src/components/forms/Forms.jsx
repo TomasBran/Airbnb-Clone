@@ -29,6 +29,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
     const [dataMissing, setDataMissing] = useState(false)
     const [invalidEmail, setInvalidEmail] = useState(false)
     const [invalidPassword, setInvalidPassword] = useState(false)
+    const [invalidContact, setInvalidContact] = useState(false)
+    const [showContactInput, setShowContactInput] = useState(false)
     const [showPassword, setShowPassword] = useState(true);
     const handleShowPassword = () => setShowPassword((cur) => !cur);
     
@@ -39,6 +41,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         lastname: '',
         country:'',
         role:'',
+        contact: '',
     }
     const [userData, setUserData] = useState(initialUserData);
 
@@ -149,11 +152,31 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             setInvalidPassword(false);
         }
 
+        if(!validateNumberFormat(userData.contact)){
+            setInputArray(prevState => ({
+                ...prevState,
+                contact: true,
+            }));
+            setInvalidContact(true);
+        } else {
+            setInvalidContact(false)
+        }
+
         for (const key in userData) {
             if(userData[key]==='' && key!=="role"){
-                showEmptyInput()
-                setDataMissing(true)
-                return
+                if(!switchRef.current.checked && key==="contact"){
+                    setInvalidContact(false)
+                    setUserData(prevState => ({
+                        ...prevState,
+                        contact: '',
+                    }));
+                    setDataMissing(false)
+                } else {
+                    showEmptyInput()
+                    setDataMissing(true)
+                    return
+
+                }
             }
         }
         
@@ -163,11 +186,18 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
           role: switchRef.current.checked ? 'OWNER' : 'USER',
         }));
 
+    }
 
+
+    const handleSwitch = () => {
+        if(!switchRef.current.checked){
+            setInvalidContact(false)
+        }
+        setShowContactInput(prev => !prev)
     }
 
     useEffect(() => {
-        if (registerButtonPressed && !dataMissing && !invalidEmail && !invalidPassword) {
+        if (registerButtonPressed && !dataMissing && !invalidEmail && !invalidPassword && !invalidContact) {
       
             sendRegister(userData);
             handleOpenSignUp();
@@ -178,12 +208,14 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
 
 
 
-    const resetData= () =>{
+    const resetData= () => {
         setInputArray(initialInputArray)
         setUserData(initialUserData)
         setDataMissing(false)
         setInvalidEmail(false)
         setInvalidPassword(false)
+        setInvalidContact(false)
+        setShowContactInput(false)
     }
 
     const showEmptyInput = () => {
@@ -244,6 +276,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regexEmail.test(email);
     }
+
+    const validateNumberFormat = (number) => {
+        const numberString = number.toString();
+        return numberString.length >= 8;
+    }
     
 
 
@@ -252,12 +289,10 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
         const newData = {username, password}
         await login(newData)
         updateUserData(setUser, username)
-        console.log("Data enviada al back:", userData)
     }
 
     const sendRegister = (userData) => {
         register(userData)
-        console.log("Data enviada al back:", userData)
     }
 
 
@@ -346,9 +381,12 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 >
                 Ingresa tu mail y contraseña para el registro
                 </Typography>
-                <div className="h-2">
+                <div className="h-2 flex gap-3">
                     <Typography className="" variant="small" color="red">
                     {dataMissing ? "Existen campos incompletos" : ""}
+                    </Typography>
+                    <Typography className="" variant="small" color="red">
+                    {invalidContact ? "* Número de contacto inválido" : ""}
                     </Typography>
                 </div>
                 <div className='flex gap-2 items-baseline'>
@@ -382,15 +420,22 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 País
                 </Typography>
                 <CountriesSelect newError={inputArray.country} name="country" newValue={countryValue} setCountryValue={setCountryValue}/> 
-                <div className='-mb-3'>
-                    <Switch label="Soy propietario" inputRef={switchRef}/>
+                <div className='-mb-3 flex justify-between w-full h-10'>
+                    <Switch label="Soy propietario" inputRef={switchRef} onChange={handleSwitch}/>
+                    {showContactInput && <div className='flex items-center gap-2'>
+                        <Typography variant="h6">
+                            Contacto:
+                        </Typography>
+                        <Input error={inputArray.contact} name="contact" color="indigo" type="number" label="Teléfono" size="lg" onChange={handleInputChange}/>
+                    </div>}
+                
                 </div>
             </CardBody>
             <CardFooter className="pt-0">
                 <Button variant="gradient" onClick={handleRegisterButton} fullWidth>
                 Registrarse
                 </Button>
-                <Typography variant="small" className="mt-4 flex justify-center">
+                <Typography variant="small" className="mt-2 -mb-2 flex justify-center">
                 ¿Ya tenés una cuenta?
                 <Typography
                     variant="small"

@@ -95,7 +95,8 @@ export const PropertyRegister = () => {
         description: null,
         images: [],
         value: null,
-        location: null,
+        country: null,
+        city: "ciudad",
         category: null,
         subCategory: null,
         bathroom: null,
@@ -192,7 +193,7 @@ export const PropertyRegister = () => {
     };
 
     useEffect(() => {
-        handleSelectChange("location", countryValue)
+        handleSelectChange("country", countryValue)
     }, [countryValue])
 
     
@@ -244,7 +245,7 @@ export const PropertyRegister = () => {
                         name="images"
                         type="file"
                         multiple
-                        accept=".jpg, .jpeg, .png"
+                        accept=".jpg, .jpeg, .png, .webp"
                         onChange={handleFileChange}
                     />
                 </div>
@@ -268,7 +269,7 @@ export const PropertyRegister = () => {
                     <Typography color="gray" variant="small">
                         Elegí el país donde está ubicada la propiedad
                     </Typography>
-                    <CountriesSelect name="location" newValue={countryValue} setCountryValue={setCountryValue} newError={false}/>
+                    <CountriesSelect name="country" newValue={countryValue} setCountryValue={setCountryValue} newError={false}/>
                 </div>
     
                 <div className="flex flex-col gap-2 md:w-7/12 w-full">
