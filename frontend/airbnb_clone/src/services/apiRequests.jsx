@@ -152,8 +152,7 @@ export async function deleteUser (id) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-            },
-            body: property
+            },            
         });
         
 
@@ -255,4 +254,26 @@ export async function getProperty (id) {
         } catch (error) {
             console.error('Error de red:', error);
         }
+}
+export async function getPropertiesByUserId (userId) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    try {
+        const response = await fetch(`${apiUrl}/api/property/user/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)            
+            return data
+        } else {
+            console.error('error de respuesta');
+        }
+        
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
 }

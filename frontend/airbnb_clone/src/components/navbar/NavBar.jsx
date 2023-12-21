@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 
 
-export const NavBar = () => {     
+export const NavBar = ({ hideSearch }) => {      
+   
 
     const { user, logoutUser } = useAuth()
 
@@ -40,28 +41,23 @@ export const NavBar = () => {
         return () => {
         document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, []);   
+
    
     return ( 
             <> 
                 <section className="py-3 px-8 flex justify-between items-center">        
                 <Link to="/"><LogoIcon/></Link>
-                    <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
+                    {!hideSearch && <div className="flex flex-col justify-center items-center -ml-8 mr-4" ref={navRef}>
                         <Button variant="outlined" onClick={openSearch} className="box-border flex items-center gap-2 rounded-3xl border border-gray-300 shadow-md hover:shadow-lg px-3 py-1">                              
                             <div className="flex items-center">
-                                <h2 className="hidden md:inline mr-1">Destino | Fechas | Huéspedes</h2>                               
+                                <h2 className="hidden md:inline mr-1">País de Destino | Huéspedes</h2>                               
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className="p-3 rounded-full m-0.5 bg-red-500 text-white text-sm" />                                
                             </div>                                                  
                         </Button>                    
-                        {isSearchOpen && <Search/>}
-                    </div>
-                    <div className="flex flex-row gap-px md:gap-4">
-
-                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
-                        <Link to="/property-register">
-                            <Button variant="text">Registro de Propiedad</Button>
-                        </Link>  
-                        {/* BOTÓN DE REGISTRO DE PROPIEDAD ES TEMPORAL */}
+                        {isSearchOpen && <Search />}
+                    </div>}
+                    <div className="flex flex-row gap-px md:gap-4">                       
 
 
                         {!user && <div className="flex items-center gap-2">
