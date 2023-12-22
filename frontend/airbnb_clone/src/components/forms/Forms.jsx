@@ -302,9 +302,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             size="sm"
             open={openLogin}
             handler={handleOpenLogin}
-            className="bg-transparent shadow-none"
-            
-        >
+            className="bg-transparent shadow-none">
             <Card className="mx-auto w-full max-w-[36rem]"> 
             <CardBody className="flex flex-col gap-4">
                 <Typography variant="h4" color="blue-gray">
@@ -313,8 +311,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography
                 className="-mb-3 font-normal"
                 variant="paragraph"
-                color="gray"
-                >
+                color="gray">
                 Ingresa tu mail y contraseña para iniciar sesión
                 </Typography>
                 <div className="h-2">
@@ -350,10 +347,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                     onClick={() => {
                     handleOpenLogin()
                     handleOpenSignUp()
-                    resetData()
-                    
-                    }}
-                >
+                    resetData()                    
+                    }}>
                     <span className="hover-pointer">Registrate</span>
                 </Typography>
                 </Typography>
@@ -361,14 +356,11 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
             </Card>
         </Dialog>
 
-
-
         <Dialog
             size="sm"
             open={openSignUp}
             handler={handleOpenSignUp}
-            className="bg-transparent shadow-none"
-        >
+            className="bg-transparent shadow-none" >
             <Card className="mx-auto w-full max-w-[36rem]">
             <CardBody className="flex flex-col gap-3">
                 <Typography className='-mb-2' variant="h4" color="blue-gray">
@@ -377,8 +369,7 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                 <Typography
                 className="-mb-3 font-normal"
                 variant="paragraph"
-                color="gray"
-                >
+                color="gray">
                 Ingresa tu mail y contraseña para el registro
                 </Typography>
                 <div className="h-2 flex gap-3">
@@ -444,10 +435,8 @@ const Forms = ({openLogin, handleOpenLogin, openSignUp, handleOpenSignUp}) => {
                     onClick={() => {
                     handleOpenSignUp()
                     handleOpenLogin()
-                    resetData()
-                    
-                    }}
-                >
+                    resetData()                    
+                    }}>
                     <span className="hover-pointer">Iniciar Sesión</span>
                 </Typography>
                 </Typography>

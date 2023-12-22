@@ -70,11 +70,10 @@ export const AdminPanel = () => {
     }
   };
 
-  const handleDeleteProperty = async (propertyId, userId) => {
+  const handleDeleteProperty = async (id) => {
     try {      
-      await deleteProperty(propertyId);      
-      fetchUserProperties(userId);
-    } catch (error) {
+      await deleteProperty(id);    
+      } catch (error) {
       console.error('Error al eliminar la propiedad:', error);
     }
   };
@@ -368,8 +367,7 @@ export const AdminPanel = () => {
                                 variant="text"
                                 color="red"
                                 onClick={handleOpenAlert}
-                                className="mr-1"
-                              >
+                                className="mr-1">
                                 <span>Cancel</span>
                               </Button>
                               <Button variant="gradient" color="green" onClick={() => handleDeleteUser(id)}>

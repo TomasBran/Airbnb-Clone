@@ -90,19 +90,19 @@ export const Filters = () => {
 
     //Checkbox
     const [checkboxes, setCheckboxes] = useState({
-        wifi: false,
-        kitchen: false,
-        washing: false,
-        air: false,
-        heating: false,
-        pool: false,
-        parking: false,
-        cradle: false,
-        barbecue: false,
-        breakfast: false,
-        smoke: false,
-        pets: false,
-        cancel: false
+        WIFI: false,
+        KITCHEN: false,
+        WASHING_MACHINE: false,
+        AIR_CONDITIONER: false,
+        HEATING: false,
+        SWIMMING_POOL: false,
+        PARKING_LOT: false,
+        CRADLE: false,
+        GRILL: false,
+        BREAKFAST: false,
+        SMOKING_ALLOWED: false,
+        PETS_ALLOWED: false,
+        EARLY_CANCELLATION: false
     });
     
     const handleCheckboxChange = (e) => {
@@ -135,11 +135,11 @@ export const Filters = () => {
                 const roomsMatch = selectedRooms === 'cualquiera' || property.bedroom == selectedRooms;
                 const bedsMatch = selectedBeds === 'cualquiera' || property.bed == selectedBeds;
                 const bathsMatch = selectedBaths === 'cualquiera' || property.bathroom == selectedBaths;
-
-                // Filtrar por servicios
+                               
                 const servicesMatch = Object.keys(checkboxes).every(key => {
-                    return !checkboxes[key] || property.services.includes(key);
-                });               
+                    const lowercaseKey = key.toLowerCase();
+                    return !checkboxes[key] || property.services.some(service => service.toLowerCase() === lowercaseKey);
+                });                         
                
                 return priceRange && propertyTypeSelected && roomsMatch && bedsMatch && bathsMatch &&servicesMatch;
             });
@@ -230,19 +230,19 @@ export const Filters = () => {
                     <section className="mt-10">
                         <h2 className="text-lg font-bold pb-2">Servicios</h2> 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                            <Checkbox id="wifi" label="Wifi" ripple={true} checked={checkboxes.wifi} onChange={handleCheckboxChange}/>
-                            <Checkbox id="kitchen" label="Cocina" ripple={true}checked={checkboxes.kitchen} onChange={handleCheckboxChange} />  
-                            <Checkbox id="washing" label="Lavarropas" ripple={true} checked={checkboxes.washing} onChange={handleCheckboxChange}/>
-                            <Checkbox id="air" label="Aire Acondicionado" ripple={true} checked={checkboxes.air} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="heating" label="Calefacción" ripple={true} checked={checkboxes.heating} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="pool" label="Pileta" ripple={true} checked={checkboxes.pool} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="pets" label="Permite Mascotas" ripple={true} checked={checkboxes.pets} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="parking" label="Estacionamiento" ripple={true} checked={checkboxes.parking} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="cradle" label="Cuna" ripple={true} checked={checkboxes.cradle} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="barbecue" label="Parrilla" ripple={true} checked={checkboxes.barbecue} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="breakfast" label="Desayuno" ripple={true} checked={checkboxes.breakfast} onChange={handleCheckboxChange}/>  
-                            <Checkbox id="smoke" label="Se permite fumar" ripple={true} checked={checkboxes.smoke} onChange={handleCheckboxChange}/>
-                            <Checkbox id="smoke" label="Cancelación Anticipada" ripple={true} checked={checkboxes.cancel} onChange={handleCheckboxChange}/>   
+                            <Checkbox id="WIFI" label="Wifi" ripple={true} checked={checkboxes.WIFI} onChange={handleCheckboxChange}/>
+                            <Checkbox id="KITCHEN" label="Cocina" ripple={true}checked={checkboxes.KITCHEN} onChange={handleCheckboxChange} />  
+                            <Checkbox id="WASHING_MACHINE" label="Lavarropas" ripple={true} checked={checkboxes.WASHING_MACHINE} onChange={handleCheckboxChange}/>
+                            <Checkbox id="AIR_CONDITIONER" label="Aire Acondicionado" ripple={true} checked={checkboxes.AIR_CONDITIONER} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="HEATING" label="Calefacción" ripple={true} checked={checkboxes.HEATING} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="SWIMMING_POOL" label="Pileta" ripple={true} checked={checkboxes.SWIMMING_POOL} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="PETS_ALLOWED" label="Permite Mascotas" ripple={true} checked={checkboxes.PETS_ALLOWED} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="PARKING_LOT" label="Estacionamiento" ripple={true} checked={checkboxes.PARKING_LOT} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="CRADLE" label="Cuna" ripple={true} checked={checkboxes.CRADLE} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="GRILL" label="Parrilla" ripple={true} checked={checkboxes.GRILL} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="BREAKFAST" label="Desayuno" ripple={true} checked={checkboxes.BREAKFAST} onChange={handleCheckboxChange}/>  
+                            <Checkbox id="SMOKING_ALLOWED" label="Se permite fumar" ripple={true} checked={checkboxes.SMOKING_ALLOWED} onChange={handleCheckboxChange}/>
+                            <Checkbox id="EARLY_CANCELLATION" label="Cancelación Anticipada" ripple={true} checked={checkboxes.EARLY_CANCELLATION} onChange={handleCheckboxChange}/>   
                         </div>                                       
                     </section>
                 </DialogBody>
