@@ -1,12 +1,10 @@
-import { Button, Checkbox, Input, Option, Select, Switch, Textarea, Typography } from "@material-tailwind/react";
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-import { DateRange } from 'react-date-range';
-import { useRef, useState } from "react";
+import { Button, Checkbox, Dialog, DialogBody, DialogFooter, DialogHeader, Input, Option, Select,  Textarea, Typography } from "@material-tailwind/react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { CountriesSelect } from '../countries/CountryList'
 import { useAuth } from "../../context/authContext.jsx";
 import { submitProperty } from "../../services/apiRequests.jsx";
+import { Link } from "react-router-dom";
 
 const categories = [
     {
@@ -86,6 +84,10 @@ const services = [
 
 
 export const PropertyRegister = () => {
+    const [openDialog, setOpenDialog] = useState(false);
+    const handleOpenDialog = () => setOpenDialog(!openDialog);
+
+    const { user } = useAuth()
 
     const [propertyData, setPropertyData] = useState({
         title: null,
@@ -106,6 +108,7 @@ export const PropertyRegister = () => {
 
     const [countryValue, setCountryValue] = useState('')
 
+   
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setPropertyData((prevData) => ({
@@ -162,6 +165,7 @@ export const PropertyRegister = () => {
     const sendPropertyInfo = () => {
 
         submitProperty(propertyData)
+        handleOpenDialog()
 
     }
 
@@ -310,10 +314,30 @@ export const PropertyRegister = () => {
                         />
                     ))}
                 </div>
-    
+                   
     
                 <div className="flex justify-center">
                     <Button className="mt-4" onClick={sendPropertyInfo}>Enviar Formulario</Button>
+                    <Dialog open={openDialog} handler={handleOpenDialog}>
+                            <DialogHeader>¡Propiedad Registrada!</DialogHeader>
+                            <DialogBody>                              
+                              <Typography variant="h6">Los datos fueron cargados con éxito.</Typography>                            
+                            </DialogBody>
+                            <DialogFooter>
+                              <Button
+                                variant="text"
+                                color="red"
+                                onClick={handleOpenDialog}
+                                className="mr-1"
+                              >
+                                <span>Cerrar</span>
+                              </Button>
+                              <Link to="/">
+                              <Button variant="gradient" color="green">
+                                <span>Volver a Inicio</span>
+                              </Button></Link>
+                            </DialogFooter>
+                    </Dialog>
                 </div>
             </div>
         </div>
