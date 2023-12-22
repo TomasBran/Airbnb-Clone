@@ -148,10 +148,8 @@ export async function updateUser( formData, id ) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                body: JSON.stringify(formData),
-
             },
-            body: formData
+            body: JSON.stringify(formData),
         });
 
         if (!response.ok) {

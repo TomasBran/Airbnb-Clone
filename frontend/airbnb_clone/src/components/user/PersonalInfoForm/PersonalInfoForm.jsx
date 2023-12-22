@@ -1,20 +1,16 @@
-import { useState } from "react";
-import { Button, Input, Typography } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input, Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { updateUser } from "../../../services/apiRequests";
 
 export const PersonalInfoForm = () => {
   let { state } = useLocation();
   const { id, username , firstname, lastname, country, propertyIds, contact, description } = state;
-
-  console.log(firstname,
-    id,
-    lastname,
-    contact,
-    country,
-    description);
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => setOpenDialog(!openDialog);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const [ formData, setFormData ] = useState({
     lastname: lastname || "",
@@ -26,25 +22,34 @@ export const PersonalInfoForm = () => {
 
   const [isFirstnameEditing, setIsFirstnameEditing] = useState(false);
   const [isLastnameEditing, setIsLastnameEditing] = useState(false);
-  // const [isUsernameEditing, setIsUsernameEditing] = useState(false);
   const [isContactEditing, setIsContactEditing] = useState(false);
   const [isCountryEditing, setIsCountryEditing] = useState(false);
   const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await updateUser(formData, id);
       console.log('Formulario enviado:', formData);
+      handleOpenDialog();
+
+      
+      setIsFormSubmitted(true);
     } catch (error) {
-      console.error('Error al enviar actualizar la info del usuario:', error);
+      console.error('Error al actualizar el usuario:', error);
     }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('Formulario enviado:', formData);
-  // };
+  
+  useEffect(() => {
+    setFormData({
+      lastname: lastname || "",
+      firstname: firstname || "",
+      country: country || "",
+      contact: contact || "",
+      description: description || "",
+    });
+  }, [isFormSubmitted])
+  
 
   // Manejador para cambiar el valor de un campo en el estado
   const handleChange = (field, value) => {
@@ -60,10 +65,6 @@ export const PersonalInfoForm = () => {
       case 'lastname':
         setIsLastnameEditing(false);
         break;
-
-      // case 'username':
-      //   setIsUsernameEditing(false);
-      //   break;
 
       case 'contact':
         setIsContactEditing(false);
@@ -94,10 +95,6 @@ export const PersonalInfoForm = () => {
         setIsLastnameEditing(true);
         break;
 
-      // case 'username':
-      //   setIsUsernameEditing(true);
-      //   break;
-
       case 'contact':
         setIsContactEditing(true);
         break;
@@ -116,119 +113,132 @@ export const PersonalInfoForm = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8">
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white rounded-lg shadow-none font-mono">
-          <h2 className="text-2xl font-semibold mb-4">Información personal</h2>
-          
-          <div className="mb-4">
-            <Typography variant="h5" className="mb-2">Primer nombre</Typography>
-
-            <Input
-              name="firstname"
-              maxLength="100"
-              value={formData.firstname}
-              onChange={(e) => handleChange('firstname', e.target.value)}
-              readOnly={!isFirstnameEditing}
-              icon={<FontAwesomeIcon onClick={() => handleEdit('firstname')} icon={faPenToSquare} />}
-            />
-
-            {isFirstnameEditing && (
-              <Button className="mt-2" onClick={() => handleSave('firstname')}
-              >
-                Guardar
-              </Button>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <Typography variant="h5" className="mb-2">Segundo nombre</Typography>
-
-            <Input
-              name="lastname"
-              maxLength="100"
-              value={formData.lastname}
-              onChange={(e) => handleChange('lastname', e.target.value)}
-              readOnly={!isLastnameEditing}
-              icon={<FontAwesomeIcon onClick={() => handleEdit('lastname')} icon={faPenToSquare} />}
-            />
-
-            {isLastnameEditing && (
-              <Button className="mt-2" onClick={() => handleSave('lastname')}
-              >
-                Guardar
-              </Button>
-            )}
-          </div>
-
-          {/* <div className="mb-4">
-              <Typography variant="h5" className="mb-2">Correo electrónico</Typography>
-
-              <Input name="username" maxLength="100" value={formData.username} onChange={(e) => handleChange('username', e.target.value)} readOnly={!isUsernameEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('username')} icon={faPenToSquare} />} />
-
-              {isUsernameEditing && (
-                <Button className="mt-2" onClick={() => handleSave('username')}
-                >
-                  Guardar
-                </Button>
-              )}
-          </div> */}
-
-          <div className="mb-4">
-              <Typography variant="h5" className="mb-2">Número de teléfono</Typography>
-
-              <Input name="contact" maxLength="100" value={formData.contact} onChange={(e) => handleChange('contact', e.target.value)} readOnly={!isContactEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('contact')} icon={faPenToSquare} />} />
-
-              {isContactEditing && (
-                <Button className="mt-2" onClick={() => handleSave('contact')}
-                >
-                  Guardar
-                </Button>
-              )}
-          </div>
-
-          <div className="mb-4">
-            <Typography variant="h5" className="mb-2">País</Typography>
-
-            <Input
-              name="country"
-              maxLength="100"
-              value={formData.country}
-              onChange={(e) => handleChange('country', e.target.value)}
-              readOnly={!isCountryEditing}
-              icon={<FontAwesomeIcon onClick={() => handleEdit('country')} icon={faPenToSquare} />}
-            />
-
-            {isCountryEditing && (
-              <Button className="mt-2" onClick={() => handleSave('country')}
-              >
-                Guardar
-              </Button>
-            )}
-          </div>
-
-          <div className="mb-4">
-              <Typography variant="h5" className="mb-2">Descripción</Typography>
+    <>
+      <div className="container mx-auto mt-8">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white rounded-lg shadow-none font-mono">
+            <h2 className="text-2xl font-semibold mb-4">Información personal</h2>
+            
+            <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Primer nombre</Typography>
 
               <Input
-                name="description"
-                maxLength="200"
-                value={formData.description} onChange={(e) => handleChange('description', e.target.value)}
-                readOnly={!isDescriptionEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('description')}
-                icon={faPenToSquare} />}
+                name="firstname"
+                maxLength="100"
+                value={formData.firstname}
+                onChange={(e) => handleChange('firstname', e.target.value)}
+                readOnly={!isFirstnameEditing}
+                icon={<FontAwesomeIcon onClick={() => handleEdit('firstname')} icon={faPenToSquare} />}
               />
 
-              {isDescriptionEditing && (
-                <Button className="mt-2" onClick={() => handleSave('description')}
+              {isFirstnameEditing && (
+                <Button className="mt-2" onClick={() => handleSave('firstname')}
                 >
                   Guardar
                 </Button>
               )}
-          </div>
+            </div>
 
-          <div className="flex justify-center mt-4">
-              <Button type="submit">Guardar cambios</Button>
-          </div>
-        </form>
-    </div>
+            <div className="mb-4">
+              <Typography variant="h5" className="mb-2">Segundo nombre</Typography>
+
+              <Input
+                name="lastname"
+                maxLength="100"
+                value={formData.lastname}
+                onChange={(e) => handleChange('lastname', e.target.value)}
+                readOnly={!isLastnameEditing}
+                icon={<FontAwesomeIcon onClick={() => handleEdit('lastname')} icon={faPenToSquare} />}
+              />
+
+              {isLastnameEditing && (
+                <Button className="mt-2" onClick={() => handleSave('lastname')}
+                >
+                  Guardar
+                </Button>
+              )}
+            </div>
+
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Número de teléfono</Typography>
+
+                <Input name="contact" maxLength="100" value={formData.contact} onChange={(e) => handleChange('contact', e.target.value)} readOnly={!isContactEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('contact')} icon={faPenToSquare} />} />
+
+                {isContactEditing && (
+                  <Button className="mt-2" onClick={() => handleSave('contact')}
+                  >
+                    Guardar
+                  </Button>
+                )}
+            </div>
+
+            <div className="mb-4">
+              <Typography variant="h5" className="mb-2">País</Typography>
+
+              <Input
+                name="country"
+                maxLength="100"
+                value={formData.country}
+                onChange={(e) => handleChange('country', e.target.value)}
+                readOnly={!isCountryEditing}
+                icon={<FontAwesomeIcon onClick={() => handleEdit('country')} icon={faPenToSquare} />}
+              />
+
+              {isCountryEditing && (
+                <Button className="mt-2" onClick={() => handleSave('country')}
+                >
+                  Guardar
+                </Button>
+              )}
+            </div>
+
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Descripción</Typography>
+
+                <Input
+                  name="description"
+                  maxLength="200"
+                  value={formData.description} onChange={(e) => handleChange('description', e.target.value)}
+                  readOnly={!isDescriptionEditing} icon={<FontAwesomeIcon onClick={() => handleEdit('description')}
+                  icon={faPenToSquare} />}
+                />
+
+                {isDescriptionEditing && (
+                  <Button className="mt-2" onClick={() => handleSave('description')}
+                  >
+                    Guardar
+                  </Button>
+                )}
+            </div>
+
+            <div className="flex justify-center mt-4">
+                <Button type="submit">Guardar cambios</Button>
+
+                <Dialog open={openDialog} handler={handleOpenDialog}>
+                  <DialogHeader>¡Campo actualizado!</DialogHeader>
+
+                  <DialogBody>                              
+                    <Typography variant="h6">Los datos fueron actualizados con éxito.</Typography>                            
+                  </DialogBody>
+
+                  <DialogFooter>
+                    {/* <Button
+                      variant="text"
+                      color="red"
+                      onClick={handleOpenDialog}
+                      className="mr-1"
+                    >
+                      <span>Cerrar</span>
+                    </Button> */}
+                    <Link to="/">
+                      <Button variant="gradient" color="green">
+                        <span>Volver al inicio</span>
+                      </Button>
+                    </Link>
+                  </DialogFooter>
+                </Dialog>
+            </div>
+          </form>
+      </div>
+    </>
   )
 }

@@ -312,7 +312,7 @@ export const PropertiesContainer = () => {
     };
 
     fetchData();
-  }, [id, properties]);
+  }, [id]);
 
   if (properties.length === 0) {
     return (
