@@ -7,10 +7,12 @@ import { getAllProperties } from "../../../services/apiRequests";
 export const CardContainer = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
+ 
+  
+   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const data = await getAllProperties();
         
         setProperties(data);
@@ -25,7 +27,7 @@ export const CardContainer = () => {
 
     fetchData();
   }, []);
-
+ 
   if (properties.length === 0) {
     return (
       <div className="grid items-center justify-center h-screen">
@@ -93,8 +95,7 @@ export const CardContainer = () => {
                       <HostCardItem
                         title={propertie.title}
                         description={propertie.description}
-                        location={propertie.location}
-                        // reservationDate={propertie.reservationDate}
+                        location={propertie.location}                        
                         value={propertie.value}
                         images={propertie.images}
                       />
