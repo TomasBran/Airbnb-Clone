@@ -59,65 +59,61 @@ export function logout() {
 export async function submitProperty(formData) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
-        try {
-            const form = new FormData();
+    try {
+        const form = new FormData();
 
-            for (const key in formData) {
-                const value = formData[key];
+        for (const key in formData) {
+            const value = formData[key];
 
-                if (key === 'images' && Array.isArray(value)) {
-                    value.forEach((imageObject, index) => {
-                        const file = imageObject.file;
+            if (key === 'images' && Array.isArray(value)) {
+                value.forEach((imageObject, index) => {
+                    const file = imageObject.file;
 
-                        if (file instanceof File) {
-                            form.append('images', file);
-                        }
-                    });
-                } else if (key === 'serviceTypes' && Array.isArray(value)) {
-                    const selectedServices = value.map(service => service.toString());
-                    form.append('services', selectedServices.join(','));
-                } else if (value instanceof File) {
-                    form.append(key, value);
-                } else if (Array.isArray(value)) {
-                    value.forEach((item, index) => {
-                        if (item instanceof File) {
-                            form.append(`${key}[${index}]`, item);
-                        } else {
-                            form.append(`${key}[${index}]`, item.toString());
-                        }
-                    });
-                } else if (typeof value === 'string' || typeof value === 'number') {
-                    form.append(key, value.toString());
-                }
+                    if (file instanceof File) {
+                        form.append('images', file);
+                    }
+                });
+            } else if (key === 'serviceTypes' && Array.isArray(value)) {
+                const selectedServices = value.map(service => service.toString());
+                form.append('services', selectedServices.join(','));
+            } else if (value instanceof File) {
+                form.append(key, value);
+            } else if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                    if (item instanceof File) {
+                        form.append(`${key}[${index}]`, item);
+                    } else {
+                        form.append(`${key}[${index}]`, item.toString());
+                    }
+                });
+            } else if (typeof value === 'string' || typeof value === 'number') {
+                form.append(key, value.toString());
             }
-
-            const response = await fetch(`${apiUrl}/api/property`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: form
-            });
-
-            if (!response.ok) {
-                throw new Error();
-            }
-
-            alert("Tu propiedad fue registrada exitosamente.")
-
-        } catch (error) {
-            console.error('There was an error:', error);
         }
+
+        const response = await fetch(`${apiUrl}/api/property`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: form
+        });
+
+        if (!response.ok) {
+            throw new Error();
+        }
+
+    } catch (error) {
+        console.error('There was an error:', error);
+    }
 }
 
 export function forceLogout () {
     logout()
-    alert('Sesión expirada, vuelve a logear')
 }
 
 export async function updateUserData (setUser, username) {
     const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
-
 
     try {
         const response = await fetch(`${apiUrl}/api/user/username/${username}`, {
@@ -128,8 +124,8 @@ export async function updateUserData (setUser, username) {
         })
 
         if(response.ok){
-            const data = await response.json()
-            setUser(data)
+            const data = await response.json();
+            setUser(data);
         } else {
             if(response.status === 403){
                 forceLogout()
@@ -140,6 +136,27 @@ export async function updateUserData (setUser, username) {
         } catch (error) {
             console.error('Error de red:', error);
         }
+}
+
+export async function updateUser( formData, id ) {
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
+
+    try {
+        const response = await fetch(`${apiUrl}/api/user/${id}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
 }
 
 export async function deleteUser (id) {
@@ -209,12 +226,10 @@ export async function getUser (username) {
 }
 
 export async function getAllProperties () {
-    const token = localStorage.getItem('token') ? localStorage.getItem('token') : ''
     try {
         const response = await fetch(`${apiUrl}/api/property`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
             }
         })
 
@@ -225,9 +240,9 @@ export async function getAllProperties () {
             console.error('error de respuesta');
         }
         
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
 }
 
 export async function getProperty (id) {
