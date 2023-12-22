@@ -272,7 +272,6 @@ export async function getPropertiesByUserId (userId) {
         const response = await fetch(`${apiUrl}/api/property/user/${userId}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
             }
         })
 
