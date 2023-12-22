@@ -4,7 +4,6 @@ import { Spinner } from "@material-tailwind/react";
 import { Container, EmptyState, HostCardItem } from "..";
 import { getAllProperties } from "../../../services/apiRequests";
 
-
 export const CardContainer = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
