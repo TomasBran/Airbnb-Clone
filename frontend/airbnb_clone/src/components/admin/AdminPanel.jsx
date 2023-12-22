@@ -85,23 +85,22 @@ export const AdminPanel = () => {
     } catch (error) {
       console.error('Error al obtener propiedades:', error);
     }
-  };
-
-  const fetchData = async () => {
-    try {
-      const data = await getAllUsers();
-      if (data) {
-        console.log('Usuarios recibidos:', data);
-        setUsersData(data);
-      } else {
-        console.error('No se recibieron datos de usuarios.');
-      }
-    } catch (error) {
-      console.error('Error al obtener usuarios:', error);
-    }
-  };
+  };  
  
-   useEffect(() => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllUsers();
+        if (data) {          
+          setUsersData(data);
+        } else {
+          console.error('No se recibieron datos de usuarios.');
+        }
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+      }
+    };
+
     fetchData();
   }, []);  
 

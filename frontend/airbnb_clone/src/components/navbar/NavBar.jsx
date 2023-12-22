@@ -76,7 +76,7 @@ export const NavBar = ({ hideSearch }) => {
                                     {isAdmin && <Link to="/admin-panel"><MenuItem>Panel Admin</MenuItem></Link>}
                                     {isOwner && <Link to="/property-register"><MenuItem>Registrar una Propiedad</MenuItem></Link>}
                                     <Link to="/account-settings"><MenuItem>Cuenta</MenuItem></Link>
-                                    <MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem>
+                                    <Link to="/"><MenuItem onClick={() => logoutUser()}>Cerrar Sesión</MenuItem></Link>
                                 </MenuList>
                             </Menu>
                         </div>}

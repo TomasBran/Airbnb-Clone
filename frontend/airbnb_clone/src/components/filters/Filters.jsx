@@ -11,10 +11,11 @@ import {
     Checkbox,
   } from "@material-tailwind/react";
 import { useState } from "react";
-import { getAllProperties } from "../../services/apiRequests";
+import { useNavigate } from "react-router-dom";
 
 export const Filters = () => {    
-    const [open, setOpen] = useState(false);    
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();    
     
     const handleOpen = () => {
         setOpen(!open)        
@@ -122,34 +123,20 @@ export const Filters = () => {
     
       
     //Filters Submit Button
-    const handleFilters = async() => {            
+    const handleFilters = () => {            
         
-        try {           
-            const properties = await getAllProperties();
-            
-            const filteredProperties = properties.filter(property => {                
-                const priceRange = property.value >= minValue && property.value <= maxValue;
-                
-                const propertyTypeSelected = selectedTypes.length === 0 || selectedTypes.includes(property.category);
-                
-                const roomsMatch = selectedRooms === 'cualquiera' || property.bedroom == selectedRooms;
-                const bedsMatch = selectedBeds === 'cualquiera' || property.bed == selectedBeds;
-                const bathsMatch = selectedBaths === 'cualquiera' || property.bathroom == selectedBaths;
-                               
-                const servicesMatch = Object.keys(checkboxes).every(key => {
-                    const lowercaseKey = key.toLowerCase();
-                    return !checkboxes[key] || property.services.some(service => service.toLowerCase() === lowercaseKey);
-                });                         
-               
-                return priceRange && propertyTypeSelected && roomsMatch && bedsMatch && bathsMatch &&servicesMatch;
-            });
-            
-            console.log(filteredProperties);
-           
-
-        } catch (error) {
-            console.error('Error al obtener propiedades:', error);
-        }
+        const searchParams = new URLSearchParams();  
+          
+        searchParams.set('minValue', minValue);
+        searchParams.set('maxValue', maxValue);
+        searchParams.set('propType', selectedTypes);
+        searchParams.set('selectedRooms', selectedRooms);
+        searchParams.set('selectedBeds', selectedBeds);
+        searchParams.set('selectedBaths', selectedBaths);
+        searchParams.set('services', JSON.stringify(checkboxes)); 
+          
+        navigate(`/filtered-filters?${searchParams.toString()}`);
+        handleOpen();
     };
   
 
