@@ -16,6 +16,7 @@ export const CardContainer = () => {
         const data = await getAllProperties();
         
         setProperties(data);
+        console.log(data);
 
         setLoading(false);
       } catch (error) {
