@@ -10,16 +10,17 @@ export const PersonalInfoForm = () => {
   const { id, username , firstname, lastname, country, propertyIds, contact, description } = state;
 
   console.log(firstname,
+    id,
     lastname,
     contact,
     country,
     description);
 
   const [ formData, setFormData ] = useState({
-    firstname: firstname || "",
     lastname: lastname || "",
-    contact: contact || "",
+    firstname: firstname || "",
     country: country || "",
+    contact: contact || "",
     description: description || "",
   });
 
@@ -33,8 +34,7 @@ export const PersonalInfoForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await updateUser(formData, id);
-      setFormData(data);
+      await updateUser(formData, id);
       console.log('Formulario enviado:', formData);
     } catch (error) {
       console.error('Error al enviar actualizar la info del usuario:', error);

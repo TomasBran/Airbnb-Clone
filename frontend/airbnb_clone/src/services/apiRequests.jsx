@@ -144,16 +144,18 @@ export async function updateUser( formData, id ) {
 
     try {
         const response = await fetch(`${apiUrl}/api/user/${id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                body: JSON.stringify(formData),
+
             },
             body: formData
         });
 
-        if (response.ok) {
-            const data = await response.json();
-            return data;
+        if (!response.ok) {
+            throw new Error();
         }
     } catch (error) {
         console.error('Error de red:', error);

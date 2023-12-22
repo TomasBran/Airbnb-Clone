@@ -30,7 +30,7 @@ const ownerSections = [
       path: "/properties",
       icon: <FontAwesomeIcon icon={faHotel} />,
     },
-  ];
+];
 
   const userSections = [
     {
@@ -47,23 +47,12 @@ const ownerSections = [
     //   path: "/trips",
     //   icon: <FontAwesomeIcon icon={faSuitcase} />,
     // },
-  ];
+];
 
 export const AccountSettings = () => {
   const { user } = useAuth();
   const { id, username , firstname, lastname, country, role, propertyIds, contact, description } = user;
 
-  // {
-  //   "id": "a276185b-516b-4d88-93a6-ad1a40e9d5f1",
-  //   "username": "brayan@gmail.com",
-  //   "firstname": "Brayan",
-  //   "lastname": "Sanchez",
-  //   "country": "Honduras",
-  //   "role": "USER",
-  //   "propertyIds": [],
-  //   "contact": null,
-  //   "description": null
-  // }
   return (  
     <div
       className="
